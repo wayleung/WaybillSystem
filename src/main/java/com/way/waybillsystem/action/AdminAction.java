@@ -20,7 +20,7 @@ import com.way.waybillsystem.vo.Result;
 
 @Controller
 /*public class AdminAction extends BaseAction {*/
-public class AdminAction {
+public class AdminAction extends BaseAction {
 	@Autowired
 	private IAdminService adminService;
 	

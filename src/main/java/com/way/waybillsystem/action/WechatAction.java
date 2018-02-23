@@ -16,7 +16,7 @@ import com.way.waybillsystem.vo.QueryByPageObject;
 
 @Controller
 /*public class WechatTokenAction extends BaseAction {*/
-public class WechatAction {
+public class WechatAction  extends BaseAction {
 	@Autowired
 	private IWechatTokenService wechatTokenService;
 	

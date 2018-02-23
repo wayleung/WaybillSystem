@@ -16,7 +16,7 @@ import com.way.waybillsystem.vo.QueryByPageObject;
 
 @Controller
 /*public class EmployeeAction extends BaseAction {*/
-public class EmployeeAction {
+public class EmployeeAction  extends BaseAction {
 	@Autowired
 	private IEmployeeService employeeService;
 	

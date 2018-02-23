@@ -16,7 +16,7 @@ import com.way.waybillsystem.vo.QueryByPageObject;
 
 @Controller
 /*public class WaybillAction extends BaseAction {*/
-public class WaybillAction {
+public class WaybillAction  extends BaseAction {
 	@Autowired
 	private IWaybillService waybillService;
 	
