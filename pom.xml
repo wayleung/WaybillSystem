@@ -272,7 +272,7 @@
 		
 		<!-- redis共享session -->
    
-	<dependency> 
+<!-- 	<dependency> 
 	<groupId>redis.clients</groupId> 
 	<artifactId>jedis</artifactId> 
 	<version>2.8.1</version> 
@@ -281,7 +281,24 @@
 	<groupId>org.springframework.data</groupId> 
 	<artifactId>spring-data-redis</artifactId> 
 	<version>1.7.2.RELEASE</version> 
-	</dependency> 
+	</dependency>  -->
+	
+		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+<dependency>
+    <groupId>redis.clients</groupId>
+    <artifactId>jedis</artifactId>
+    <version>2.8.2</version>
+</dependency>
+
+
+	<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-redis</artifactId>
+	    <version>2.0.2.RELEASE</version>
+	</dependency>
+	
 	<!-- 原因：json-lib是需要区分jdk版本的，pom.xml中的配置应加上标签classifier指定jdk版本，如用jdk15 -->
 	
 	<dependency>    
