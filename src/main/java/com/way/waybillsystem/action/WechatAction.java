@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.WechatToken;
+import com.way.waybillsystem.mapper.AdminMapper;
 import com.way.waybillsystem.service.IWechatTokenService;
 import com.way.waybillsystem.util.WechatCheckUtil;
 import com.way.waybillsystem.vo.QueryByPageObject;
@@ -23,6 +26,9 @@ import com.way.waybillsystem.vo.QueryByPageObject;
 @Controller
 /*public class WechatTokenAction extends BaseAction {*/
 public class WechatAction  extends BaseAction {
+	
+	private Logger logger = LoggerFactory.getLogger(WechatAction.class);
+	
 	@Autowired
 	private IWechatTokenService wechatTokenService;
 	
@@ -39,7 +45,7 @@ public class WechatAction  extends BaseAction {
 	}
 	
 	
-	@RequestMapping(value="/deleteWechatTokenByPrimaryKey",method=RequestMethod.POST)
+	@RequestMapping(value="/wechatJoinUp",method=RequestMethod.POST)
 	@ResponseBody
 	public void wechatJoinup(HttpServletRequest request,HttpServletResponse response) throws IOException{
 	    // 将请求、响应的编码均设置为UTF-8（防止中文乱码）  
@@ -59,9 +65,9 @@ public class WechatAction  extends BaseAction {
 		PrintWriter out = response.getWriter();
 		if(WechatCheckUtil.checkSignature(token, signature, timestamp, nonce)){
 			out.print(echostr);
-			System.out.println("接入成功"+echostr);
+			logger.debug("微信接入成功"+echostr);
 		}else{
-			System.out.println("接入失败");
+			logger.debug("微信接入失败");
 		}
 	}
 
