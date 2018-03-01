@@ -296,7 +296,7 @@
 	<dependency>
 	    <groupId>org.springframework.data</groupId>
 	    <artifactId>spring-data-redis</artifactId>
-	    <version>2.0.2.RELEASE</version>
+	    <version>1.7.2.RELEASE</version>
 	</dependency>
 	
 	<!-- 原因：json-lib是需要区分jdk版本的，pom.xml中的配置应加上标签classifier指定jdk版本，如用jdk15 -->
@@ -335,7 +335,7 @@
         <artifactId>tomcat7-maven-plugin</artifactId>
         <!-- tomcat端口是8080，网站根路径是 / -->
         <configuration>
-          <port>8088</port>
+          <port>80</port>
           <path>/</path>
         </configuration>
       </plugin>
