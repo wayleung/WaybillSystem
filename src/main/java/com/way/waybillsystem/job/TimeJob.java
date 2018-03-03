@@ -5,13 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.way.waybillsystem.service.IWechatTokenService;
 
 public class TimeJob {
-/*	@Autowired
-	IWechatTokenService wechatTokenService;*/
+	@Autowired
+	IWechatTokenService wechatTokenService;
 	
 	public void getAndSaveAccessTokenJob(){
-		/*wechatTokenService.getAndSaveAccessToken();*/
-		
-		
-		System.out.println("===================");
+		wechatTokenService.getAndSaveAccessToken();
 	}
 }
