@@ -208,4 +208,11 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <select id="selectLastWechatToken"  resultMap="BaseResultMap" >
+  	SELECT  <include refid="Base_Column_List"/> 
+  	FROM wechat_token 
+  	ORDER BY wechat_token.create_time DESC 
+  	LIMIT 0,1
+  </select>
 </mapper>

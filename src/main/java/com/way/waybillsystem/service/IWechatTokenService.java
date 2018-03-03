@@ -27,4 +27,7 @@ public interface IWechatTokenService {
 	
 	PageInfo<WechatToken> selectAllWechatTokensByPage(QueryByPageObject queryObject);
 	
+	WechatToken selectLastWechatToken();
+	
+	WechatToken getAndSaveAccessToken();
 }

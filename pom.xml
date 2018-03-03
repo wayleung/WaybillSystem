@@ -311,7 +311,29 @@
 		
 
     
-     <!-- redis --> 
+     <!-- redis end-->
+     
+     
+     
+     
+     <!-- 定时任务 -->
+     <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
+<dependency>
+    <groupId>org.quartz-scheduler</groupId>
+    <artifactId>quartz</artifactId>
+    <version>1.8.5</version>
+</dependency>
+     
+     <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz-jobs -->
+<!-- <dependency>
+    <groupId>org.quartz-scheduler</groupId>
+    <artifactId>quartz-jobs</artifactId>
+    <version>2.1.0</version>
+</dependency> -->
+     
+     <!-- 定时任务 -->
+     
+      
 
   </dependencies>
   <build>

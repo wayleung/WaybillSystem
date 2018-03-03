@@ -30,7 +30,7 @@ public enum ErrorCodeConstant implements Serializable {
 	
 	
 	//Wechat error
-	
+	E20001("E20001","获取access_token失败(E20001)"),
 
 	;
 	

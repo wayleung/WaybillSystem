@@ -27,4 +27,6 @@ public interface WechatTokenMapper {
     int updateByPrimaryKeySelective(WechatToken record);
 
     int updateByPrimaryKey(WechatToken record);
+    
+    WechatToken selectLastWechatToken();
 }

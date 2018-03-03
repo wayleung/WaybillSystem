@@ -12,9 +12,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyManagementException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.Arrays;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -25,6 +28,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 /*import org.junit.Test;*/
 
+import com.way.waybillsystem.exception.ErrorCodeConstant;
+import com.way.waybillsystem.exception.SystemException;
 import com.way.waybillsystem.wechat.entity.AccessToken;
 import com.way.waybillsystem.wechat.entity.Button;
 import com.way.waybillsystem.wechat.entity.Menu;
@@ -33,8 +38,8 @@ import com.way.waybillsystem.wechat.entity.ViewButton;
 import net.sf.json.JSONObject;
 
 public class WechatUtil {
-	private static final String APPID = "wx4124bacd85335ca3";
-	private static final String APPSECRET = "a8e85c223e9b16eb90e10e10703ec990";
+	private static final String APPID = "wxc6970e3fd4e08fc5";
+	private static final String APPSECRET = "fd40a25345ca888b87b888b5c21c69c5";
 
 	private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	private static final String UPLOAD_URL = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
@@ -95,15 +100,23 @@ public class WechatUtil {
 	
 	
 	
-	/*获取access_token方法
-	 * 一搬把access_token存在本地*/
+	/**
+	 * 1、建议公众号开发者使用中控服务器统一获取和刷新Access_token，其他业务逻辑服务器所使用的access_token均来自于该中控服务器，不应该各自去刷新，否则容易造成冲突，导致access_token覆盖而影响业务；
+
+2、目前Access_token的有效期通过返回的expire_in来传达，目前是7200秒之内的值。中控服务器需要根据这个有效时间提前去刷新新access_token。在刷新过程中，中控服务器可对外继续输出的老access_token，此时公众平台后台会保证在5分钟内，新老access_token都可用，这保证了第三方业务的平滑过渡；
+
+3、Access_token的有效时间可能会在未来有调整，所以中控服务器不仅需要内部定时主动刷新，还需要提供被动刷新access_token的接口，这样便于业务服务器在API调用获知access_token已超时的情况下，可以触发access_token的刷新流程。
+	 * @return
+	 */
 	public static AccessToken getAccessToken(){
 		AccessToken token =  new AccessToken();
 		String url =  ACCESS_TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
 		JSONObject jsonObject = doGetStr(url);
-		if(jsonObject!=null){
+		if(jsonObject!=null&&StringUtils.isNotEmpty(jsonObject.getString("access_token"))){
 			token.setAccess_token(jsonObject.getString("access_token"));
 			token.setExpiresIn(jsonObject.getInt("expires_in"));
+		}else{
+			throw new SystemException(ErrorCodeConstant.E20001,ErrorCodeConstant.E20001.getMessage());
 		}
 		return token;
 	}
@@ -224,19 +237,19 @@ public class WechatUtil {
 		ViewButton button11 = new ViewButton();
 		button11.setName("官方网站");
 		button11.setType("view");
-		button11.setUrl("http://liangliwei138080.free.ngrok.cc/waybill/userlogin.jsp");
+		button11.setUrl("http://jch9ts.natappfree.cc/userlogin.jsp");
 		
 		
 		ViewButton button21 = new ViewButton();
 		button21.setName("运单查询");
 		button21.setType("view");
-		button21.setUrl("http://liangliwei138080.free.ngrok.cc/waybill/search.jsp");
+		button21.setUrl("http://jch9ts.natappfree.cc/search.jsp");
 		
 		
 		ViewButton button = new ViewButton();
 		button.setName("绑定账号");
 		button.setType("view");
-		button.setUrl("http://liangliwei138080.free.ngrok.cc/waybill/login.do");
+		button.setUrl("http://jch9ts.natappfree.cc/login.do");
 		
 /*		ClickButton button31 = new ClickButton();
 		button31.setName("扫码事件");
@@ -257,6 +270,9 @@ public class WechatUtil {
 	}
 	
 	
+	
+	
+	
 	public static int createMenu(String token,String menu){
 		int result = 0;
 		String url  = CREATE_MENU_URL.replace("ACCESS_TOKEN", token);
@@ -267,10 +283,70 @@ public class WechatUtil {
 		return result;
 	}
 	
+	
+	
+	
+	
+/**
+ *  开发者通过检验signature对请求进行校验（下面有校验方式）。若确认此次GET请求来自微信服务器，请原样返回echostr参数内容，则接入生效，成为开发者成功，否则接入失败。加密/校验流程如下：
+
+1）将token、timestamp、nonce三个参数进行字典序排序 2）将三个参数字符串拼接成一个字符串进行sha1加密 3）开发者获得加密后的字符串可与signature对比，标识该请求来源于微信
+ * @param token
+ * @param signature
+ * @param timestamp
+ * @param nonce
+ * @return
+ */
+public static boolean checkSignature(String token,String signature,String timestamp,String nonce){
+	
+	String [] arr = new String []{token,timestamp,nonce};
+	//排序
+	Arrays.sort(arr);
+	
+	//生成字符串
+	StringBuffer content =  new StringBuffer();
+	for(int i=0;i<arr.length;i++){
+		content.append(arr[i]);
+	}
+	
+	//sha1加密
+	String temp = getSha1(content.toString());
+	
+	return temp.equals(signature);
+}
+
+public static String getSha1(String str ) {
+	if (str == null || str.length() == 0) {
+	return null ;
+	}
+	char hexDigits [] = { '0' , '1' , '2' , '3' , '4', '5' , '6' , '7' , '8' , '9' ,
+	'a', 'b', 'c', 'd', 'e', 'f' };
+	       try {
+	           MessageDigest mdTemp = MessageDigest.getInstance("SHA1");
+	            mdTemp.update( str.getBytes( "UTF-8"));
+
+	            byte[] md = mdTemp .digest();
+	            int j = md .length ;
+	            char buf [] = new char[ j * 2];
+	            int k = 0;
+	            for (int i = 0; i < j ; i ++) {
+	                 byte byte0 = md [i ];
+	                 buf[ k++] = hexDigits[byte0 >>> 4 & 0xf];
+	                 buf[ k++] = hexDigits[byte0 & 0xf];
+	           }
+	            return new String(buf );
+	      } catch (Exception e ) {
+	            return null ;
+	      }
+}
+
+	
+	
+	
 /*	@Test*/
 	public void testtoken(){
 		
-		AccessToken token  =getAccessToken();
+		AccessToken token=getAccessToken();
 		System.out.println(token.getAccess_token());
 		System.out.println(token.getExpiresIn());
 		

@@ -3,10 +3,8 @@ package com.way.waybillsystem.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.WechatToken;
 import com.way.waybillsystem.mapper.AdminMapper;
 import com.way.waybillsystem.service.IWechatTokenService;
-import com.way.waybillsystem.util.WechatCheckUtil;
+import com.way.waybillsystem.util.WechatUtil;
 import com.way.waybillsystem.vo.QueryByPageObject;
 
 
@@ -63,7 +60,7 @@ public class WechatAction  extends BaseAction {
 		String token = "WaybillSystem";
 		
 		PrintWriter out = response.getWriter();
-		if(WechatCheckUtil.checkSignature(token, signature, timestamp, nonce)){
+		if(WechatUtil.checkSignature(token, signature, timestamp, nonce)){
 			out.print(echostr);
 			logger.debug("微信接入成功"+echostr);
 		}else{
