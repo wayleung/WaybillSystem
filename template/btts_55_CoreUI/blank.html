@@ -45,69 +45,8 @@
             </li>
         </ul>
         <ul class="nav navbar-nav ml-auto">
-		<li class="nav-item dropdown hidden-md-down">
-                <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="icon-bell"></i>
-                    <span class="badge badge-pill badge-danger">5</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
-
-                    <div class="dropdown-header text-center">
-                        <strong>You have 5 notifications</strong>
-                    </div>
-
-                    <a href="#" class="dropdown-item">
-                        <i class="icon-user-follow text-success"></i> New user registered
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="icon-user-unfollow text-danger"></i> User deleted
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="icon-chart text-info"></i> Sales report is ready
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="icon-basket-loaded text-primary"></i> New client
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="icon-speedometer text-warning"></i> Server overloaded
-                    </a>
-
-                    <div class="dropdown-header text-center">
-                        <strong>Server</strong>
-                    </div>
-
-                    <a href="#" class="dropdown-item">
-                        <div class="text-uppercase mb-q">
-                            <small><b>CPU Usage</b>
-                            </small>
-                        </div>
-                        <span class="progress progress-xs">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </span>
-                        <small class="text-muted">348 Processes. 1/4 Cores.</small>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <div class="text-uppercase mb-q">
-                            <small><b>Memory Usage</b>
-                            </small>
-                        </div>
-                        <span class="progress progress-xs">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                        </span>
-                        <small class="text-muted">11444GB/16384MB</small>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <div class="text-uppercase mb-q">
-                            <small><b>SSD 1 Usage</b>
-                            </small>
-                        </div>
-                        <span class="progress progress-xs">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                        </span>
-                        <small class="text-muted">243GB/256GB</small>
-                    </a>
-
-                </div>
+            <li class="nav-item hidden-md-down">
+                <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
             </li>
             <li class="nav-item hidden-md-down">
                 <a class="nav-link" href="#"><i class="icon-list"></i></a>
@@ -156,52 +95,79 @@
             <nav class="sidebar-nav">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-speedometer"></i> 邮箱首页 </a>
+                        <a class="nav-link" href="index.html"><i class="icon-speedometer"></i> Dashboard <span class="badge badge-info">NEW</span></a>
                     </li>
 
                     <li class="nav-title">
                         UI Elements
                     </li>
                     <li class="nav-item nav-dropdown">
-                        <a class="nav-link" href="#"><i class="icon-puzzle"></i>写邮件</a>
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> Components</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="components-buttons.html"><i class="icon-puzzle"></i> Buttons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="components-social-buttons.html"><i class="icon-puzzle"></i> Social Buttons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="components-cards.html"><i class="icon-puzzle"></i> Cards</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="components-forms.html"><i class="icon-puzzle"></i> Forms</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="components-modals.html"><i class="icon-puzzle"></i> Modals</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="components-switches.html"><i class="icon-puzzle"></i> Switches</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="components-tables.html"><i class="icon-puzzle"></i> Tables</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="components-tabs.html"><i class="icon-puzzle"></i> Tabs</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item nav-dropdown">
-                        <a class="nav-link" href="#"><i class="icon-star"></i>收件箱<span class="badge badge-info">NEW</span></a>
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> Icons</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="icons-font-awesome.html"><i class="icon-star"></i> Font Awesome</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="icons-simple-line-icons.html"><i class="icon-star"></i> Simple Line Icons</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-calculator"></i>垃圾箱</a>
+                        <a class="nav-link" href="widgets.html"><i class="icon-calculator"></i> Widgets <span class="badge badge-info">NEW</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="charts.html"><i class="icon-pie-chart"></i> 通讯录</a>
+                        <a class="nav-link" href="charts.html"><i class="icon-pie-chart"></i> Charts</a>
                     </li>
                     <li class="divider"></li>
                     <li class="nav-title">
                         Extras
                     </li>
                     <li class="nav-item nav-dropdown">
-                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i>备忘录</a>
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> Pages</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages-login.html" target="_top"><i class="icon-star"></i> Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages-register.html" target="_top"><i class="icon-star"></i> Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages-404.html" target="_top"><i class="icon-star"></i> Error 404</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages-500.html" target="_top"><i class="icon-star"></i> Error 500</a>
+                            </li>
+                        </ul>
                     </li>
-					<li class="nav-title">
-                        Labels
-                    </li>
-					<li class="nav-item hidden-cn">
-                        <a class="nav-label" href="#"><i class="fa fa-circle text-danger"></i> Label danger</a>
-                    </li>
-					<li class="divider"></li>
-					<li class="nav-title">
-                        System Utilization
-                    </li>
-					<li class="nav-item px-1 hidden-cn">
-                        <div class="text-uppercase mb-q">
-                            <small><b>CPU Usage</b>
-                            </small>
-                        </div>
-                        <div class="progress progress-xs">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <small class="text-muted">348 Processes. 1/4 Cores.</small>
-                    </li>
-					
 
                 </ul>
             </nav>
@@ -538,7 +504,7 @@
     <script src="bower_components/tether/dist/js/tether.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/pace/pace.min.js"></script>
-	
+
 
     <!-- Plugins and scripts required by all views -->
     <script src="bower_components/chart.js/dist/Chart.min.js"></script>
@@ -548,10 +514,7 @@
 
     <script src="js/app.js"></script>
 
-	<script src="js/views/main.js"></script>
-	<script src="js/views/charts.js"></script>
-	<script src="js/views/widgets.js"></script>
-	
+
 
 </body>
 
