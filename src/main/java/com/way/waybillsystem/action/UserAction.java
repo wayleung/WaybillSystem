@@ -17,6 +17,7 @@ import com.way.waybillsystem.vo.Result;
 
 @Controller
 /*public class UserAction extends BaseAction {*/
+
 public class UserAction  extends BaseAction {
 	@Autowired
 	private IUserService userService;
