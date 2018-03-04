@@ -8,15 +8,15 @@ public class Result<T> {
 
 	private boolean success;// 是否成功标志    true || false
 
-	private T data;// 成功时返回的数据
+	private T datas;// 成功时返回的数据
 
 	private String msg;// 操作信息
 	
 	private String code;   //操作代码
 	
 	//有数据返回时true方法
-	public Result trueResult(T data,String msg,String code){
-		return new Result(true,data,msg,code);
+	public Result trueResult(T datas,String msg,String code){
+		return new Result(true,datas,msg,code);
 	}
 	
 	//无数据返回时静态true方法
@@ -43,12 +43,12 @@ public class Result<T> {
 		this.success = success;
 	}
 
-	public T getData() {
-		return data;
+	public T getDatas() {
+		return datas;
 	}
 
-	public void setData(T data) {
-		this.data = data;
+	public void setDatas(T datas) {
+		this.datas = datas;
 	}
 
 	public String getMsg() {
@@ -69,13 +69,13 @@ public class Result<T> {
 
 	@Override
 	public String toString() {
-		return "Result [success=" + success + ", data=" + data + ", msg=" + msg
+		return "Result [success=" + success + ", datas=" + datas + ", msg=" + msg
 				+ ", code=" + code + "]";
 	}
 
-	public Result(boolean success, T data, String msg, String code) {
+	public Result(boolean success, T datas, String msg, String code) {
 		this.success = success;
-		this.data = data;
+		this.datas = datas;
 		this.msg = msg;
 		this.code = code;
 	}

@@ -12,6 +12,7 @@ import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.User;
 import com.way.waybillsystem.service.IUserService;
 import com.way.waybillsystem.vo.QueryByPageObject;
+import com.way.waybillsystem.vo.Result;
 
 
 @Controller
@@ -40,8 +41,10 @@ public class UserAction  extends BaseAction {
 	
 	@RequestMapping(value="/selectAllUsers",method=RequestMethod.GET)
 	@ResponseBody
-	public List<User> selectAllUsers(){
-		return userService.selectAllUsers();
+	public Result<List<User>> selectAllUsers(){
+		List<User> data = userService.selectAllUsers();
+		/*return userService.selectAllUsers();*/
+		return new Result<List<User>>(true, data, "查询Users表成功！", "1");
 	}
 
 	
