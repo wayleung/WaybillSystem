@@ -11,8 +11,8 @@
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="wechat_id" property="wechatId" jdbcType="VARCHAR" />
     <result column="wechat_name" property="wechatName" jdbcType="VARCHAR" />
-    <result column="logtime_last" property="logtimeLast" jdbcType="TIMESTAMP" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="logtime_last" property="logtimeLast" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -114,7 +114,7 @@
     values (#{id,jdbcType=BIGINT}, #{account,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{wechatId,jdbcType=VARCHAR}, #{wechatName,jdbcType=VARCHAR}, 
-      #{logtimeLast,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+      #{logtimeLast,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.way.waybillsystem.entity.User" >
     insert into user
@@ -182,10 +182,10 @@
         #{wechatName,jdbcType=VARCHAR},
       </if>
       <if test="logtimeLast != null" >
-        #{logtimeLast,jdbcType=TIMESTAMP},
+        #{logtimeLast,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
+        #{createTime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -226,10 +226,10 @@
         wechat_name = #{record.wechatName,jdbcType=VARCHAR},
       </if>
       <if test="record.logtimeLast != null" >
-        logtime_last = #{record.logtimeLast,jdbcType=TIMESTAMP},
+        logtime_last = #{record.logtimeLast,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null" >
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -247,8 +247,8 @@
       phone = #{record.phone,jdbcType=VARCHAR},
       wechat_id = #{record.wechatId,jdbcType=VARCHAR},
       wechat_name = #{record.wechatName,jdbcType=VARCHAR},
-      logtime_last = #{record.logtimeLast,jdbcType=TIMESTAMP},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      logtime_last = #{record.logtimeLast,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -281,10 +281,10 @@
         wechat_name = #{wechatName,jdbcType=VARCHAR},
       </if>
       <if test="logtimeLast != null" >
-        logtime_last = #{logtimeLast,jdbcType=TIMESTAMP},
+        logtime_last = #{logtimeLast,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -299,8 +299,8 @@
       phone = #{phone,jdbcType=VARCHAR},
       wechat_id = #{wechatId,jdbcType=VARCHAR},
       wechat_name = #{wechatName,jdbcType=VARCHAR},
-      logtime_last = #{logtimeLast,jdbcType=TIMESTAMP},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      logtime_last = #{logtimeLast,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

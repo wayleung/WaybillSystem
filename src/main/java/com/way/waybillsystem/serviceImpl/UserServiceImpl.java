@@ -15,6 +15,7 @@ import com.way.waybillsystem.entity.User;
 import com.way.waybillsystem.entity.UserExample;
 import com.way.waybillsystem.mapper.UserMapper;
 import com.way.waybillsystem.service.IUserService;
+import com.way.waybillsystem.util.TimeUtil;
 import com.way.waybillsystem.vo.QueryByPageObject;
 
 @Service
@@ -28,7 +29,7 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	public int insertUser(User user) {
 		// TODO Auto-generated method stub
-		user.setCreateTime(new Date());
+		user.setCreateTime(TimeUtil.dateToString(new Date(), null));
 		return userMapper.insertSelective(user);
 	}
 
