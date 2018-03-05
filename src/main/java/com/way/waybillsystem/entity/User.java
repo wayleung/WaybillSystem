@@ -1,5 +1,7 @@
 package com.way.waybillsystem.entity;
 
+import java.util.Date;
+
 public class User {
     private Long id;
 
@@ -19,9 +21,9 @@ public class User {
 
     private String wechatName;
 
-    private String logtimeLast;
+    private Date logtimeLast;
 
-    private String createTime;
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -95,19 +97,19 @@ public class User {
         this.wechatName = wechatName == null ? null : wechatName.trim();
     }
 
-    public String getLogtimeLast() {
+    public Date getLogtimeLast() {
         return logtimeLast;
     }
 
-    public void setLogtimeLast(String logtimeLast) {
-        this.logtimeLast = logtimeLast == null ? null : logtimeLast.trim();
+    public void setLogtimeLast(Date logtimeLast) {
+        this.logtimeLast = logtimeLast;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime == null ? null : createTime.trim();
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

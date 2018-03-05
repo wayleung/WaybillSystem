@@ -29,7 +29,7 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	public int insertUser(User user) {
 		// TODO Auto-generated method stub
-		user.setCreateTime(TimeUtil.dateToString(new Date(), null));
+		user.setCreateTime(new Date());
 		return userMapper.insertSelective(user);
 	}
 

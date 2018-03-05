@@ -39,7 +39,7 @@
 				<div class="dropdown-menu dropdown-menu-right">
 
 					<div class="dropdown-header text-center">
-						<strong>账号</strong>
+						<strong>工号</strong>
 					</div>
 
 					<a class="dropdown-item" href="#"><i class="fa fa-user"></i> 资料</a>
@@ -97,8 +97,7 @@
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="#">首页</a></li>
 			<li class="breadcrumb-item">功能</li>
-			<li class="breadcrumb-item">网站管理</li>
-			<li class="breadcrumb-item active">网站用户管理</li>
+			<li class="breadcrumb-item active">工作人员管理</li>
 			<!-- Breadcrumb Menu-->
 
 
@@ -110,21 +109,21 @@
                         <div class="col-lg-12">
                        <div class="card">
 						<div class="card-header">
-							<i class="fa fa-align-justify"></i>用户管理
+							<i class="fa fa-align-justify"></i>工作人员管理
 						</div>
 						<div class="card-block">
 							<a href="#" data-toggle="modal" data-target="#AddModal">新增</a>
-							<table id="userManage" class="table table-striped">
+							<table id="employeeManage" class="table table-striped">
 								<thead>
 									<tr>
-										<th>账号</th>
+										<th>工号</th>
 										<th>性别</th>
-										<th>昵称</th>
-										<th>密码</th>
+										<th>名字</th>
+										<th>年龄</th>
 										<th>电话</th>
-										<th>微信id</th>
-										<th>微信昵称</th>
-										<th>上次登录时间</th>
+										<th>所在地</th>
+										<th>状态</th>
+										<th>入职时间</th>
 										<th>创建时间</th>
 										<th>操作</th>
 									</tr>
@@ -148,14 +147,14 @@
 
 			  <tr>
 			  							<input type="hidden"  :value="item.id" />
-										<td>{{ item.account }}</td>
+										<td>{{ item.id }}</td>
 				  						<td>{{ item.sex=='m'?'男':'女' }}</td>
 										<td>{{ item.name }}</td>
-										<td>{{ item.password }}</td>
+										<td>{{ item.age }}</td>
 										<td>{{ item.phone }}</td>
-										<td>{{ item.wechatId }}</td>
-										<td>{{ item.wechatName }}</td>
-										<td>{{ item.logtimeLast }}</td>
+										<td>{{ item.location }}</td>
+										<td>{{ item.status }}</td>
+										<td>{{ item.startTime }}</td>
 										<td>{{ item.createTime }}</td>
 										<td><a href="#"   v-on:click="Update(item)" data-toggle="modal" data-target="#UpdateModal"><span class="badge badge-success">修改</span></a>
 											<a href="#" v-on:click="Delete(item)" data-toggle="modal" data-target="#DeleteModal"><span class="badge badge-danger">删除</span></a></td>
@@ -207,8 +206,8 @@
                             <div class="modal-body">
                                  <form action="" method="post">
 										<div class="form-group col-md-9">
-                                            <label>账号</label>
-                                            <input type="text"  v-model="addinfo.account"  id="account" name="" class="form-control" placeholder="请输入">
+                                            <label>工号</label>
+                                            <input type="text"  v-model="addinfo.id"  id="id" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
                                          <div class="form-group col-md-9">
@@ -221,18 +220,34 @@
                                         
                                         
                                         <div class="form-group col-md-9">
-                                            <label>昵称</label>
+                                            <label>名字</label>
                                             <input  v-model="addinfo.name"  type="text" id="name" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
                                         <div class="form-group col-md-9">
-                                            <label>密码</label>
-                                            <input  v-model="addinfo.password"  type="text" id="password" name="" class="form-control" placeholder="请输入">
+                                            <label>年龄</label>
+                                            <input  v-model="addinfo.age"  type="text" id="age" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
                                         <div class="form-group col-md-9">
                                             <label>电话</label>
                                             <input  v-model="addinfo.phone"  type="text" id="phone" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                        
+                                         <div class="form-group col-md-9">
+                                            <label>所在地</label>
+                                            <input  v-model="addinfo.location"  type="text" id="location" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                        
+                                        
+                                         <div class="form-group col-md-9">
+                                            <label>状态</label>
+                                            <input  v-model="addinfo.status"  type="text" id="status" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                        
+                                         <div class="form-group col-md-9">
+                                            <label>入职时间</label>
+                                            <input  v-model="addinfo.startTime"  type="text" id="startTime" name="" class="form-control" placeholder="请输入">
                                         </div>
                                                                           
                                     </form>
@@ -263,10 +278,9 @@
                             <div class="modal-body">
                             
                                     <form action="" method="post">
-                                    <input type="hidden"  v-model="updateinfo.id"  id="id" name="">
                                      <div class="form-group col-md-9">
-                                            <label >账号</label>
-                                            <input v-model="updateinfo.account" type="text" id="account" name="" class="form-control" placeholder="请输入">
+                                            <label >工号</label>
+                                            <input v-model="updateinfo.id" type="text" id="id" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
                                          <div class="form-group col-md-9">
@@ -279,13 +293,13 @@
                                         
                                         
                                         <div class="form-group col-md-9">
-                                            <label >昵称</label>
+                                            <label >名字</label>
                                             <input  v-model="updateinfo.name"  type="text" id="name" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
                                         <div class="form-group col-md-9">
-                                            <label >密码</label>
-                                            <input v-model="updateinfo.password"  type="text" id="password" name="" class="form-control" placeholder="请输入">
+                                            <label >年龄</label>
+                                            <input v-model="updateinfo.age"  type="text" id="age" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
                                         <div class="form-group col-md-9">
@@ -293,7 +307,21 @@
                                             <input  v-model="updateinfo.phone" type="text" id="phone" name="" class="form-control" placeholder="请输入">
                                         </div>
                                     
+                                                                                 <div class="form-group col-md-9">
+                                            <label>所在地</label>
+                                            <input  v-model="updateinfo.location"  type="text" id="location" name="" class="form-control" placeholder="请输入">
+                                        </div>
                                         
+                                        
+                                         <div class="form-group col-md-9">
+                                            <label>状态</label>
+                                            <input  v-model="updateinfo.status"  type="text" id="status" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                        
+                                         <div class="form-group col-md-9">
+                                            <label>入职时间</label>
+                                            <input  v-model="updateinfo.startTime"  type="text" id="startTime" name="" class="form-control" placeholder="请输入">
+                                        </div>
                                                                           
                                     </form>
                             </div>
@@ -386,11 +414,12 @@
 	 }); */
 
 
+
 		
 		
 	//function ajax(api,datas) {
 	$(document).ready(function() {
-		var url = rootPath + "selectAllUsers";
+		var url = rootPath + "selectAllEmployees";
 		console.log(url);
 		$.ajax({
 					url : url,
@@ -401,7 +430,7 @@
 					//异步   注意数据的获取
 					success : function(datas) {
 						   new Vue({
-							  el: '#userManage',
+							  el: '#employeeManage',
 							  data: datas,
 							  methods:{  
 
@@ -439,7 +468,7 @@
 	$("#updateButton").click(
 		function(){
 			console.log('update submit');
-			 $.post(rootPath+'/updateUserByPrimarykey', update_vm.$data.updateinfo, function (result) {  
+			 $.post(rootPath+'/updateEmployeeByPrimarykey', update_vm.$data.updateinfo, function (result) {  
 				 console.log(result);
 				 window.location.reload();
 	        //可以把vue.js数据替换从而更新更新到页面  
@@ -464,7 +493,7 @@
 	$("#addButton").click(
 			function(){
 				console.log('add submit');
-				 $.post(rootPath+'/insertUser', add_vm.$data.addinfo, function (result) {  
+				 $.post(rootPath+'/insertEmployee', add_vm.$data.addinfo, function (result) {  
 					 console.log(result);
 					 window.location.reload();
 		        //可以把vue.js数据替换从而更新更新到页面  
@@ -487,7 +516,7 @@
 	$("#deleteButton").click(
 			function(){
 				console.log('del submit');
-				 $.post(rootPath+'/deleteUserByPrimaryKey', delete_vm.$data.deleteinfo, function (result) {  
+				 $.post(rootPath+'/deleteEmployeeByPrimaryKey', delete_vm.$data.deleteinfo, function (result) {  
 					 console.log(result);
 			 		 window.location.reload(); 
 		        //可以把vue.js数据替换从而更新更新到页面  
