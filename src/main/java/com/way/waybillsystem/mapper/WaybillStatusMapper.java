@@ -27,4 +27,6 @@ public interface WaybillStatusMapper {
     int updateByPrimaryKeySelective(WaybillStatus record);
 
     int updateByPrimaryKey(WaybillStatus record);
+    
+    List<WaybillStatus> selectWaybillStatusByWaybillNumber(Long waybillNumber);
 }

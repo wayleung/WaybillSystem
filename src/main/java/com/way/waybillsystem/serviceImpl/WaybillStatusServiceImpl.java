@@ -70,4 +70,10 @@ public class WaybillStatusServiceImpl implements IWaybillStatusService {
 		return pageInfo;
 	}
 
+	@Override
+	public List<WaybillStatus> selectWaybillStatusByWaybillNumber(Long waybillNumber) {
+		// TODO Auto-generated method stub
+		return waybillStatusMapper.selectWaybillStatusByWaybillNumber(waybillNumber);
+	}
+
 }

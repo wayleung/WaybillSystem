@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Employee;
+import com.way.waybillsystem.entity.User;
 import com.way.waybillsystem.service.IEmployeeService;
 import com.way.waybillsystem.vo.QueryByPageObject;
+import com.way.waybillsystem.vo.Result;
 
 
 @Controller
@@ -40,8 +42,10 @@ public class EmployeeAction  extends BaseAction {
 	
 	@RequestMapping(value="/selectAllEmployees",method=RequestMethod.GET)
 	@ResponseBody
-	public List<Employee> selectAllEmployees(){
-		return employeeService.selectAllEmployees();
+	public Result<List<Employee>> selectAllEmployees(){
+		/*return employeeService.selectAllEmployees();*/
+		List<Employee> data = employeeService.selectAllEmployees();
+		return new Result<List<Employee>>(true, data, "查询Employees表成功！", "1");
 	}
 
 	

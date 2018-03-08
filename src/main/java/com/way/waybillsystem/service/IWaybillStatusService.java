@@ -27,4 +27,5 @@ public interface IWaybillStatusService {
 	
 	PageInfo<WaybillStatus> selectAllWaybillStatussByPage(QueryByPageObject queryObject);
 	
+	List<WaybillStatus> selectWaybillStatusByWaybillNumber(Long waybillNumber);
 }

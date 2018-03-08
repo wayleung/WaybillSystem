@@ -12,6 +12,7 @@ import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Waybill;
 import com.way.waybillsystem.service.IWaybillService;
 import com.way.waybillsystem.vo.QueryByPageObject;
+import com.way.waybillsystem.vo.Result;
 
 
 @Controller
@@ -28,8 +29,8 @@ public class WaybillAction  extends BaseAction {
 	
 	@RequestMapping(value="/deleteWaybillByPrimaryKey",method=RequestMethod.POST)
 	@ResponseBody
-	public void deleteWaybillByPrimaryKey(Long id){
-		waybillService.deleteWaybillByPrimaryKey(id);
+	public void deleteWaybillByPrimaryKey(Long waybillNumber){
+		waybillService.deleteWaybillByPrimaryKey(waybillNumber);
 	}
 	
 	@RequestMapping(value="/updateWaybillByPrimarykey",method=RequestMethod.POST)
@@ -40,15 +41,17 @@ public class WaybillAction  extends BaseAction {
 	
 	@RequestMapping(value="/selectAllWaybills",method=RequestMethod.GET)
 	@ResponseBody
-	public List<Waybill> selectAllWaybills(){
-		return waybillService.selectAllWaybills();
+	public Result<List<Waybill>> selectAllWaybills(){
+		/*return waybillService.selectAllWaybills();*/
+		List<Waybill> data = waybillService.selectAllWaybills();
+		return new Result<List<Waybill>>(true, data, "查询Waybills表成功！", "1");
 	}
 
 	
 	@RequestMapping(value="/selectWaybillByPrimaryKey",method=RequestMethod.GET)
 	@ResponseBody
-	public Waybill selectWaybillByPrimaryKey(Long id){
-		return waybillService.selectWaybillByPrimaryKey(id);
+	public Waybill selectWaybillByPrimaryKey(Long waybillNumber){
+		return waybillService.selectWaybillByPrimaryKey(waybillNumber);
 	}
 	
 	@RequestMapping(value="/selectAllWaybillsByPage",method=RequestMethod.GET)

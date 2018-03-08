@@ -158,7 +158,7 @@
 										<td>{{ item.logtimeLast }}</td>
 										<td>{{ item.createTime }}</td>
 										<td><a href="#"   v-on:click="Update(item)" data-toggle="modal" data-target="#UpdateModal"><span class="badge badge-success">修改</span></a>
-											<a href="#" v-on:click="Delete(item.id)" data-toggle="modal" data-target="#DeleteModal"><span class="badge badge-danger">删除</span></a></td>
+											<a href="#" v-on:click="Delete(item)" data-toggle="modal" data-target="#DeleteModal"><span class="badge badge-danger">删除</span></a></td>
 				</tr>
 			  
     </template>
@@ -321,9 +321,10 @@
                             <div class="modal-body">
                                 <p>是否确定删除？</p>
                             </div>
+                            <input type="hidden"  v-model="deleteinfo.id"  id="id" name="">
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <button type="button" class="btn btn-primary">确定</button>
+                                <button type="button" id="deleteButton" class="btn btn-primary">确定</button>
                             </div>
                         </div>
                         <!-- /.modal-content -->
@@ -384,40 +385,6 @@
 	 console.log(rootPath); 
 	 }); */
 
-	function saveHKIncPocSystem() {
-		var url = rootPath + "saveHKIncPocSystem";
-
-		var status = $("#status").val();
-		var updateDate = $("#updateDate").val();
-		var createDate = $("#createDate").val();
-		var systemName = $("#systemName").val();
-		//alert(status);
-		/* if (status != null && status != "" && updateDate != null
-				&& updateDate != "" && createDate != null
-				&& createDate != "" && systemName != null
-				&& systemName != "") { */
-			if (status != null && status != ""
-				&& createDate != null && createDate != ""
-				&& systemName != null && systemName != "") {
-			var json = {
-				"status" : status,
-				"updateDate" : updateDate,
-				"createDate" : createDate,
-				"systemName" : systemName
-			};
-
-			console.log(url);
-			$.ajax({
-				url : url,
-				type : "post",
-				async : true,
-				data : json,
-			});
-		}
-
-		location.reload();
-	}
-		
 
 		
 		
@@ -441,6 +408,7 @@
 					              Delete: function (id) //删除  
 					              {  
 					            	  console.log(id); 
+					            	  delete_vm.$data.deleteinfo = id;
 					              },  
 					              Update: function (item) //更新  
 					              {  
@@ -489,6 +457,9 @@
         }  
     });  
 	
+    
+    
+    
 	
 	$("#addButton").click(
 			function(){
@@ -502,19 +473,33 @@
 		    });  
 			}
 		);
+	
+	
+	//给更新div添加数据  
+    var delete_vm = new Vue({  
+        el: "#DeleteModal",  
+        data: { 
+        	deleteinfo:{}
+        }  
+    }); 
+	
    
 	$("#deleteButton").click(
 			function(){
 				console.log('del submit');
-				 $.post(rootPath+'/deleteUserByPrimaryKey', add_vm.$data.addinfo, function (result) {  
+				 $.post(rootPath+'/deleteUserByPrimaryKey', delete_vm.$data.deleteinfo, function (result) {  
 					 console.log(result);
-					 window.location.reload();
+			 		 window.location.reload(); 
 		        //可以把vue.js数据替换从而更新更新到页面  
 	/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
 
 		    });  
 			}
 		);
+	
+	
+	
+	
 	
 	
     </script>

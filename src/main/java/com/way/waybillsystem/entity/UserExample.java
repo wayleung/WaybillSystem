@@ -1,6 +1,7 @@
 package com.way.waybillsystem.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserExample {
@@ -734,62 +735,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andLogtimeLastEqualTo(String value) {
+        public Criteria andLogtimeLastEqualTo(Date value) {
             addCriterion("logtime_last =", value, "logtimeLast");
             return (Criteria) this;
         }
 
-        public Criteria andLogtimeLastNotEqualTo(String value) {
+        public Criteria andLogtimeLastNotEqualTo(Date value) {
             addCriterion("logtime_last <>", value, "logtimeLast");
             return (Criteria) this;
         }
 
-        public Criteria andLogtimeLastGreaterThan(String value) {
+        public Criteria andLogtimeLastGreaterThan(Date value) {
             addCriterion("logtime_last >", value, "logtimeLast");
             return (Criteria) this;
         }
 
-        public Criteria andLogtimeLastGreaterThanOrEqualTo(String value) {
+        public Criteria andLogtimeLastGreaterThanOrEqualTo(Date value) {
             addCriterion("logtime_last >=", value, "logtimeLast");
             return (Criteria) this;
         }
 
-        public Criteria andLogtimeLastLessThan(String value) {
+        public Criteria andLogtimeLastLessThan(Date value) {
             addCriterion("logtime_last <", value, "logtimeLast");
             return (Criteria) this;
         }
 
-        public Criteria andLogtimeLastLessThanOrEqualTo(String value) {
+        public Criteria andLogtimeLastLessThanOrEqualTo(Date value) {
             addCriterion("logtime_last <=", value, "logtimeLast");
             return (Criteria) this;
         }
 
-        public Criteria andLogtimeLastLike(String value) {
-            addCriterion("logtime_last like", value, "logtimeLast");
-            return (Criteria) this;
-        }
-
-        public Criteria andLogtimeLastNotLike(String value) {
-            addCriterion("logtime_last not like", value, "logtimeLast");
-            return (Criteria) this;
-        }
-
-        public Criteria andLogtimeLastIn(List<String> values) {
+        public Criteria andLogtimeLastIn(List<Date> values) {
             addCriterion("logtime_last in", values, "logtimeLast");
             return (Criteria) this;
         }
 
-        public Criteria andLogtimeLastNotIn(List<String> values) {
+        public Criteria andLogtimeLastNotIn(List<Date> values) {
             addCriterion("logtime_last not in", values, "logtimeLast");
             return (Criteria) this;
         }
 
-        public Criteria andLogtimeLastBetween(String value1, String value2) {
+        public Criteria andLogtimeLastBetween(Date value1, Date value2) {
             addCriterion("logtime_last between", value1, value2, "logtimeLast");
             return (Criteria) this;
         }
 
-        public Criteria andLogtimeLastNotBetween(String value1, String value2) {
+        public Criteria andLogtimeLastNotBetween(Date value1, Date value2) {
             addCriterion("logtime_last not between", value1, value2, "logtimeLast");
             return (Criteria) this;
         }
@@ -804,62 +795,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeEqualTo(String value) {
+        public Criteria andCreateTimeEqualTo(Date value) {
             addCriterion("create_time =", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotEqualTo(String value) {
+        public Criteria andCreateTimeNotEqualTo(Date value) {
             addCriterion("create_time <>", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeGreaterThan(String value) {
+        public Criteria andCreateTimeGreaterThan(Date value) {
             addCriterion("create_time >", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeGreaterThanOrEqualTo(String value) {
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
             addCriterion("create_time >=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeLessThan(String value) {
+        public Criteria andCreateTimeLessThan(Date value) {
             addCriterion("create_time <", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeLessThanOrEqualTo(String value) {
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
             addCriterion("create_time <=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeLike(String value) {
-            addCriterion("create_time like", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotLike(String value) {
-            addCriterion("create_time not like", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeIn(List<String> values) {
+        public Criteria andCreateTimeIn(List<Date> values) {
             addCriterion("create_time in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotIn(List<String> values) {
+        public Criteria andCreateTimeNotIn(List<Date> values) {
             addCriterion("create_time not in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeBetween(String value1, String value2) {
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
             addCriterion("create_time between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotBetween(String value1, String value2) {
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
             addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
