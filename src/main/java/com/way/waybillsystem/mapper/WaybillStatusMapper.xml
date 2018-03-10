@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.way.waybillsystem.mapper.WaybillStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.way.waybillsystem.entity.WaybillStatus" >
+    <id column="ws_id" property="wsId" jdbcType="BIGINT" />
+    <result column="waybill_number" property="waybillNumber" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="location_now" property="locationNow" jdbcType="INTEGER" />
+    <result column="lacation_time" property="lacationTime" jdbcType="TIMESTAMP" />
+    <result column="employee_charge" property="employeeCharge" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ws_id, waybill_number, status, location_now, lacation_time, employee_charge, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.way.waybillsystem.entity.WaybillStatusExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from waybill_status
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from waybill_status
+    where ws_id = #{wsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from waybill_status
+    where ws_id = #{wsId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.way.waybillsystem.entity.WaybillStatusExample" >
+    delete from waybill_status
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.way.waybillsystem.entity.WaybillStatus" >
+    insert into waybill_status (ws_id, waybill_number, status, 
+      location_now, lacation_time, employee_charge, 
+      create_time)
+    values (#{wsId,jdbcType=BIGINT}, #{waybillNumber,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
+      #{locationNow,jdbcType=INTEGER}, #{lacationTime,jdbcType=TIMESTAMP}, #{employeeCharge,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.way.waybillsystem.entity.WaybillStatus" >
+    insert into waybill_status
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wsId != null" >
+        ws_id,
+      </if>
+      <if test="waybillNumber != null" >
+        waybill_number,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="locationNow != null" >
+        location_now,
+      </if>
+      <if test="lacationTime != null" >
+        lacation_time,
+      </if>
+      <if test="employeeCharge != null" >
+        employee_charge,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wsId != null" >
+        #{wsId,jdbcType=BIGINT},
+      </if>
+      <if test="waybillNumber != null" >
+        #{waybillNumber,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="locationNow != null" >
+        #{locationNow,jdbcType=INTEGER},
+      </if>
+      <if test="lacationTime != null" >
+        #{lacationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="employeeCharge != null" >
+        #{employeeCharge,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.way.waybillsystem.entity.WaybillStatusExample" resultType="java.lang.Integer" >
+    select count(*) from waybill_status
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update waybill_status
+    <set >
+      <if test="record.wsId != null" >
+        ws_id = #{record.wsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.waybillNumber != null" >
+        waybill_number = #{record.waybillNumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.locationNow != null" >
+        location_now = #{record.locationNow,jdbcType=INTEGER},
+      </if>
+      <if test="record.lacationTime != null" >
+        lacation_time = #{record.lacationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.employeeCharge != null" >
+        employee_charge = #{record.employeeCharge,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update waybill_status
+    set ws_id = #{record.wsId,jdbcType=BIGINT},
+      waybill_number = #{record.waybillNumber,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=INTEGER},
+      location_now = #{record.locationNow,jdbcType=INTEGER},
+      lacation_time = #{record.lacationTime,jdbcType=TIMESTAMP},
+      employee_charge = #{record.employeeCharge,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.way.waybillsystem.entity.WaybillStatus" >
+    update waybill_status
+    <set >
+      <if test="waybillNumber != null" >
+        waybill_number = #{waybillNumber,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="locationNow != null" >
+        location_now = #{locationNow,jdbcType=INTEGER},
+      </if>
+      <if test="lacationTime != null" >
+        lacation_time = #{lacationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="employeeCharge != null" >
+        employee_charge = #{employeeCharge,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ws_id = #{wsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.way.waybillsystem.entity.WaybillStatus" >
+    update waybill_status
+    set waybill_number = #{waybillNumber,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER},
+      location_now = #{locationNow,jdbcType=INTEGER},
+      lacation_time = #{lacationTime,jdbcType=TIMESTAMP},
+      employee_charge = #{employeeCharge,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where ws_id = #{wsId,jdbcType=BIGINT}
+  </update>
+
+
+<select id="selectWaybillStatusByWaybillNumber" resultMap="BaseResultMap" parameterType="java.lang.Long">
+<!--   <select id="selectWaybillStatusByWaybillNumber" resultMap="WaybillStatusRtnVO" parameterType="java.lang.Long"> -->
+SELECT
+	waybill_status.ws_id,
+	waybill_status.waybill_number,
+	waybill_status. STATUS,
+	waybill_status.location_now,
+	waybill_status.lacation_time,
+	waybill_status.employee_charge,
+	waybill_status.create_time
+FROM
+	waybill
+RIGHT JOIN waybill_status ON waybill.waybill_number = waybill_status.waybill_number
+WHERE
+	waybill_status.waybill_number = #{waybillNumber,jdbcType=BIGINT}
+ORDER BY
+		waybill_status.lacation_time DESC	
+<!-- 	
+	SELECT
+	waybill_status.ws_id,
+	waybill_status.waybill_number,
+	`status`.status_name,
+	location.location_name,
+	waybill_status.lacation_time,
+	employee.`name`,
+	waybill_status.create_time
+	FROM
+		employee,
+		`status`,
+		location,
+		waybill
+	RIGHT JOIN waybill_status ON waybill.waybill_number = waybill_status.waybill_number
+	WHERE
+		waybill_status.waybill_number = #{waybillNumber,jdbcType=BIGINT} 
+	<if test="status != null" >	
+	AND waybill_status.`status` = `status`.status_id
+	</if>
+	<if test="locationNow != null" >
+	AND waybill_status.location_now = location.location_id
+	</if>
+	<if test="employeeCharge != null" >
+	AND waybill_status.employee_charge = employee.id
+	</if> -->
+	
+  </select>
+</mapper>

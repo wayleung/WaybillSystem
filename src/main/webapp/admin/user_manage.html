@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="W速运管理系统">
+<meta name="author" content="Way Leung">
+<meta name="keyword" content="WayLeung,System,Waybill,Management,Manage">
+<link rel="shortcut icon" href="img/favicon.png">
+<title>W速运管理系统</title>
+<!-- Icons -->
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/simple-line-icons.css" rel="stylesheet">
+<!-- Main styles for this application -->
+<link href="css/style.css" rel="stylesheet">
+</head>
+
+<body
+	class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+	<header class="app-header navbar">
+		<button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up"
+			type="button">☰</button>
+		<a class="navbar-brand" href="#"></a>
+		<ul class="nav navbar-nav hidden-md-down">
+			<li class="nav-item"><a
+				class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a></li>
+
+		</ul>
+		<ul class="nav navbar-nav ml-auto">
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle nav-link" data-toggle="dropdown"
+				href="#" role="button" aria-haspopup="true" aria-expanded="false">
+					<img src="img/avatars/6.jpg" class="img-avatar"
+					alt="admin@bootstrapmaster.com"> <span class="hidden-md-down">管理员</span>
+			</a>
+				<div class="dropdown-menu dropdown-menu-right">
+
+					<div class="dropdown-header text-center">
+						<strong>账号</strong>
+					</div>
+
+					<a class="dropdown-item" href="#"><i class="fa fa-user"></i> 资料</a>
+
+					<div class="dropdown-header text-center">
+						<strong>设置</strong>
+					</div>
+
+
+					<a class="dropdown-item" href="#"><i class="fa fa-wrench"></i>
+						设置</a>
+					<div class="divider"></div>
+					<a class="dropdown-item" href="#"><i class="fa fa-lock"></i> 登出</a>
+				</div></li>
+			<li class="nav-item hidden-md-down"></li>
+
+		</ul>
+	</header>
+
+
+	<div class="app-body">
+		<div class="sidebar">
+			<nav class="sidebar-nav">
+				<ul class="nav">
+					<li class="nav-item"><a class="nav-link" href="index.html"><i
+							class="icon-speedometer"></i> 首页 <!-- <span class="badge badge-info">NEW</span> --></a>
+					</li>
+
+					<li class="nav-title">功能</li>
+					<li class="nav-item nav-dropdown"><a
+						class="nav-link nav-dropdown-toggle" href="#"><i
+							class="icon-puzzle"></i>网站管理</a>
+						<ul class="nav-dropdown-items">
+							<li class="nav-item"><a class="nav-link" href="#"><i
+									class="icon-star"></i>网站用户管理</a></li>
+							<li class="nav-item"><a class="nav-link" href="#"><i
+									class="icon-star"></i>网站信息管理</a></li>
+							<li class="nav-item"><a class="nav-link" href="#"><i
+									class="icon-star"></i>留言查看</a></li>
+						</ul></li>
+					<li class="nav-item nav-dropdown"><a class="nav-link" href="#"><i
+							class="icon-pie-chart"></i> 工作人员管理</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"><i
+							class="icon-calculator"></i> 快递单号管理 <!-- <span class="badge badge-info">NEW</span> --></a>
+					</li>
+
+
+				</ul>
+			</nav>
+		</div>
+
+
+		<!-- Main content -->
+		<main class="main"> <!-- Breadcrumb -->
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">首页</a></li>
+			<li class="breadcrumb-item">功能</li>
+			<li class="breadcrumb-item">网站管理</li>
+			<li class="breadcrumb-item active">网站用户管理</li>
+			<!-- Breadcrumb Menu-->
+
+
+		</ol>
+
+		 <div class="container-fluid">
+                <div class="animated fadeIn">
+<!--                     <div class="row"> -->
+                        <div class="col-lg-12">
+                       <div class="card">
+						<div class="card-header">
+							<i class="fa fa-align-justify"></i>用户管理
+						</div>
+						<div class="card-block">
+							<a href="#" data-toggle="modal" data-target="#AddModal">新增</a>
+							<table id="userManage" class="table table-striped">
+								<thead>
+									<tr>
+										<th>账号</th>
+										<th>性别</th>
+										<th>昵称</th>
+										<th>密码</th>
+										<th>电话</th>
+										<th>微信id</th>
+										<th>微信昵称</th>
+										<th>上次登录时间</th>
+										<th>创建时间</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+								<!-- 	<tr>
+										<td>123456</td>
+										<td>男</td>
+										<td>Way Leung</td>
+										<td>123456</td>
+										<td>15521608979</td>
+										<td>88933668799899</td>
+										<td>Way-Leung</td>
+										<td>2018-03-01 18:28:00</td>
+										<td>2018-02-22 18:28:09</td>
+										<td><a href="#"  data-toggle="modal" data-target="#UpdateModal"><span class="badge badge-success">修改</span></a>
+											<a href="#"  data-toggle="modal" data-target="#DeleteModal"><span class="badge badge-danger">删除</span></a></td>
+									</tr> -->
+									
+									<template v-for="item in datas">
+
+			  <tr>
+			  							<input type="hidden"  :value="item.id" />
+										<td>{{ item.account }}</td>
+				  						<td>{{ item.sex=='m'?'男':'女' }}</td>
+										<td>{{ item.name }}</td>
+										<td>{{ item.password }}</td>
+										<td>{{ item.phone }}</td>
+										<td>{{ item.wechatId }}</td>
+										<td>{{ item.wechatName }}</td>
+										<td>{{ item.logtimeLast }}</td>
+										<td>{{ item.createTime }}</td>
+										<td><a href="#"   v-on:click="Update(item)" data-toggle="modal" data-target="#UpdateModal"><span class="badge badge-success">修改</span></a>
+											<a href="#" v-on:click="Delete(item)" data-toggle="modal" data-target="#DeleteModal"><span class="badge badge-danger">删除</span></a></td>
+				</tr>
+			  
+    </template>
+									
+								</tbody>
+							</table>
+
+					
+							<!-- /.modal -->
+
+
+
+							<!-- <ul class="pagination"> 
+                                        <li class="page-item"><a class="page-link" href="#">Prev</a>
+                                        </li>
+                                        <li class="page-item active">
+                                            <a class="page-link" href="#">1</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul> -->
+						</div>
+					</div>
+                        </div>
+                        <!--/.col-->
+<!--                     </div>
+ -->                    <!--/.row-->
+                </div>
+                
+                
+                  <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title">新增</h6>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                 <form action="" method="post">
+										<div class="form-group col-md-9">
+                                            <label>账号</label>
+                                            <input type="text"  v-model="addinfo.account"  id="account" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                        
+                                         <div class="form-group col-md-9">
+                                            <label >性别</label>
+                                            <select  v-model="addinfo.sex"  class="form-control" id="sex" name="">
+                                                <option value="m">男</option>
+                                                <option value="f">女</option>
+                                            </select>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group col-md-9">
+                                            <label>昵称</label>
+                                            <input  v-model="addinfo.name"  type="text" id="name" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                        
+                                        <div class="form-group col-md-9">
+                                            <label>密码</label>
+                                            <input  v-model="addinfo.password"  type="text" id="password" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                        
+                                        <div class="form-group col-md-9">
+                                            <label>电话</label>
+                                            <input  v-model="addinfo.phone"  type="text" id="phone" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                                                          
+                                    </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <button type="button"  id="addButton" class="btn btn-primary">保存</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+                
+                
+                
+                
+                  <div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title">修改信息</h6>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                            
+                                    <form action="" method="post">
+                                    <input type="hidden"  v-model="updateinfo.id"  id="id" name="">
+                                     <div class="form-group col-md-9">
+                                            <label >账号</label>
+                                            <input v-model="updateinfo.account" type="text" id="account" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                        
+                                         <div class="form-group col-md-9">
+                                            <label>性别</label>
+                                            <select  v-model="updateinfo.sex"  class="form-control" id="sex" name="">
+                                                <option value="m">男</option>
+                                                <option value="f">女</option>
+                                            </select>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group col-md-9">
+                                            <label >昵称</label>
+                                            <input  v-model="updateinfo.name"  type="text" id="name" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                        
+                                        <div class="form-group col-md-9">
+                                            <label >密码</label>
+                                            <input v-model="updateinfo.password"  type="text" id="password" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                        
+                                        <div class="form-group col-md-9">
+                                            <label>电话</label>
+                                            <input  v-model="updateinfo.phone" type="text" id="phone" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                    
+                                        
+                                                                          
+                                    </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <button type="button" id="updateButton" class="btn btn-primary">保存</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+
+
+                <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title">警告</h6>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>是否确定删除？</p>
+                            </div>
+                            <input type="hidden"  v-model="deleteinfo.id"  id="id" name="">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <button type="button" id="deleteButton" class="btn btn-primary">确定</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+
+            </div>
+            <!-- /.conainer-fluid --></main>
+
+	</div>
+
+
+	<footer class="app-footer">
+		<a href="#">W速运管理系统</a> © 2018 Way Leung. <span class="float-right"><a
+			href="#" target="_blank" title="W速运管理系统">W速运管理系统</a> - 技术由 <a
+			href="#" title="Way Leung" target="_blank">Way Leung</a> 提供 </span>
+	</footer>
+
+	<!-- Bootstrap and necessary plugins -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/tether/dist/js/tether.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/pace/pace.min.js"></script>
+	<!-- Plugins and scripts required by all views -->
+	<script src="bower_components/chart.js/dist/Chart.min.js"></script>
+	<!-- GenesisUI main scripts -->
+	<script src="js/app.js"></script>
+	<!-- Vue-->
+	<script src="js/vue.min.js"></script>
+	<script type="text/javascript">
+	
+
+	
+	
+	
+/* 
+	$('#data_4 .input-group.date').datepicker({
+		todayBtn : "linked",
+		keyboardNavigation : false,
+		forceParse : false,
+		calendarWeeks : true,
+		autoclose : true
+	}); */
+
+	function getHostPath() {
+		var curWwwPath = window.document.location.href;
+		var pathName = window.document.location.pathname;
+		var pos = curWwwPath.indexOf(pathName);
+		//获取主机地址，如： http://localhost:8083
+		var localhostPath = curWwwPath.substring(0, pos);
+		return localhostPath;
+	}
+
+	var rootPath = getHostPath() + "/";
+	/* 			  $(document).ready(function(){
+	 console.log(rootPath); 
+	 }); */
+
+
+		
+		
+	//function ajax(api,datas) {
+	$(document).ready(function() {
+		var url = rootPath + "selectAllUsers";
+		console.log(url);
+		$.ajax({
+					url : url,
+					type : "get",
+					async : true,
+					dataType : "json",
+					//data: datas,
+					//异步   注意数据的获取
+					success : function(datas) {
+						   new Vue({
+							  el: '#userManage',
+							  data: datas,
+							  methods:{  
+
+					              Delete: function (id) //删除  
+					              {  
+					            	  console.log(id); 
+					            	  delete_vm.$data.deleteinfo = id;
+					              },  
+					              Update: function (item) //更新  
+					              {  
+					            	  console.log(item);
+					            	  //克隆一个对象   这样更新表单中改变数据 不会影响前端表单
+				                       var databack = $.extend({}, item);  
+					            	  update_vm.$data.updateinfo = databack;  
+					              }  
+					          }  
+							})
+					}
+			 	}); 
+	});
+	
+	
+
+	
+	
+	//给更新div添加数据  
+    var update_vm = new Vue({  
+        el: "#UpdateModal",  
+        data: {  
+            updateinfo: {}  
+        }  
+    });  
+	
+	
+	$("#updateButton").click(
+		function(){
+			console.log('update submit');
+			 $.post(rootPath+'/updateUserByPrimarykey', update_vm.$data.updateinfo, function (result) {  
+				 console.log(result);
+				 window.location.reload();
+	        //可以把vue.js数据替换从而更新更新到页面  
+/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
+
+	    });  
+		}
+	);
+	
+	
+    var add_vm = new Vue({  
+        el: "#AddModal",  
+        data: {  
+            addinfo: {}  
+        }  
+    });  
+	
+    
+    
+    
+	
+	$("#addButton").click(
+			function(){
+				console.log('add submit');
+				 $.post(rootPath+'/insertUser', add_vm.$data.addinfo, function (result) {  
+					 console.log(result);
+					 window.location.reload();
+		        //可以把vue.js数据替换从而更新更新到页面  
+	/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
+
+		    });  
+			}
+		);
+	
+	
+	//给更新div添加数据  
+    var delete_vm = new Vue({  
+        el: "#DeleteModal",  
+        data: { 
+        	deleteinfo:{}
+        }  
+    }); 
+	
+   
+	$("#deleteButton").click(
+			function(){
+				console.log('del submit');
+				 $.post(rootPath+'/deleteUserByPrimaryKey', delete_vm.$data.deleteinfo, function (result) {  
+					 console.log(result);
+			 		 window.location.reload(); 
+		        //可以把vue.js数据替换从而更新更新到页面  
+	/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
+
+		    });  
+			}
+		);
+	
+	
+	
+	
+	
+	
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <context:component-scan base-package="com.way.waybillsystem.action"></context:component-scan>
+<!--      日期转换  必须放在<mvc:annotation-driven />前面   -->
+<!--     <bean  
+        class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">   -->
+<!--         日期格式转换   -->
+<!--         <property name="webBindingInitializer">  
+            <bean class="com.way.waybillsystem.util.DateConverter" />  
+        </property>  
+    </bean>  -->
+    
+    
+    <mvc:annotation-driven>
+    	<!-- reponbody注解 返回list的支持 -->
+<!--      	<mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+   		</mvc:message-converters> -->
+   		
+   		    <!-- 处理responseBody 里面日期类型 -->    
+        <mvc:message-converters>    
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">    
+                <property name="objectMapper">    
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">    
+                        <property name="dateFormat">    
+                            <bean class="java.text.SimpleDateFormat">    
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />    
+                            </bean>    
+                        </property>    
+                    </bean>    
+                </property>    
+            </bean>    
+        </mvc:message-converters>   
+    </mvc:annotation-driven>
+    <mvc:default-servlet-handler/>
+    
+
+	<!-- 配置视图解析器 -->
+<!-- 	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+ 		<property name="prefix" value="/WEB-INF/" />
+		<property name="suffix" value=".jsp" />
+	</bean> -->
+	
+	
+	<!-- 资源映射 -->
+<!-- 	<mvc:resources location="/WEB-INF/admin/assets/" mapping="/admin/assets/**" />
+	<mvc:resources location="/WEB-INF/admin/bootstrap-datetimepicker-master/" mapping="/admin/bootstrap-datetimepicker-master/**" />
+	<mvc:resources location="/WEB-INF/admin/bower_components/" mapping="/admin/bower_components/**" />
+	<mvc:resources location="/WEB-INF/admin/css/" mapping="/admin/css/**" />
+	<mvc:resources location="/WEB-INF/admin/echarts/" mapping="/admin/echarts/**" />	
+	<mvc:resources location="/WEB-INF/admin/fonts/" mapping="/admin/fonts/**" />
+	<mvc:resources location="/WEB-INF/admin/img/" mapping="/admin/img/**" />
+	<mvc:resources location="/WEB-INF/admin/js/" mapping="/admin/js/**" />
+	<mvc:resources location="/WEB-INF/admin/layer/" mapping="/admin/layer/**" />
+	<mvc:resources location="/WEB-INF/admin/layui/" mapping="/admin/layui/**" />
+	<mvc:resources location="/WEB-INF/admin/scss/" mapping="/admin/scss/**" />
+
+	
+	<mvc:resources location="/WEB-INF/user/css/" mapping="/user/css/**" />
+	<mvc:resources location="/WEB-INF/user/js/" mapping="/user/js/**" />
+	<mvc:resources location="/WEB-INF/user/images/" mapping="/user/images/**" />
+	<mvc:resources location="/WEB-INF/user/fonts/" mapping="/user/fonts/**" />
+	<mvc:resources location="/WEB-INF/user/images/" mapping="/user/images/**" />
+	<mvc:resources location="/WEB-INF/user/sass/" mapping="/user/sass/**" /> -->
+	
+
+</beans>

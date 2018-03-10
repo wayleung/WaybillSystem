@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.way.waybillsystem.mapper.CompanyInformationMapper" >
+  <resultMap id="BaseResultMap" type="com.way.waybillsystem.entity.CompanyInformation" >
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="website" property="website" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="slogan" property="slogan" jdbcType="VARCHAR" />
+    <result column="description_title" property="descriptionTitle" jdbcType="VARCHAR" />
+    <result column="description_content1" property="descriptionContent1" jdbcType="VARCHAR" />
+    <result column="description_content2" property="descriptionContent2" jdbcType="VARCHAR" />
+    <result column="description_content3" property="descriptionContent3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    name, location, website, email, phone, slogan, description_title, description_content1, 
+    description_content2, description_content3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.way.waybillsystem.entity.CompanyInformationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from company_information
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.way.waybillsystem.entity.CompanyInformationExample" >
+    delete from company_information
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.way.waybillsystem.entity.CompanyInformation" >
+    insert into company_information (name, location, website, 
+      email, phone, slogan, 
+      description_title, description_content1, 
+      description_content2, description_content3
+      )
+    values (#{name,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{slogan,jdbcType=VARCHAR}, 
+      #{descriptionTitle,jdbcType=VARCHAR}, #{descriptionContent1,jdbcType=VARCHAR}, 
+      #{descriptionContent2,jdbcType=VARCHAR}, #{descriptionContent3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.way.waybillsystem.entity.CompanyInformation" >
+    insert into company_information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="website != null" >
+        website,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="slogan != null" >
+        slogan,
+      </if>
+      <if test="descriptionTitle != null" >
+        description_title,
+      </if>
+      <if test="descriptionContent1 != null" >
+        description_content1,
+      </if>
+      <if test="descriptionContent2 != null" >
+        description_content2,
+      </if>
+      <if test="descriptionContent3 != null" >
+        description_content3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="slogan != null" >
+        #{slogan,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionTitle != null" >
+        #{descriptionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionContent1 != null" >
+        #{descriptionContent1,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionContent2 != null" >
+        #{descriptionContent2,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionContent3 != null" >
+        #{descriptionContent3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.way.waybillsystem.entity.CompanyInformationExample" resultType="java.lang.Integer" >
+    select count(*) from company_information
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update company_information
+    <set >
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null" >
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.website != null" >
+        website = #{record.website,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.slogan != null" >
+        slogan = #{record.slogan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descriptionTitle != null" >
+        description_title = #{record.descriptionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descriptionContent1 != null" >
+        description_content1 = #{record.descriptionContent1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descriptionContent2 != null" >
+        description_content2 = #{record.descriptionContent2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descriptionContent3 != null" >
+        description_content3 = #{record.descriptionContent3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update company_information
+    set name = #{record.name,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      website = #{record.website,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      slogan = #{record.slogan,jdbcType=VARCHAR},
+      description_title = #{record.descriptionTitle,jdbcType=VARCHAR},
+      description_content1 = #{record.descriptionContent1,jdbcType=VARCHAR},
+      description_content2 = #{record.descriptionContent2,jdbcType=VARCHAR},
+      description_content3 = #{record.descriptionContent3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
