@@ -127,7 +127,7 @@
 
 
 		<div id="gtco-subscribe">
-			<div class="gtco-container">
+			<div id="waybillStatus">
 				<div class="row animate-box">
 					<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
 						<h2>运单查询</h2>
@@ -136,7 +136,7 @@
 				</div>
 				<div class="row animate-box">
 					<div class="col-md-12">
-						<form class="form-inline" action="#" method="post">
+						<form class="form-inline" action="" method="post">
 							<div class="col-md-6 col-sm-6">
 								<div class="form-group">
 									<label for="name" class="sr-only">运单号</label> <input
@@ -146,7 +146,7 @@
 							</div>
 							<div class="col-md-6 col-sm-6">
 								<!-- 用ajax的话 button不能是submit 否则会刷新页面 -->
-								<button type="button" id="search"
+								<button type="button"  v-on:click="showData()" id="search"
 									class="btn btn-default btn-block">查询</button>
 								<!-- 							<%
 								User user =(User) session.getAttribute("user");
@@ -166,7 +166,8 @@
 
 				<div class="row animate-box">
 					<div class="col-md-9 col-sm-9">
-						<table id="waybillStatus" style="display: block; margin-left: 10%;" id="table">
+						<!-- <table id="waybillStatus" style="display: block; margin-left: 10%;" id="table"> -->
+						<table  style="display: block; margin-left: 10%;" id="table">
 							<!-- <%-- <c:forEach var="waybillstatus" items="${waybillstatusrtn}"> --%>
 								<%-- <tr style="display:block;margin-top: 20px;margin-left: 10px;">
 									<td><font color="white">货物在${waybillstatus.locationName}${waybillstatus.statusName}</font></td><td>&nbsp;&nbsp;&nbsp;</td><td><font color="white">${waybillstatus.lacationTime}</font></td><td>&nbsp;&nbsp;&nbsp;</td><td><font color="white">经手人：${waybillstatus.eName}</font></td>
@@ -298,41 +299,41 @@
 	var rootPath = getHostPath() + "/";
 
 	/*
-	 * 删除元素子节点以及内容
-	 */
-	function deleteAll(id) {
-		$('#' + id).empty();
-	}
-
-	/* 表格增加行数方法 */
-	function addtr(id, waybillstatusrtn) {
-		tr_id = $("#test>tbody>tr:last").attr("id");
-		tr_id++;
-		//alert(tr_id);
-		str = "<tr style='display:block;margin-top: 20px;margin-left: 10px;'><td><font color='white'>货物在"
-				+ waybillstatusrtn.locationName
-				+ waybillstatusrtn.statusName
-				+ "</font></td><td>&nbsp;&nbsp;&nbsp;</td><td><font color='white'>"
-				+ waybillstatusrtn.lacationTime
-				+ "</font></td><td>&nbsp;&nbsp;&nbsp;</td><td><font color='white'>经手人："
-				+ waybillstatusrtn.eName + "</font></td></tr>";
-		$('#' + id).append(str);
-	}
-
-	/*
 	 * 查询方法
 	 */
-	$("#search").click(
-		
-			
-			
-/* 			var status_vm  = new Vue({
-				  el: '#waybillStatus',
-				  data: {}
-				});
-				 */
-			
-			
+	 
+	 var status_vm = new Vue({
+		 el:"#waybillStatus",
+		 data:{
+			 datas:{}
+		 },
+/* 		mounted:function(){
+		    this.showData();
+		}, */
+        methods:{
+            showData:function () {
+            	var waybillNumber = $("#waybill_number").val();
+                $.ajax({
+                  type:"GET",
+                  url: rootPath+"selectWaybillStatusByWaybillNumber",
+                  dataType:"json",
+                  //这里的data是输入框的data
+                  data: {waybillNumber:waybillNumber},
+                  //这里的data是ajax返回的data
+                  success:function(data){
+                	  console.log(data);
+                	  console.log(data.datas);
+                	  status_vm.datas=data.datas;
+                  },
+                  error:function(e){
+                  alert("error");
+                  }
+                });
+              }
+            }
+	 });
+	 
+/* 	$("#search").click(	 			 
 		function(){
 			var waybillNumber = $("#waybill_number").val();
       	  console.log(waybillNumber); 
@@ -352,7 +353,7 @@
   			}
   	 	});
         }
-	);
+	); */
 
 	/*
 	 * 追踪订单
