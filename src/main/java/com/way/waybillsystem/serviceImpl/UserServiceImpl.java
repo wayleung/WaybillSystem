@@ -23,7 +23,7 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	private Logger Logger = LoggerFactory.getLogger(UserMapper.class);
+	private Logger Logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
 	@Override
 	@Transactional

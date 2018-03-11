@@ -26,7 +26,7 @@ public class WechatTokenServiceImpl implements IWechatTokenService {
 	@Autowired
 	private WechatTokenMapper wechatTokenMapper;
 	
-	private Logger logger = LoggerFactory.getLogger(WechatTokenMapper.class);
+	private Logger logger = LoggerFactory.getLogger(WechatTokenServiceImpl.class);
 	
 	@Override
 	@Transactional
@@ -114,6 +114,8 @@ public class WechatTokenServiceImpl implements IWechatTokenService {
 		}
 
 	}
+
+
 
 
 

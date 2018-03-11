@@ -22,7 +22,7 @@ public class WaybillStatusServiceImpl implements IWaybillStatusService {
 	@Autowired
 	private WaybillStatusMapper waybillStatusMapper;
 	
-	private Logger Logger = LoggerFactory.getLogger(WaybillStatusMapper.class);
+	private Logger Logger = LoggerFactory.getLogger(WaybillStatusServiceImpl.class);
 	
 	@Override
 	@Transactional

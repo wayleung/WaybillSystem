@@ -22,7 +22,7 @@ public class FeeServiceImpl implements IFeeService {
 	@Autowired
 	private FeeMapper feeMapper;
 	
-	private Logger Logger = LoggerFactory.getLogger(FeeMapper.class);
+	private Logger Logger = LoggerFactory.getLogger(FeeServiceImpl.class);
 	
 	@Override
 	@Transactional

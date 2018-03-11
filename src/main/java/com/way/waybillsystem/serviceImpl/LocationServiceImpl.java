@@ -22,7 +22,7 @@ public class LocationServiceImpl implements ILocationService {
 	@Autowired
 	private LocationMapper locationMapper;
 	
-	private Logger Logger = LoggerFactory.getLogger(LocationMapper.class);
+	private Logger Logger = LoggerFactory.getLogger(LocationServiceImpl.class);
 	
 	@Override
 	@Transactional

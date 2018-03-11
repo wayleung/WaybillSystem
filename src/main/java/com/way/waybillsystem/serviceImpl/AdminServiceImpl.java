@@ -22,7 +22,7 @@ public class AdminServiceImpl implements IAdminService {
 	@Autowired
 	private AdminMapper adminMapper;
 	
-	private Logger Logger = LoggerFactory.getLogger(AdminMapper.class);
+	private Logger Logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 	
 	@Override
 	@Transactional

@@ -1,6 +1,7 @@
 package com.way.waybillsystem.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -14,12 +15,18 @@ import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Employee;
 import com.way.waybillsystem.entity.Location;
 import com.way.waybillsystem.entity.Status;
+import com.way.waybillsystem.entity.User;
 import com.way.waybillsystem.entity.Waybill;
 import com.way.waybillsystem.entity.WaybillStatus;
+import com.way.waybillsystem.entity.WechatToken;
 import com.way.waybillsystem.service.IEmployeeService;
 import com.way.waybillsystem.service.ILocationService;
 import com.way.waybillsystem.service.IStatusService;
+import com.way.waybillsystem.service.IUserService;
+import com.way.waybillsystem.service.IWaybillService;
 import com.way.waybillsystem.service.IWaybillStatusService;
+import com.way.waybillsystem.service.IWechatTokenService;
+import com.way.waybillsystem.util.WechatUtil;
 import com.way.waybillsystem.vo.QueryByPageObject;
 import com.way.waybillsystem.vo.Result;
 import com.way.waybillsystem.vo.WaybillStatusRtnVO;
@@ -32,6 +39,9 @@ public class WaybillStatusAction  extends BaseAction {
 	private IWaybillStatusService waybillStatusService;
 	
 	@Autowired
+	private IWechatTokenService wechatTokenService;
+	
+	@Autowired
 	private ILocationService locationService;
 
 	@Autowired
@@ -40,10 +50,51 @@ public class WaybillStatusAction  extends BaseAction {
 	@Autowired
 	private IEmployeeService employeeService;
 	
+	@Autowired
+	private IUserService userService;
+	
+	
+	@Autowired
+	private IWaybillService waybillService;
+	
+	
 	@RequestMapping(value="/insertWaybillStatus",method=RequestMethod.POST)
 	@ResponseBody
 	public void insertWaybillStatus(WaybillStatus waybillStatus){
 		waybillStatusService.insertWaybillStatus(waybillStatus);
+		//查找运单状态对应运单
+		Long waybillNumber = waybillStatus.getWaybillNumber();
+		Waybill waybill = waybillService.selectWaybillByPrimaryKey(waybillNumber);
+		//查找该运单对应的注册用户
+		Long userId = waybill.getUserId();
+		User user = userService.selectUserByPrimaryKey(userId);
+		String openId = user.getWechatId();
+		if(StringUtils.isNotBlank(openId)){
+			WechatToken accessToken = wechatTokenService.getAndSaveAccessToken();
+			String access_token  =accessToken.getToken();
+			WaybillStatusRtnVO waybillStatusRtnVO = new WaybillStatusRtnVO();
+			waybillStatusRtnVO.setWaybillNumber(waybillNumber);
+			
+			
+			Date lacationTime = waybillStatus.getLacationTime();
+			waybillStatusRtnVO.setLacationTime(lacationTime);
+			waybillStatusRtnVO.setLacationTime(lacationTime);
+			
+			
+			Integer status = waybillStatus.getStatus();
+			String statusName = statusService.selectStatusByPrimaryKey(status).getStatusName();
+			waybillStatusRtnVO.setStatusName(statusName);
+			
+			Integer locationNow = waybillStatus.getLocationNow();
+			String locationName  = locationService.selectLocationByPrimaryKey(locationNow).getLocationName();
+			waybillStatusRtnVO.setLocationName(locationName);
+			
+			
+			//调用微信发送消息模板接口
+
+			WechatUtil.sendTemplateMessage(openId, access_token, waybillStatusRtnVO);
+		}
+		
 	}
 	
 	@RequestMapping(value="/deleteWaybillStatusByPrimaryKey",method=RequestMethod.POST)

@@ -22,7 +22,7 @@ public class PayChargeServiceImpl implements IPayChargeService {
 	@Autowired
 	private PayChargeMapper payChargeMapper;
 	
-	private Logger Logger = LoggerFactory.getLogger(PayChargeMapper.class);
+	private Logger Logger = LoggerFactory.getLogger(PayChargeServiceImpl.class);
 	
 	@Override
 	@Transactional

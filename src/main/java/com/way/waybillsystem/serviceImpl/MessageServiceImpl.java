@@ -22,7 +22,7 @@ public class MessageServiceImpl implements IMessageService {
 	@Autowired
 	private MessageMapper messageMapper;
 	
-	private Logger Logger = LoggerFactory.getLogger(MessageMapper.class);
+	private Logger Logger = LoggerFactory.getLogger(MessageServiceImpl.class);
 	
 	@Override
 	@Transactional

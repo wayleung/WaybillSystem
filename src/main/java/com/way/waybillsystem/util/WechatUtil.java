@@ -15,7 +15,15 @@ import java.security.KeyManagementException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
@@ -26,13 +34,25 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 /*import org.junit.Test;*/
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.thoughtworks.xstream.XStream;
+import com.way.waybillsystem.action.WechatAction;
 import com.way.waybillsystem.exception.ErrorCodeConstant;
 import com.way.waybillsystem.exception.SystemException;
+import com.way.waybillsystem.vo.WaybillStatusRtnVO;
 import com.way.waybillsystem.wechat.entity.AccessToken;
 import com.way.waybillsystem.wechat.entity.Button;
 import com.way.waybillsystem.wechat.entity.Menu;
+import com.way.waybillsystem.wechat.entity.News;
+import com.way.waybillsystem.wechat.entity.NewsMessage;
+import com.way.waybillsystem.wechat.entity.TextMessage;
 import com.way.waybillsystem.wechat.entity.ViewButton;
 
 import net.sf.json.JSONObject;
@@ -40,12 +60,31 @@ import net.sf.json.JSONObject;
 public class WechatUtil {
 	private static final String APPID = "wxc6970e3fd4e08fc5";
 	private static final String APPSECRET = "fd40a25345ca888b87b888b5c21c69c5";
-
+	//接口地址
 	private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	private static final String UPLOAD_URL = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
-	
 	private static final String CREATE_MENU_URL="https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
-	//接口地址
+	private static final String SEND_TEMPLATE_URL="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
+	
+	private static final String TEMPLATE_ID = "9UL1UtQ6gZu8YDIb6EksEIu1uM4r282M73q0AuSceTE";
+	
+	
+	private Logger logger = LoggerFactory.getLogger(WechatAction.class);
+	
+	public static String getAppid() {
+		return APPID;
+	}
+
+	
+	
+	
+	public static String getAppsecret() {
+		return APPSECRET;
+	}
+
+
+
+
 	/*接口调用请求说明
 
 	https请求方式: GET
@@ -237,19 +276,19 @@ public class WechatUtil {
 		ViewButton button11 = new ViewButton();
 		button11.setName("官方网站");
 		button11.setType("view");
-		button11.setUrl("http://jch9ts.natappfree.cc/userlogin.jsp");
+		button11.setUrl("http://wayleung80.tunnel.echomod.cn/wechatUserLogin");
 		
 		
 		ViewButton button21 = new ViewButton();
 		button21.setName("运单查询");
 		button21.setType("view");
-		button21.setUrl("http://jch9ts.natappfree.cc/search.jsp");
+		button21.setUrl("http://wayleung80.tunnel.echomod.cn/user/search.html");
 		
 		
 		ViewButton button = new ViewButton();
 		button.setName("绑定账号");
 		button.setType("view");
-		button.setUrl("http://jch9ts.natappfree.cc/login.do");
+		button.setUrl("http://wayleung80.tunnel.echomod.cn/login.do");
 		
 /*		ClickButton button31 = new ClickButton();
 		button31.setName("扫码事件");
@@ -273,14 +312,10 @@ public class WechatUtil {
 	
 	
 	
-	public static int createMenu(String token,String menu){
-		int result = 0;
+	public static String createMenu(String token,String menu){
 		String url  = CREATE_MENU_URL.replace("ACCESS_TOKEN", token);
 		JSONObject jsonObject = doPostStr(url, menu);
-		if(jsonObject!=null){
-			return jsonObject.getInt("errcode");
-		}
-		return result;
+		return jsonObject.toString();
 	}
 	
 	
@@ -342,6 +377,57 @@ public static String getSha1(String str ) {
 
 	
 	
+/**
+ * 发送模板消息
+ * @param toUser
+ * @param access_token
+ * @param waybillStatusRtnVO
+ * @return
+ */
+public static String sendTemplateMessage(String toUser,String access_token,WaybillStatusRtnVO waybillStatusRtnVO) {
+    String url = SEND_TEMPLATE_URL.replace("ACCESS_TOKEN", access_token);
+    
+    
+    
+    String locationName=waybillStatusRtnVO.getLocationName();
+	String lacationTime=TimeUtil.dateToString(waybillStatusRtnVO.getLacationTime(), null);
+	String title="运单最新新状态";
+	String remark="点击可以查看运单物流详情";
+	String statusName=waybillStatusRtnVO.getStatusName();
+	String waybillNumber=waybillStatusRtnVO.getWaybillNumber().toString();
+	String toUrl="http://wayleung80.tunnel.echomod.cn/user/search.html";
+	
+	String jsonString = "{\"data\":{\"locationName\":{\"color\":\"#173177\",\"value\":\""+locationName+"\"},\"lacationTime\":{\"color\":\"#173177\",\"value\":\""+lacationTime+"\"},\"title\":{\"color\":\"#173177\",\"value\":\""+title+"\"},\"remark\":{\"color\":\"#173177\",\"value\":\""+remark+"\"},\"statusName\":{\"color\":\"#173177\",\"value\":\""+statusName+"\"},\"waybillNumber\":{\"color\":\"#173177\",\"value\":\""+waybillNumber+"\"}},\"template_id\":\""+TEMPLATE_ID+"\",\"touser\":\""+toUser+"\",\"url\":\""+toUrl+"\"}";
+    JSONObject jsonObject = WechatUtil.doPostStr(url, jsonString);
+    
+    return jsonObject.toString();
+    //log.info("模板消息发送结果："+result);
+}
+
+/**
+ * 测试发送模板消息
+ * @param toUser
+ * @param access_token
+ * @return
+ */
+public static String testSendTemplateMessage(String toUser,String access_token) {
+    String url = SEND_TEMPLATE_URL.replace("ACCESS_TOKEN", access_token);
+    
+    
+    
+    String locationName="李晓君";
+	String title="来自一只猪的告白";
+	String remark="我爱你";
+	String statusName="梁立威";
+	String toUrl="http://wayleung80.tunnel.echomod.cn/user/search.html";
+    String t_ID = "GANqsi6GuWjvXw9QsHDyFpgc8LBjmcpoYebWf4DzCIQ";
+    String jsonString = "{\"data\":{\"locationName\":{\"color\":\"#173177\",\"value\":\"李晓君\"},\"title\":{\"color\":\"#173177\",\"value\":\"来自一只猪的告白\"},\"remark\":{\"color\":\"#173177\",\"value\":\"我爱你，等我哟！\"},\"statusName\":{\"color\":\"#173177\",\"value\":\"梁立威\"}},\"template_id\":\""+t_ID+"\",\"touser\":\""+toUser+"\",\"url\":\""+toUrl+"\"}";
+	JSONObject jsonObject = WechatUtil.doPostStr(url, jsonString);
+    
+    return jsonObject.toString();
+    //log.info("模板消息发送结果："+result);
+}
+
 	
 /*	@Test*/
 	public void testtoken(){
@@ -350,14 +436,7 @@ public static String getSha1(String str ) {
 		System.out.println(token.getAccess_token());
 		System.out.println(token.getExpiresIn());
 		
-		String menu = JSONObject.fromObject(WechatUtil.initMenu()).toString();
-		int result = WechatUtil.createMenu(token.getAccess_token(), menu);
-		if(result==0){
-			System.out.println("创建菜单成功");
-		}else{
-			System.out.println("错误码:"+result);
-		}
-		
+
 /*		try {
 		
 		
@@ -370,4 +449,105 @@ public static String getSha1(String str ) {
 		}*/
 		
 	}
+	
+	
+	public static final String MESSAGE_TEXT = "text";
+	public static final String MESSAGE_NEWS = "news";
+	public static final String MESSAGE_IMAGE = "image";
+	public static final String MESSAGE_VOICE = "voice";
+	public static final String MESSAGE_VIDEO = "video";
+	public static final String MESSAGE_LINK = "link";
+	public static final String MESSAGE_LOCATION = "location";
+	
+/*	事件推送-event
+		-关注 subscribe
+		-取消关注 unsubscribe
+		-菜单点击 -CLICK VIEW*/
+	public static final String MESSAGE_EVENT = "event";
+	public static final String MESSAGE_SUBSCRIBE = "subscribe";
+	public static final String MESSAGE_UNSUBSCRIBE = "unsubcribe";
+	public static final String MESSAGE_CLICK = "CLICK";
+	public static final String MESSAGE_VIEW = "VIEW";
+	
+	
+    /**
+     * xml转map
+     * @param req
+     * @return
+     * @throws IOException
+     * @throws DocumentException
+     */
+    public static Map<String,String> xmlToMap(HttpServletRequest req) throws IOException, DocumentException {
+        HashMap<String, String> map = new HashMap<String, String>();
+        SAXReader saxReader = new SAXReader();
+        ServletInputStream inputStream = req.getInputStream();
+        Document document = saxReader.read(inputStream);
+
+        Element rootElement = document.getRootElement();
+
+        List <Element> elements = rootElement.elements();
+
+        for (Element el : elements){
+            map.put(el.getName(),el.getText());
+        }
+        inputStream.close();
+        return map;
+    }
+
+    /**
+     * 文本消息对象转换为xml
+     * @param textMessage
+     * @return
+     */
+    public static String textMessageToXml (TextMessage textMessage){
+        XStream xStream = new XStream();
+        xStream.alias("xml",textMessage.getClass());
+        return xStream.toXML(textMessage);
+    }
+    
+
+    /**
+     * 图文消息转换为xml
+     * @param newsMessage
+     * @return
+     */
+    public static String newsMessageToXml(NewsMessage newsMessage){
+		XStream xsStream = new XStream();
+		xsStream.alias("xml", newsMessage.getClass());
+		xsStream.alias("item", new News().getClass());
+		return xsStream.toXML(newsMessage);
+    }
+    
+    
+    /**
+     * 图文消息组装
+     * @param toUserName
+     * @param fromUserName
+     * @return
+     */
+    public static String initNewsMessage(String toUserName,String fromUserName){
+    	String message = null;
+    	List<News> newsList = new ArrayList<News>();
+    	NewsMessage newsMessage = new NewsMessage();
+    	
+    	News news = new News();
+    	news.setTitle("物流、运单最新状态");
+    	news.setDescription("2016-11-25 04:32:45\n[四川成都分拨中心]从站点发出，本次转运目的地：四川宜宾公司\n2016-11-25 03:22:30\n[四川成都分拨中心]在分拨中心进行卸车扫描 \n2016-11-23 21:19:03\n[浙江义乌分拨中心]进行装车扫描，即将发往：四川成都分拨中心\n2016-11-23 21:16:39\n[浙江义乌分拨中心]在分拨中心进行称重扫描\n2016-11-23 20:28:27\n[浙江主城区公司义乌山口服务部]进行揽件扫描\n2016-11-23 19:56:50\n[浙江主城区公司义乌山口服务部]进行下级地点扫描，将发往：四川南充分拨中心\n2016-11-23 17:40:47\n[浙江主城区公司义乌山口服务部]进行揽件扫描");
+    	news.setPicUrl("http://120.78.89.34/waybill/img/cover.jpg");
+    	news.setUrl("http://www.baidu.com");
+    	
+    	newsList.add(news);
+    	
+    	newsMessage.setToUserName(fromUserName);
+    	newsMessage.setFromUserName(toUserName);
+    	newsMessage.setCreateTime(new Date().getTime());
+    	newsMessage.setMsgType(MESSAGE_NEWS);
+    	newsMessage.setArticles(newsList);
+    	newsMessage.setArticleCount(newsList.size());
+    	
+    	message = newsMessageToXml(newsMessage);
+    	return message;
+    	
+    }
+	
 }

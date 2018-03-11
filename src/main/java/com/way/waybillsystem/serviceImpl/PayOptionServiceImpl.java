@@ -22,7 +22,7 @@ public class PayOptionServiceImpl implements IPayOptionService {
 	@Autowired
 	private PayOptionMapper payOptionMapper;
 	
-	private Logger Logger = LoggerFactory.getLogger(PayOptionMapper.class);
+	private Logger Logger = LoggerFactory.getLogger(PayOptionServiceImpl.class);
 	
 	@Override
 	@Transactional

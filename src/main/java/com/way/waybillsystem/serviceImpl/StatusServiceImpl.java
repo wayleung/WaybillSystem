@@ -22,7 +22,7 @@ public class StatusServiceImpl implements IStatusService {
 	@Autowired
 	private StatusMapper statusMapper;
 	
-	private Logger Logger = LoggerFactory.getLogger(StatusMapper.class);
+	private Logger Logger = LoggerFactory.getLogger(StatusServiceImpl.class);
 	
 	@Override
 	@Transactional

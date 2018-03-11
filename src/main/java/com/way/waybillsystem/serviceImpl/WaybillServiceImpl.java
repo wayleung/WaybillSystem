@@ -22,7 +22,7 @@ public class WaybillServiceImpl implements IWaybillService {
 	@Autowired
 	private WaybillMapper waybillMapper;
 	
-	private Logger Logger = LoggerFactory.getLogger(WaybillMapper.class);
+	private Logger Logger = LoggerFactory.getLogger(WaybillServiceImpl.class);
 	
 	@Override
 	@Transactional

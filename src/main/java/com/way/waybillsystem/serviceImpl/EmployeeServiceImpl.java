@@ -22,7 +22,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	@Autowired
 	private EmployeeMapper employeeMapper;
 	
-	private Logger Logger = LoggerFactory.getLogger(EmployeeMapper.class);
+	private Logger Logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 	
 	@Override
 	@Transactional
