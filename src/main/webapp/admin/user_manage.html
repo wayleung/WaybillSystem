@@ -20,73 +20,15 @@
 
 <body
 	class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-	<header class="app-header navbar">
-		<button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up"
-			type="button">☰</button>
-		<a class="navbar-brand" href="#"></a>
-		<ul class="nav navbar-nav hidden-md-down">
-			<li class="nav-item"><a
-				class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a></li>
-
-		</ul>
-		<ul class="nav navbar-nav ml-auto">
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle nav-link" data-toggle="dropdown"
-				href="#" role="button" aria-haspopup="true" aria-expanded="false">
-					<img src="img/avatars/6.jpg" class="img-avatar"
-					alt="admin@bootstrapmaster.com"> <span class="hidden-md-down">管理员</span>
-			</a>
-				<div class="dropdown-menu dropdown-menu-right">
-
-					<div class="dropdown-header text-center">
-						<strong>账号</strong>
-					</div>
-
-					<a class="dropdown-item" href="#"><i class="fa fa-user"></i> 资料</a>
-
-					<div class="dropdown-header text-center">
-						<strong>设置</strong>
-					</div>
-
-
-					<a class="dropdown-item" href="#"><i class="fa fa-wrench"></i>
-						设置</a>
-					<div class="divider"></div>
-					<a class="dropdown-item" href="#"><i class="fa fa-lock"></i> 登出</a>
-				</div></li>
-			<li class="nav-item hidden-md-down"></li>
-
-		</ul>
-	</header>
+	<include src="header.html"></include>
 
 
 	<div class="app-body">
-		<div class="sidebar">
+	
+			<div class="sidebar">
 			<nav class="sidebar-nav">
 				<ul class="nav">
-					<li class="nav-item"><a class="nav-link" href="index.html"><i
-							class="icon-speedometer"></i> 首页 <!-- <span class="badge badge-info">NEW</span> --></a>
-					</li>
-
-					<li class="nav-title">功能</li>
-					<li class="nav-item nav-dropdown"><a
-						class="nav-link nav-dropdown-toggle" href="#"><i
-							class="icon-puzzle"></i>网站管理</a>
-						<ul class="nav-dropdown-items">
-							<li class="nav-item"><a class="nav-link" href="#"><i
-									class="icon-star"></i>网站用户管理</a></li>
-							<li class="nav-item"><a class="nav-link" href="#"><i
-									class="icon-star"></i>网站信息管理</a></li>
-							<li class="nav-item"><a class="nav-link" href="#"><i
-									class="icon-star"></i>留言查看</a></li>
-						</ul></li>
-					<li class="nav-item nav-dropdown"><a class="nav-link" href="#"><i
-							class="icon-pie-chart"></i> 工作人员管理</a></li>
-					<li class="nav-item"><a class="nav-link" href="#"><i
-							class="icon-calculator"></i> 快递单号管理 <!-- <span class="badge badge-info">NEW</span> --></a>
-					</li>
-
-
+					<include src="sidebar.html"></include>
 				</ul>
 			</nav>
 		</div>
@@ -338,12 +280,7 @@
 
 	</div>
 
-
-	<footer class="app-footer">
-		<a href="#">W速运管理系统</a> © 2018 Way Leung. <span class="float-right"><a
-			href="#" target="_blank" title="W速运管理系统">W速运管理系统</a> - 技术由 <a
-			href="#" title="Way Leung" target="_blank">Way Leung</a> 提供 </span>
-	</footer>
+	<include src="footer.html"></include>
 
 	<!-- Bootstrap and necessary plugins -->
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -501,6 +438,94 @@
 	
 	
 	
+	/** 
+	 * include页面方法
+	 */  
+	(function(window, document, undefined) {  
+	    var Include39485748323 = function() {}  
+	    Include39485748323.prototype = {  
+	        //倒序循环  
+	        forEach: function(array, callback) {  
+	            var size = array.length;  
+	            for(var i = size - 1; i >= 0; i--){  
+	                callback.apply(array[i], [i]);  
+	            }  
+	        },  
+	        getFilePath: function() {  
+	            var curWwwPath=window.document.location.href;  
+	            var pathName=window.document.location.pathname;  
+	            var localhostPaht=curWwwPath.substring(0,curWwwPath.indexOf(pathName));  
+	            var projectName=pathName.substring(0,pathName.substr(1).lastIndexOf('/')+1);  
+	            return localhostPaht+projectName;  
+	        },  
+	        //获取文件内容  
+	        getFileContent: function(url) {  
+	            var ie = navigator.userAgent.indexOf('MSIE') > 0;  
+	            var o = ie ? new ActiveXObject('Microsoft.XMLHTTP') : new XMLHttpRequest();  
+	            o.open('get', url, false);  
+	            o.send(null);  
+	            return o.responseText;  
+	        },  
+	        parseNode: function(content) {  
+	            var objE = document.createElement("div");  
+	            objE.innerHTML = content;  
+	            return objE.childNodes;  
+	        },  
+	        executeScript: function(content) {  
+	            var mac = /<script>([\s\S]*?)<\/script>/g;  
+	            var r = "";  
+	            while(r = mac.exec(content)) {  
+	                eval(r[1]);  
+	            }  
+	        },  
+	        getHtml: function(content) {  
+	            var mac = /<script>([\s\S]*?)<\/script>/g;  
+	            content.replace(mac, "");  
+	            return content;  
+	        },  
+	        getPrevCount: function(src) {  
+	            var mac = /\.\.\//g;  
+	            var count = 0;  
+	            while(mac.exec(src)) {  
+	                count++;  
+	            }  
+	            return count;  
+	        },  
+	        getRequestUrl: function(filePath, src) {  
+	            if(/http:\/\//g.test(src)){ return src; }  
+	            var prevCount = this.getPrevCount(src);  
+	            while(prevCount--) {  
+	                filePath = filePath.substring(0,filePath.substr(1).lastIndexOf('/')+1);  
+	            }  
+	            return filePath + "/"+src.replace(/\.\.\//g, "");  
+	        },  
+	        replaceIncludeElements: function() {  
+	            var $this = this;  
+	            var filePath = $this.getFilePath();  
+	            var includeTals = document.getElementsByTagName("include");  
+	            this.forEach(includeTals, function() {  
+	                //拿到路径  
+	                var src = this.getAttribute("src");  
+	                //拿到文件内容  
+	                var content = $this.getFileContent($this.getRequestUrl(filePath, src));  
+	                //将文本转换成节点  
+	                var parent = this.parentNode;  
+	                var includeNodes = $this.parseNode($this.getHtml(content));  
+	                var size = includeNodes.length;  
+	                for(var i = 0; i < size; i++) {  
+	                    parent.insertBefore(includeNodes[0], this);  
+	                }  
+	                //执行文本中的额javascript  
+	                $this.executeScript(content);  
+	                parent.removeChild(this);  
+	                //替换元素 this.parentNode.replaceChild(includeNodes[1], this);  
+	            })  
+	        }  
+	    }  
+	    window.onload = function() {  
+	        new Include39485748323().replaceIncludeElements();  
+	    }  
+	})(window, document) 
 	
     </script>
 

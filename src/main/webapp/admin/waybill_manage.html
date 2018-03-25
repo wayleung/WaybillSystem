@@ -20,73 +20,16 @@
 
 <body
 	class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-	<header class="app-header navbar">
-		<button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up"
-			type="button">☰</button>
-		<a class="navbar-brand" href="#"></a>
-		<ul class="nav navbar-nav hidden-md-down">
-			<li class="nav-item"><a
-				class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a></li>
-
-		</ul>
-		<ul class="nav navbar-nav ml-auto">
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle nav-link" data-toggle="dropdown"
-				href="#" role="button" aria-haspopup="true" aria-expanded="false">
-					<img src="img/avatars/6.jpg" class="img-avatar"
-					alt="admin@bootstrapmaster.com"> <span class="hidden-md-down">管理员</span>
-			</a>
-				<div class="dropdown-menu dropdown-menu-right">
-
-					<div class="dropdown-header text-center">
-						<strong>账号</strong>
-					</div>
-
-					<a class="dropdown-item" href="#"><i class="fa fa-user"></i> 资料</a>
-
-					<div class="dropdown-header text-center">
-						<strong>设置</strong>
-					</div>
-
-
-					<a class="dropdown-item" href="#"><i class="fa fa-wrench"></i>
-						设置</a>
-					<div class="divider"></div>
-					<a class="dropdown-item" href="#"><i class="fa fa-lock"></i> 登出</a>
-				</div></li>
-			<li class="nav-item hidden-md-down"></li>
-
-		</ul>
-	</header>
+	
+	<include src="header.html"></include>
 
 
 	<div class="app-body">
-		<div class="sidebar">
+	
+			<div class="sidebar">
 			<nav class="sidebar-nav">
 				<ul class="nav">
-					<li class="nav-item"><a class="nav-link" href="index.html"><i
-							class="icon-speedometer"></i> 首页 <!-- <span class="badge badge-info">NEW</span> --></a>
-					</li>
-
-					<li class="nav-title">功能</li>
-					<li class="nav-item nav-dropdown"><a
-						class="nav-link nav-dropdown-toggle" href="#"><i
-							class="icon-puzzle"></i>网站管理</a>
-						<ul class="nav-dropdown-items">
-							<li class="nav-item"><a class="nav-link" href="#"><i
-									class="icon-star"></i>网站用户管理</a></li>
-							<li class="nav-item"><a class="nav-link" href="#"><i
-									class="icon-star"></i>网站信息管理</a></li>
-							<li class="nav-item"><a class="nav-link" href="#"><i
-									class="icon-star"></i>留言查看</a></li>
-						</ul></li>
-					<li class="nav-item nav-dropdown"><a class="nav-link" href="#"><i
-							class="icon-pie-chart"></i> 工作人员管理</a></li>
-					<li class="nav-item"><a class="nav-link" href="#"><i
-							class="icon-calculator"></i> 快递单号管理 <!-- <span class="badge badge-info">NEW</span> --></a>
-					</li>
-
-
+					<include src="sidebar.html"></include>
 				</ul>
 			</nav>
 		</div>
@@ -96,7 +39,6 @@
 		<main class="main"> <!-- Breadcrumb -->
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="#">首页</a></li>
-			<li class="breadcrumb-item">功能</li>
 			<li class="breadcrumb-item active">快递单号管理</li>
 			<!-- Breadcrumb Menu-->
 
@@ -105,8 +47,85 @@
 
 		 <div class="container-fluid">
                 <div class="animated fadeIn">
+                
+                
+                
+                
 <!--                     <div class="row"> -->
                         <div class="col-lg-12">
+                        
+                        <div class="card">
+				<div class="card-header">
+					<strong>查询</strong>
+				</div>
+				<div class="card-block">
+					<form action="" method="post"
+						class="form-horizontal ">
+
+						<div class="form-group row">
+							<label for="text-input" style="margin-left: 30px;">运单号码</label>
+							<div class="col-md-3">
+								<input type="text" id="waybill_number" name="waybill_number"
+									class="form-control" placeholder="请输入运单号码">
+								<!-- <span class="help-block">This is a help text</span> -->
+							</div>
+
+
+
+							<!-- 			<label for="select" style="margin-left: 30px;">所在部门</label>
+							<div class="col-md-2">
+								<select id="select" name="dept" class="form-control">
+									<option >请选择</option>
+									<option value="人事部">人事部</option>
+									<option value="秘书部">秘书部</option>
+									<option value="公关部">公关部</option>
+									<option value="市场部">市场部</option>
+								</select>
+							</div>
+							
+							
+							<label for="select" style="margin-left: 30px;">运单状态</label>
+							<div class="col-md-2">
+								<select id="select" name="user_status" class="form-control">
+									<option >请选择</option>
+									<option value="锁定">锁定</option>
+									<option value="挂起">挂起</option>
+									<option value="激活">激活</option>
+								</select>
+							</div>
+						</div>
+
+
+
+
+						<div class="form-group row">
+							<label for="text-input" style="margin-left: 30px;">创建时间</label>
+							<div class="col-md-2">
+								<input type="text" id="text-input" name="begin_time"
+									class="form-control" placeholder="开始时间"  onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+								<span class="help-block">This is a help text</span>
+							</div>
+							<label for="select">-</label>
+							<div class="col-md-2">
+								<input type="text" id="text-input" name="end_time"
+									class="form-control" placeholder="结束时间"  onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+								<span class="help-block">This is a help text</span>
+							</div> -->
+
+
+							<div class="col-md-2">
+								<input type="submit" class="btn btn-sm btn-primary" value="查询">
+								<input type="button" class="btn btn-sm btn-danger" value="重置">
+
+							</div>
+						</div>
+
+					</form>
+
+				</div>
+
+			</div>
+                        
                        <div class="card">
 						<div class="card-header">
 							<i class="fa fa-align-justify"></i>快递单号管理
@@ -161,6 +180,7 @@
 										<td>{{ item.createTime }}</td>
 										<td><a href="#"   v-on:click="Update(item)" data-toggle="modal" data-target="#UpdateModal"><span class="badge badge-success">修改</span></a>
 										<a href="#" v-on:click="Status(item)" data-toggle="modal" data-target="#StatusModal"><span class="badge badge-warning">运单状态</span></a>
+										<a href="#" v-on:click="AddStatus(item)" data-toggle="modal" data-target="#AddStatusModal"><span class="badge badge-info">新增运单状态</span></a>
 											<a href="#" v-on:click="Delete(item)" data-toggle="modal" data-target="#DeleteModal"><span class="badge badge-danger">删除</span></a></td>
 				</tr>
 			  
@@ -394,6 +414,85 @@
                 <!-- /.modal -->
                 
                 
+                
+                                  <div class="modal fade" id="AddStatusModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title">新增物流状态信息</h6>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                            
+                                    <form action="" method="post">
+                                    
+                                     <input v-model="addstatusinfo.waybillNumber" type="hidden" id="waybillNumber" name="" class="form-control">
+                                    
+                                    
+                                     <div class="form-group col-md-9">
+                                            <label >到达所在地</label>
+                                       		<select  v-model="addstatusinfo.locationName"  class="form-control" id="status" name="">
+                                                <option value="0">广东肇庆营业厅</option>
+                                                <option value="1">广东肇庆端州分部</option>
+                                                <option value="2">广东肇庆中转部</option>
+                                                <option value="3">广东广州中转部</option>
+                                                <option value="4">广东广州分部</option>
+                                                <option value="5">广东广州营业厅</option>
+                                            </select>
+                                        </div>
+                                        
+                                                                                
+                                         <div class="form-group col-md-9">
+                                            <label >到达所在地时间</label>
+                                          <input  v-model="addstatusinfo.lacationTime"  type="text" id="lacationTime" name="" class="form-control" placeholder="请输入">
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group col-md-9">
+                                            <label>状态</label>
+                                            
+                                            <select  v-model="addstatusinfo.status"  class="form-control" id="status" name="">
+                                                <option value="1">已收入</option>
+                                                <option value="2">已揽件</option>
+                                                <option value="3">运输中</option>
+                                                <option value="4">派送中</option>
+                                               	<option value="5">已签收</option>
+                                            </select>
+
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group col-md-9">
+                                            <label>负责人</label>
+                                            <select  v-model="addstatusinfo.employeeCharge"  class="form-control" id="status" name="">
+                                                <option value="1">刘师傅</option>
+                                                <option value="2">王师傅</option>
+                                            </select>
+                                        </div>
+                                        
+
+                                        
+                                        
+
+                                       
+                                                                          
+                                    </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <button type="button" id="addStatusButton" class="btn btn-primary">新增</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+                
+                
+                
 		<div class="modal fade" id="StatusModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -453,12 +552,7 @@
 
 	</div>
 
-
-	<footer class="app-footer">
-		<a href="#">W速运管理系统</a> © 2018 Way Leung. <span class="float-right"><a
-			href="#" target="_blank" title="W速运管理系统">W速运管理系统</a> - 技术由 <a
-			href="#" title="Way Leung" target="_blank">Way Leung</a> 提供 </span>
-	</footer>
+	<include src="footer.html"></include>
 
 	<!-- Bootstrap and necessary plugins -->
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -551,7 +645,14 @@
 					            	  //克隆一个对象   这样更新表单中改变数据 不会影响前端表单
 				                       var databack = $.extend({}, item);  
 					            	  update_vm.$data.updateinfo = databack;  
-					              }  
+					              } ,
+					              
+					              
+					              AddStatus: function (item) //删除  
+					              {  
+					            	  console.log(item); 
+					            	  addstatus_vm.$data.addstatusinfo = item;
+					              },
 					          }  
 							})
 					}
@@ -642,6 +743,125 @@
 	
 	
 	
+	
+	
+	
+	
+	
+    var addstatus_vm = new Vue({  
+        el: "#AddStatusModal",  
+        data: {  
+            addstatusinfo: {}  
+        }  
+    });  
+	
+    
+    
+    
+	
+	$("#addStatusButton").click(
+			function(){
+				console.log('addstatus submit');
+				 $.post(rootPath+'/insertWaybillStatus', addstatus_vm.$data.addstatusinfo, function (result) {  
+					 console.log(result);
+					 window.location.reload();
+		        //可以把vue.js数据替换从而更新更新到页面  
+	/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
+
+		    });  
+			}
+		);
+	
+	
+	
+	/** 
+	 * include页面方法
+	 */  
+	(function(window, document, undefined) {  
+	    var Include39485748323 = function() {}  
+	    Include39485748323.prototype = {  
+	        //倒序循环  
+	        forEach: function(array, callback) {  
+	            var size = array.length;  
+	            for(var i = size - 1; i >= 0; i--){  
+	                callback.apply(array[i], [i]);  
+	            }  
+	        },  
+	        getFilePath: function() {  
+	            var curWwwPath=window.document.location.href;  
+	            var pathName=window.document.location.pathname;  
+	            var localhostPaht=curWwwPath.substring(0,curWwwPath.indexOf(pathName));  
+	            var projectName=pathName.substring(0,pathName.substr(1).lastIndexOf('/')+1);  
+	            return localhostPaht+projectName;  
+	        },  
+	        //获取文件内容  
+	        getFileContent: function(url) {  
+	            var ie = navigator.userAgent.indexOf('MSIE') > 0;  
+	            var o = ie ? new ActiveXObject('Microsoft.XMLHTTP') : new XMLHttpRequest();  
+	            o.open('get', url, false);  
+	            o.send(null);  
+	            return o.responseText;  
+	        },  
+	        parseNode: function(content) {  
+	            var objE = document.createElement("div");  
+	            objE.innerHTML = content;  
+	            return objE.childNodes;  
+	        },  
+	        executeScript: function(content) {  
+	            var mac = /<script>([\s\S]*?)<\/script>/g;  
+	            var r = "";  
+	            while(r = mac.exec(content)) {  
+	                eval(r[1]);  
+	            }  
+	        },  
+	        getHtml: function(content) {  
+	            var mac = /<script>([\s\S]*?)<\/script>/g;  
+	            content.replace(mac, "");  
+	            return content;  
+	        },  
+	        getPrevCount: function(src) {  
+	            var mac = /\.\.\//g;  
+	            var count = 0;  
+	            while(mac.exec(src)) {  
+	                count++;  
+	            }  
+	            return count;  
+	        },  
+	        getRequestUrl: function(filePath, src) {  
+	            if(/http:\/\//g.test(src)){ return src; }  
+	            var prevCount = this.getPrevCount(src);  
+	            while(prevCount--) {  
+	                filePath = filePath.substring(0,filePath.substr(1).lastIndexOf('/')+1);  
+	            }  
+	            return filePath + "/"+src.replace(/\.\.\//g, "");  
+	        },  
+	        replaceIncludeElements: function() {  
+	            var $this = this;  
+	            var filePath = $this.getFilePath();  
+	            var includeTals = document.getElementsByTagName("include");  
+	            this.forEach(includeTals, function() {  
+	                //拿到路径  
+	                var src = this.getAttribute("src");  
+	                //拿到文件内容  
+	                var content = $this.getFileContent($this.getRequestUrl(filePath, src));  
+	                //将文本转换成节点  
+	                var parent = this.parentNode;  
+	                var includeNodes = $this.parseNode($this.getHtml(content));  
+	                var size = includeNodes.length;  
+	                for(var i = 0; i < size; i++) {  
+	                    parent.insertBefore(includeNodes[0], this);  
+	                }  
+	                //执行文本中的额javascript  
+	                $this.executeScript(content);  
+	                parent.removeChild(this);  
+	                //替换元素 this.parentNode.replaceChild(includeNodes[1], this);  
+	            })  
+	        }  
+	    }  
+	    window.onload = function() {  
+	        new Include39485748323().replaceIncludeElements();  
+	    }  
+	})(window, document) 
     </script>
 
 

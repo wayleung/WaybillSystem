@@ -54,6 +54,17 @@ public class WaybillAction  extends BaseAction {
 		return waybillService.selectWaybillByPrimaryKey(waybillNumber);
 	}
 	
+/*	@RequestMapping(value="/selectWaybillByPrimaryKey",method=RequestMethod.GET)
+	@ResponseBody
+	public Result<Waybill> selectWaybillByPrimaryKey(Long waybillNumber){
+		Waybill data = waybillService.selectWaybillByPrimaryKey(waybillNumber);
+		if(data!=null){
+			return new Result<Waybill>(true, data, "查询Waybills表成功！", "1");
+		}else{
+			return new Result<Waybill>(false, null, "Waybills表为空！", "0");
+		}
+	}*/
+	
 	@RequestMapping(value="/selectAllWaybillsByPage",method=RequestMethod.GET)
 	@ResponseBody
 	public PageInfo<Waybill> selectAllWaybillsByPage(QueryByPageObject queryObject){

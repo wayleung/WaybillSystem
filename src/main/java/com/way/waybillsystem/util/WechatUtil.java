@@ -410,22 +410,21 @@ public static String sendTemplateMessage(String toUser,String access_token,Waybi
  * @param access_token
  * @return
  */
-public static String testSendTemplateMessage(String toUser,String access_token) {
-    String url = SEND_TEMPLATE_URL.replace("ACCESS_TOKEN", access_token);
-    
-    
-    
-    String locationName="李晓君";
-	String title="来自一只猪的告白";
-	String remark="我爱你";
-	String statusName="梁立威";
+/*@Test*/
+public static void testSendTemplateMessage(String toUser,String access_token) {
+    String url = SEND_TEMPLATE_URL.replace("ACCESS_TOKEN",access_token );
+
 	String toUrl="http://wayleung80.tunnel.echomod.cn/user/search.html";
-    String t_ID = "GANqsi6GuWjvXw9QsHDyFpgc8LBjmcpoYebWf4DzCIQ";
-    String jsonString = "{\"data\":{\"locationName\":{\"color\":\"#173177\",\"value\":\"李晓君\"},\"title\":{\"color\":\"#173177\",\"value\":\"来自一只猪的告白\"},\"remark\":{\"color\":\"#173177\",\"value\":\"我爱你，等我哟！\"},\"statusName\":{\"color\":\"#173177\",\"value\":\"梁立威\"}},\"template_id\":\""+t_ID+"\",\"touser\":\""+toUser+"\",\"url\":\""+toUrl+"\"}";
-	JSONObject jsonObject = WechatUtil.doPostStr(url, jsonString);
-    
-    return jsonObject.toString();
-    //log.info("模板消息发送结果："+result);
+    String locationName="测试所在地名";
+ 	String lacationTime="2018-03-11 23:19:00";
+ 	String title="运单最新新状态";
+ 	String remark="点击可以查看运单物流详情";
+ 	String statusName="测试状态名";
+ 	String waybillNumber="123456";
+ 	
+ 	String jsonString = "{\"data\":{\"locationName\":{\"color\":\"#173177\",\"value\":\""+locationName+"\"},\"lacationTime\":{\"color\":\"#173177\",\"value\":\""+lacationTime+"\"},\"title\":{\"color\":\"#173177\",\"value\":\""+title+"\"},\"remark\":{\"color\":\"#173177\",\"value\":\""+remark+"\"},\"statusName\":{\"color\":\"#173177\",\"value\":\""+statusName+"\"},\"waybillNumber\":{\"color\":\"#173177\",\"value\":\""+waybillNumber+"\"}},\"template_id\":\""+TEMPLATE_ID+"\",\"touser\":\""+toUser+"\",\"url\":\""+toUrl+"\"}";
+     JSONObject jsonObject = WechatUtil.doPostStr(url, jsonString);
+
 }
 
 	

@@ -57,7 +57,8 @@ public class WechatAction  extends BaseAction {
 	}
 	
 	
-	@RequestMapping(value="/wechatJoinUp",method=RequestMethod.GET)
+	//@RequestMapping(value="/wechatJoinUp",method=RequestMethod.GET)
+	@RequestMapping(value="/wechatJoinUp")
 	@ResponseBody
 	public void wechatJoinup(HttpServletRequest request,HttpServletResponse response) throws IOException{
 	    // 将请求、响应的编码均设置为UTF-8（防止中文乱码）  
@@ -108,7 +109,7 @@ public class WechatAction  extends BaseAction {
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/wechatUserLogin",method=RequestMethod.GET)
-	public void wechatLogin(HttpServletRequest req,HttpServletResponse resp) throws IOException{
+	public void wechatUserLogin(HttpServletRequest req,HttpServletResponse resp) throws IOException{
 		//登陆后的回调地址
 		/*
 		 * 尤其注意：跳转回调redirect_uri，应当使用https链接来确保授权code的安全性。
@@ -190,9 +191,9 @@ public class WechatAction  extends BaseAction {
 	
 	
 	@RequestMapping(value="/testSendTemplateMessage",method=RequestMethod.GET)
-	public String testSendTemplateMessage(){
+	public void testSendTemplateMessage(){
 		WechatToken accessToken = wechatTokenService.getAndSaveAccessToken();
 		String access_token = accessToken.getToken();
-		 return WechatUtil.testSendTemplateMessage("oZHEd1W8OA-bRNgAIYhio5wEdApI", access_token);
+		WechatUtil.testSendTemplateMessage("oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ", access_token);
 	}
 }
