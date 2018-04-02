@@ -92,6 +92,7 @@ public class WaybillStatusAction  extends BaseAction {
 			
 			//调用微信发送消息模板接口
 			System.out.println("调用微信发送消息模板接口");
+			
 			WechatUtil.sendTemplateMessage(openId, access_token, waybillStatusRtnVO);
 		}
 		
