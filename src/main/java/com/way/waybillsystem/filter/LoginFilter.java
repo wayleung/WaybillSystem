@@ -32,7 +32,7 @@ public class LoginFilter implements Filter{
 	        if(uri.contains("/login")||uri.contains("/register")||uri.contains("/nav")||uri.contains("/head")||uri.contains("/footer")||uri.contains("/sidebar")){
 	        	chain.doFilter(req, resp);
 	        }else{
-	        	 if(uri.contains("/user")){
+	        	 if(uri.contains("/user")&&!uri.contains("manage")){
 	        		 if(session.getAttribute("user")!=null){
 	 	        		chain.doFilter(req, resp);
 	 		        }else{
