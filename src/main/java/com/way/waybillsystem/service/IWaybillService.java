@@ -26,5 +26,7 @@ public interface IWaybillService {
 	List<Waybill> selectAllWaybills();
 	
 	PageInfo<Waybill> selectAllWaybillsByPage(QueryByPageObject queryObject);
+
+	Waybill selectWaybillByWaybillNumber(Long waybillNumber);
 	
 }

@@ -13,6 +13,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.User;
 import com.way.waybillsystem.entity.UserExample;
+import com.way.waybillsystem.entity.UserExample.Criteria;
 import com.way.waybillsystem.mapper.UserMapper;
 import com.way.waybillsystem.service.IUserService;
 import com.way.waybillsystem.util.TimeUtil;
@@ -69,6 +70,36 @@ public class UserServiceImpl implements IUserService {
 		List<User> list =  userMapper.selectByExample(example);
 		PageInfo<User> pageInfo = new PageInfo<>(list);
 		return pageInfo;
+	}
+
+	@Override
+	public User selectUserByAccount(String account) {
+		// TODO Auto-generated method stub
+		UserExample example = new UserExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAccountEqualTo(account);
+		List<User> list = userMapper.selectByExample(example);
+		if(list!=null&&list.size()>0){
+			return list.get(0);
+		}else{
+			return null;
+		}
+		
+	}
+
+	@Override
+	public int wechatBind(User user,String openid) {
+		System.out.println("----"+openid);
+		// TODO Auto-generated method stub
+		user.setWechatId(openid);
+		return userMapper.updateByPrimaryKey(user);
+	}
+
+	@Override
+	public int wechatUnbind(User user) {
+		// TODO Auto-generated method stub
+		user.setWechatId(null);
+		return userMapper.updateByPrimaryKey(user);
 	}
 
 }

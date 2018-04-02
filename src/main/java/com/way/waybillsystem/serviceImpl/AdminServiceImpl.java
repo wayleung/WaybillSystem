@@ -13,6 +13,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Admin;
 import com.way.waybillsystem.entity.AdminExample;
+import com.way.waybillsystem.entity.AdminExample.Criteria;
 import com.way.waybillsystem.mapper.AdminMapper;
 import com.way.waybillsystem.service.IAdminService;
 import com.way.waybillsystem.vo.QueryByPageObject;
@@ -69,6 +70,20 @@ public class AdminServiceImpl implements IAdminService {
 		List<Admin> list =  adminMapper.selectByExample(example);
 		PageInfo<Admin> pageInfo = new PageInfo<>(list);
 		return pageInfo;
+	}
+
+	@Override
+	public Admin selectAdminByAccount(String account) {
+		AdminExample example = new AdminExample();
+		// TODO Auto-generated method stub
+		Criteria criteria = example.createCriteria();
+		criteria.andAccountEqualTo(account);
+		List<Admin> list = adminMapper.selectByExample(example);
+		if(list!=null&&list.size()>0){
+			return list.get(0);
+		}else{
+			return null;
+		}
 	}
 
 }

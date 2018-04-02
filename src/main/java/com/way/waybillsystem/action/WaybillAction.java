@@ -2,6 +2,8 @@ package com.way.waybillsystem.action;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.way.waybillsystem.entity.User;
 import com.way.waybillsystem.entity.Waybill;
+import com.way.waybillsystem.exception.ErrorCodeConstant;
 import com.way.waybillsystem.service.IWaybillService;
 import com.way.waybillsystem.vo.QueryByPageObject;
 import com.way.waybillsystem.vo.Result;
@@ -70,4 +74,26 @@ public class WaybillAction  extends BaseAction {
 	public PageInfo<Waybill> selectAllWaybillsByPage(QueryByPageObject queryObject){
 		return waybillService.selectAllWaybillsByPage(queryObject);
 	}
+	
+	@RequestMapping(value="/followWaybill",method=RequestMethod.POST)
+	@ResponseBody
+	public Result<Waybill> followWaybill(HttpServletRequest request,Long waybillNumber){
+		User user = (User) request.getSession().getAttribute("user");
+		if(user!=null){
+			Long userid = user.getId();
+			Waybill waybill = waybillService.selectWaybillByWaybillNumber(waybillNumber);
+			if(waybill!=null){
+				waybill.setUserId(userid);
+				waybillService.updateWaybillByPrimarykey(waybill);
+				return new Result<Waybill>(true,waybill, "追踪物流运单成功", "1");
+			}else{
+				return new Result<Waybill>(false,ErrorCodeConstant.E00015.getMessage(), ErrorCodeConstant.E00015.getCode());
+			}
+			
+		}else{
+			return new Result<Waybill>(false,ErrorCodeConstant.E00013.getMessage(), ErrorCodeConstant.E00013.getCode());
+		}
+		
+	}
+	
 }

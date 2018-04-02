@@ -13,6 +13,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Waybill;
 import com.way.waybillsystem.entity.WaybillExample;
+import com.way.waybillsystem.entity.WaybillExample.Criteria;
 import com.way.waybillsystem.mapper.WaybillMapper;
 import com.way.waybillsystem.service.IWaybillService;
 import com.way.waybillsystem.vo.QueryByPageObject;
@@ -51,6 +52,20 @@ public class WaybillServiceImpl implements IWaybillService {
 		// TODO Auto-generated method stub
 		return waybillMapper.selectByPrimaryKey(id);
 	}
+	
+	
+	@Override
+	public Waybill selectWaybillByWaybillNumber(Long waybillNumber) {
+		WaybillExample example = new WaybillExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andWaybillNumberEqualTo(waybillNumber);
+		// TODO Auto-generated method stub
+		List<Waybill> list = waybillMapper.selectByExample(example);
+		if(list!=null&&list.size()>0){
+			return list.get(0);
+		}
+		return null;
+	}
 
 	@Override
 	public List<Waybill> selectAllWaybills() {
@@ -69,5 +84,7 @@ public class WaybillServiceImpl implements IWaybillService {
 		PageInfo<Waybill> pageInfo = new PageInfo<>(list);
 		return pageInfo;
 	}
+	
+	
 
 }

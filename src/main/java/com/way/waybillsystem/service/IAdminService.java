@@ -23,6 +23,8 @@ public interface IAdminService {
 	
 	Admin selectAdminByPrimaryKey(Integer id);
 	
+	Admin selectAdminByAccount(String account);
+	
 	List<Admin> selectAllAdmins();
 	
 	PageInfo<Admin> selectAllAdminsByPage(QueryByPageObject queryObject);

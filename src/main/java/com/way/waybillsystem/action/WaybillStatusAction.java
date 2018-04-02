@@ -166,4 +166,6 @@ public class WaybillStatusAction  extends BaseAction {
 		}
 		return new Result<List<WaybillStatusRtnVO>>(true, datas, "查询WaybillStatus表成功！", "1");
 	}
+	
+	
 }

@@ -8,6 +8,9 @@
      这个过滤器就是针对于每次浏览器请求进行过滤的，然后再其之上添加了父类没有的功能即处理字符编码。  
       其中encoding用来设置编码格式，forceEncoding用来设置是否理会 request.getCharacterEncoding()方法，设置为true则强制覆盖之前的编码格式。--> 
       
+
+      
+      
 	   <filter>  
         <filter-name>characterEncodingFilter</filter-name>  
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
@@ -19,11 +22,28 @@
             <param-name>forceEncoding</param-name>  
             <param-value>true</param-value>  
         </init-param>  
-    </filter>  
+    </filter> 
+    
+    
+                <filter>
+      <filter-name>LoginFilter</filter-name>
+      <filter-class>com.way.waybillsystem.filter.LoginFilter</filter-class>
+  </filter>
+    
+    
+        <filter-mapping>
+      <filter-name>LoginFilter</filter-name>
+      <url-pattern>*.html</url-pattern>
+  </filter-mapping>
+  
+     
     <filter-mapping>  
         <filter-name>characterEncodingFilter</filter-name>  
         <url-pattern>/*</url-pattern>  
     </filter-mapping>
+    
+    
+  
 
 
   <!--配置spring配置文件-->
@@ -36,6 +56,9 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  
+  
+  
   
   
   

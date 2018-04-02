@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.CodeTokenOpenid;
 import com.way.waybillsystem.entity.User;
 import com.way.waybillsystem.entity.WechatToken;
+import com.way.waybillsystem.exception.ErrorCodeConstant;
 import com.way.waybillsystem.mapper.AdminMapper;
 import com.way.waybillsystem.service.ICodeTokenOpenidService;
 import com.way.waybillsystem.service.IWechatTokenService;
@@ -136,12 +138,12 @@ public class WechatAction  extends BaseAction {
 		/*code说明 ： code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。*/ 
 		
 		String code = req.getParameter("code");
-		System.out.println("--code:"+code);
+		//System.out.println("--code:"+code);
 		//通过code换取网页授权access_token
 		//这个access_token跟那个不一样？
 		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WechatUtil.getAppid()+"&secret="+WechatUtil.getAppsecret()+"&code="+code+"&grant_type=authorization_code";
 		JSONObject jsonObject = WechatUtil.doGetStr(url);
-		System.out.println("--jsonObject:"+jsonObject);
+		//System.out.println("--jsonObject:"+jsonObject);
 		String token =""; 
 		String openid ="";
 		CodeTokenOpenid code_db = codeTokenOpenidService.selectTokenByCode(code);
@@ -162,13 +164,12 @@ public class WechatAction  extends BaseAction {
 		/*
 		 * 把openid存进session
 		 */
-
-		session.setAttribute("openid", openid);
+		
+		req.getSession().setAttribute("openid", openid);
 
 		//获取用户信息
 		String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+token+"&openid="+openid+"&lang=zh_CN";
 		JSONObject userinfo = WechatUtil.doGetStr(infoUrl);
-		System.out.println("--userinfo:"+userinfo);
 		
 		//1.使用微信用户信息直接登陆 无需注册和绑定
 		//req.setAttribute("info", userinfo);
@@ -186,7 +187,7 @@ public class WechatAction  extends BaseAction {
 	
 
 
-	
+
 	
 	
 	

@@ -23,8 +23,15 @@ public interface IUserService {
 	
 	User selectUserByPrimaryKey(Long id);
 	
+	User selectUserByAccount(String account);
+	
 	List<User> selectAllUsers();
 	
 	PageInfo<User> selectAllUsersByPage(QueryByPageObject queryObject);
+	
+	
+	int wechatBind(User user,String openid);
+	
+	int wechatUnbind(User user);
 	
 }

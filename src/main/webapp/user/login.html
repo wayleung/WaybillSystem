@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-	<title>W速运-首页&mdash;基于物流，融通金融，流通商业</title>
+	<title>W速运-用户登录&mdash;基于物流，融通金融，流通商业</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,35 +39,23 @@
 	<![endif]-->
 
 	</head>
-	<body>
-		
+<body>
+
 	<div class="gtco-loader"></div>
-	
+
 	<div id="page">
-	
-<nav class="gtco-nav" role="navigation">
+		<nav class="gtco-nav" role="navigation">
 		<div class="gtco-container">
-<!-- 			<div class="row">
-				<div class="col-md-12 text-right gtco-contact">
-					<ul class="">
-						<li><a href="#"><i class="ti-mobile"></i> +1 (0)123 456 7890 </a></li>
-						<li><a href="http://twitter.com/gettemplatesco"><i class="ti-twitter-alt"></i> </a></li>
-						<li><a href="#"><i class="icon-mail2"></i></a></li>
-						<li><a href="#"><i class="ti-facebook"></i></a></li>
-					</ul>
-				</div>
-			</div> -->
 			<div class="row">
 				<div class="col-sm-4 col-xs-12">
 					<div id="gtco-logo"><a href="index.html">W速运 <em>.</em></a></div>
 				</div>
-				
 				<div class="col-xs-8 text-right menu-1">
 					<ul>
 						<li ><a href="index.html">首页</a></li>
 						<li><a href="search.html">运单查询</a></li>
-						<li class="active"><a href="fee.html">服务简介</a></li>
-						<li  ><a href="about.html">公司简介</a></li>
+						<li><a href="fee.html">服务简介</a></li>
+						<li><a href="about.html">公司简介</a></li>
 						<li><a href="contactus.html">联系我们</a></li>
 						<li class="has-dropdown">
 							<a href="#">账户</a>
@@ -83,107 +71,51 @@
 		</div>
 	</nav>
 	
-<header id="gtco-header" class="gtco-cover gtco-cover-xs"
-			role="banner"
-			style="background-image: url(user/images/img_bg_1.jpg);">
-			<div class="overlay"></div>
-			<div class="gtco-container">
+	
+	
+	<header id="gtco-header" class="gtco-cover" role="banner" >
+		<div class="overlay"></div>
+		<div class="gtco-container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center">
 						<div class="display-t">
 							<div class="display-tc">
-								<h1 class="animate-box" data-animate-effect="fadeInUp">W速运</h1>
-								<h2 class="animate-box" data-animate-effect="fadeInUp">基于物流，融通金融，流通商业</h2>
+								<h2 class="animate-box" data-animate-effect="fadeInUp">用户登录</h2>
+								
+									<input
+									style="background: transparent; color: #fff; font-size: 16px !important; width: 100%; border: 2px solid rgba(255, 255, 255, 0.2) !important; -webkit-transition: 0.5s; -o-transition: 0.5s; transition: 0.5s; margin-top: 20px;"
+									type="text" class="form-control" id="account"
+									name="account" placeholder="用户账号"> <input
+									style="background: transparent; color: #fff; font-size: 16px !important; width: 100%; border: 2px solid rgba(255, 255, 255, 0.2) !important; -webkit-transition: 0.5s; -o-transition: 0.5s; transition: 0.5s; margin-top: 20px;"
+									type="password" class="form-control" id="password"
+									name="password" placeholder="用户密码">
+									
+									
+									<input
+									style="background: transparent; color: #fff; font-size: 16px !important; width: 100%; border: 2px solid rgba(255, 255, 255, 0.2) !important; -webkit-transition: 0.5s; -o-transition: 0.5s; transition: 0.5s; margin-top: 20px;margin-right: 10px;"
+									type="text" class="form-control" id="verifyCode" placeholder="验证码" >
+                                <label><img type="image" src="/authCode.do" id="codeImage" onclick="chageCode()" title="图片看不清？点击重新得到验证码" style="cursor:pointer;margin-top: 10px;"/></label>
+							    <label><a onclick="chageCode()">换一张</a></label>
+									
+								<button type="submit" onclick="login()"
+									style="margin-top: 20px; height: 54px; border: none !important; background: #17B794; color: #fff; font-size: 16px; text-transform: uppercase; font-weight: 400; padding-left: 50px; padding-right: 50px;"
+									class="btn btn-default btn-block">登录</button>
+								
+								<a href="register.html"><button type="button" id="search"
+									style="margin-top: 20px; height: 54px; border: none !important; background: #17B794; color: #fff; font-size: 16px; text-transform: uppercase; font-weight: 400; padding-left: 50px; padding-right: 50px;"
+									class="btn btn-default btn-block">没有账号？注册</button></a>
+								<p id="msg" style="color: red;"></p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</header>
+	</header>
 
 
-		<div class="gtco-section">
-			<div class="gtco-container">
 
-				<div class="row animate-box">
-					<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-						<h2>服务介绍</h2>
-						<p>成为最值得信赖的，基于物流的商业伙伴</p>
-					</div>
-				</div>
 
-				<div class="row">
-					<div class="col-md-6">
-						<div class="feature-left animate-box"
-							data-animate-effect="fadeInLeft">
-							<span class="icon"> <i class="icon-check"></i>
-							</span>
-							<div class="feature-copy">
-								<h3>可即日到达</h3>
-								<p>w速运为您提供当日寄件，当日送达的快递服务。</p>
-							</div>
-						</div>
-
-						<div class="feature-left animate-box"
-							data-animate-effect="fadeInLeft">
-							<span class="icon"> <i class="icon-check"></i>
-							</span>
-							<div class="feature-copy">
-								<h3>递送承诺</h3>
-								<p>在指定服务范围和寄递时间内收寄，承诺当日20:00前送达。</p>
-							</div>
-						</div>
-
-						<div class="feature-left animate-box"
-							data-animate-effect="fadeInLeft">
-							<span class="icon"> <i class="icon-check"></i>
-							</span>
-							<div class="feature-copy">
-								<h3>服务特性</h3>
-								<p>时效较快、精准，当天寄，当天到； 快件超时送达，客户可申请抵免运费；
-									当您寄递的快件发生损坏或遗失时，一经核实即可按照实际损失赔付，损坏最高可赔付200元，遗失最高可赔付500元；
-									w速运所有增值服务均支持。</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="feature-left animate-box"
-							data-animate-effect="fadeInLeft">
-							<span class="icon"> <i class="icon-check"></i>
-							</span>
-							<div class="feature-copy">
-								<h3>服务时间</h3>
-								<p>周一至周五提供收派服务，周六、周日及法定节假日暂不提供。</p>
-							</div>
-						</div>
-
-						<div class="feature-left animate-box"
-							data-animate-effect="fadeInLeft">
-							<span class="icon"> <i class="icon-check"></i>
-							</span>
-							<div class="feature-copy">
-								<h3>使用须知</h3>
-								<p>在跨省及跨经济圈重点城市之间，也可提供即日服务，承诺当日22:00前送达。</p>
-							</div>
-						</div>
-
-						<div class="feature-left animate-box"
-							data-animate-effect="fadeInLeft">
-							<span class="icon"> <i class="icon-check"></i>
-							</span>
-							<div class="feature-copy">
-								<h3>服务范围</h3>
-								<p>中国大陆主要城市均可提供w速运即日服务，主要覆盖同城、同省、同经济圈线路，具体请咨询在线客服或当地收派员。</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row"></div>
-			</div>
-		</div>
-
-	
-	<footer id="gtco-footer" role="contentinfo">
+			<footer id="gtco-footer" role="contentinfo">
 		<div class="gtco-container">
 			<div class="row row-p	b-md">
 
@@ -239,24 +171,23 @@
 
 		</div>
 	</footer>
-	
-	
-	
-	
 	</div>
 
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
-	
-	
 
-	</body>
-	
+
+</body>
+
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
+	
 	<!-- jQuery Easing -->
+	<!-- 这段自己的js必须放在jq后 不然样式会出错 不显示 被其他js覆盖-->
+	
 		<script type="text/javascript">
+	
 
 	
 	
@@ -317,6 +248,7 @@
 						//ul+= "<li><a href=\"/wechatBind\">绑定微信</a></li>";
 					}
 					
+					
 					$('#loginbutton').append(ul);
 				};
 				
@@ -348,6 +280,51 @@
 			}
 		});
 	}
+	 function chageCode(){
+	        $('#codeImage').attr('src','/authCode?abc='+Math.random());//链接后添加Math.random，确保每次产生新的验证码，避免缓存问题。
+	    }
+	 
+	 
+	 
+	
+	    /*
+	     * 删除元素子节点以及内容
+	     */
+	    function deleteAll(id){
+	    	$('#'+id).empty();
+	    } 
+	     
+	     
+	    function addMsg(id,msg){
+	    	$('#'+id).text(msg);
+	    }
+	    
+
+		
+		
+		
+	    function login(){
+	    		var json = {
+	    				"account" : $('#account').val(),
+	    				"password" : $('#password').val(),
+	    				"verifyCode" : $('#verifyCode').val(),
+	    			};
+		    	$.ajax({
+					url : rootPath+'userLogin',
+					type : "get",
+					async : false,
+					data : json,
+					success : function(data) {
+						var datas =data;
+						console.log(datas);
+						deleteAll('msg');
+ 						addMsg('msg',datas.msg);
+						if(datas.success===true){
+							window.location.href = rootPath+'user/index.html';
+						} 
+					}
+				}); 
+	    }
 	</script>
 	<script src="js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
@@ -364,5 +341,6 @@
 	<!-- Main -->
 	<script src="js/main.js"></script>
 
+	
 </html>
 

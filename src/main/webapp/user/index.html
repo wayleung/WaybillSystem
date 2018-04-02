@@ -42,58 +42,29 @@
 	<body>
 		
 	<div class="gtco-loader"></div>
-	
+
 	<div id="page">
-	
-<nav class="gtco-nav" role="navigation">
+		<nav class="gtco-nav" role="navigation">
 		<div class="gtco-container">
-<!-- 			<div class="row">
-				<div class="col-md-12 text-right gtco-contact">
-					<ul class="">
-						<li><a href="#"><i class="ti-mobile"></i> +1 (0)123 456 7890 </a></li>
-						<li><a href="http://twitter.com/gettemplatesco"><i class="ti-twitter-alt"></i> </a></li>
-						<li><a href="#"><i class="icon-mail2"></i></a></li>
-						<li><a href="#"><i class="ti-facebook"></i></a></li>
-					</ul>
-				</div>
-			</div> -->
 			<div class="row">
 				<div class="col-sm-4 col-xs-12">
 					<div id="gtco-logo"><a href="index.html">W速运 <em>.</em></a></div>
 				</div>
-				<div class="col-xs-8 text-right menu-1">
+				<div  class="col-xs-8 text-right menu-1">
 					<ul>
-						<li class="active"><a href="index.html">首页</a></li>
+						<li  class="active"><a href="index.html">首页</a></li>
 						<li><a href="search.html">运单查询</a></li>
 						<li><a href="fee.html">服务简介</a></li>
 						<li><a href="about.html">公司简介</a></li>
 						<li><a href="contactus.html">联系我们</a></li>
 						<li class="has-dropdown">
 							<a href="#">账户</a>
-							<ul class="dropdown">
-<!-- 							<% 
-								User user =(User) session.getAttribute("user");
-								if(user!=null){
-									
-								
-							%> -->
-<!-- 								<li><a href="wechatbind.jsp">绑定微信</a></li> -->
-								<li><a href="wechatunbind.jsp">解绑微信</a></li>
-								<!-- <li><a href="#">个人设置</a></li> -->
-								<li><a href="userLogout.do">登出</a></li>
-
-<!-- 							<%
-								}else{
-							%> -->
-								<li><a href="userlogin.jsp">登录</a></li>
-<!-- 							<%
-								}
-							%> -->
-								
-								
+							<ul id="loginbutton" class="dropdown">				
+			
 							</ul>
 						</li>
 					</ul>
+					
 				</div>
 			</div>
 			
@@ -221,6 +192,100 @@
 	
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
+		<script type="text/javascript">
+
+	
+	
+	
+	
+
+    function getHostPath() {
+		var curWwwPath = window.document.location.href;
+		var pathName = window.document.location.pathname;
+		var pos = curWwwPath.indexOf(pathName);
+		//获取主机地址，如： http://localhost:8083
+		var localhostPath = curWwwPath.substring(0, pos);
+		return localhostPath;
+	}
+    
+    var rootPath = getHostPath() + "/";
+	
+	
+    
+    
+	$(document).ready(function(){
+		$.ajax({
+			url : rootPath+'checkWechatAndLogin',
+			type : "get",
+			async : false,
+			success : function(data) {
+					console.log(data);
+					
+					
+					/*
+					datas
+					:
+					isLogin
+					:
+					true
+					isWechatBind
+					:
+					true
+					isWechatLogin
+					:
+					false
+					*/
+					
+				if(data.datas.isLogin==false){
+					var ul = "<li><a href=\"login.html\">登录</a></li>";
+					$('#loginbutton').append(ul);
+				}else{
+					var ul = "<li><a href=\"/userLogout\">登出</a></li>";
+
+					
+					if(data.datas.isWechatLogin==true&&data.datas.isWechatBind==true){
+					//ul+= "<li><a href=\"/wechatUnbind\">解绑微信</a></li>";
+					 ul+= "<li><a onclick=\"wechatUnbind()\">解绑微信</a></li>";
+					
+					}else if(data.datas.isWechatLogin==true&&data.datas.isWechatBind==false){
+						
+						 ul+= "<li><a onclick=\"wechatBind()\">绑定微信</a></li>";
+						//ul+= "<li><a href=\"/wechatBind\">绑定微信</a></li>";
+					}
+					
+					
+					$('#loginbutton').append(ul);
+				};
+				
+			}
+		}); 
+	});
+	
+	
+	
+	function wechatUnbind(){
+		$.ajax({
+			url:rootPath+"wechatUnbind",
+			type:"post",
+			async : true,
+			success: function(data){
+				alert('成功解绑微信');
+			}
+		});
+	}
+	
+	
+	function wechatBind(){
+		$.ajax({
+			url:rootPath+"wechatBind",
+			type:"post",
+			async : true,
+			success: function(data){
+				alert('成功绑定微信');
+			}
+		});
+	}
+	</script>
 	<!-- jQuery Easing -->
 	<script src="js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
@@ -236,5 +301,6 @@
 	<script src="js/magnific-popup-options.js"></script>
 	<!-- Main -->
 	<script src="js/main.js"></script>
+
 </html>
 
