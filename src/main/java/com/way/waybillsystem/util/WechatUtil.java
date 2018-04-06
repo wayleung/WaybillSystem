@@ -288,7 +288,7 @@ public class WechatUtil {
 		ViewButton button = new ViewButton();
 		button.setName("绑定账号");
 		button.setType("view");
-		button.setUrl("http://wayleung80.tunnel.echomod.cn/login.do");
+		button.setUrl("http://wayleung80.tunnel.echomod.cn/user/index.html");
 		
 /*		ClickButton button31 = new ClickButton();
 		button31.setName("扫码事件");

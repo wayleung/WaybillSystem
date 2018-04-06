@@ -305,7 +305,7 @@ function addMsg(id,msg){
 					var ul = "<li><a href=\"/userLogout\">登出</a></li>";
 
 					
-					if(data.datas.isWechatLogin==false&&data.datas.isWechatBind==true){
+					if(data.datas.isWechatLogin==true&&data.datas.isWechatBind==true){
 					//ul+= "<li><a href=\"/wechatUnbind\">解绑微信</a></li>";
 					 ul+= "<li><a onclick=\"wechatUnbind()\">解绑微信</a></li>";
 					 var btn = "<button type=\"button\" onclick=\"followWaybill()\" class=\"btn btn-default btn-block\">跟踪运单</button>";

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50626
 File Encoding         : 65001
 
-Date: 2018-04-02 18:29:01
+Date: 2018-04-06 17:47:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -57,7 +57,7 @@ CREATE TABLE `code_token_openid` (
   `openid` varchar(255) DEFAULT NULL COMMENT '微信用户openid',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of code_token_openid
@@ -86,6 +86,12 @@ INSERT INTO `code_token_openid` VALUES ('21', '061yPCKv0nLN2c1Ru2Nv04jkKv0yPCK0'
 INSERT INTO `code_token_openid` VALUES ('22', '071rc6Bd2RjlOE0CmZDd2MJiBd2rc6Bq', '8_KwQWhSYo4kLrD0zsUg5O8DhJH2xFTDdZiyALSWbnBzWbieQTk4RKFrx1UuuRR_Euly36ZoJsrZgNne3y_ECDfFKNPG20lDZEU91t6sy2h8A', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-02 17:49:02');
 INSERT INTO `code_token_openid` VALUES ('23', '071Tr1Ai04yjIm1p6Uyi0ej7Ai0Tr1Am', '8_URolCnbVGm-7DkmKUx9P2nvUowgXFXR49VfrrRZGF3yL7sztueVS6SSBX1uQOCwj-qvz4V1NFLuiSaysiwbahNN-KphlYgS7eDUm6-1Bxrg', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-02 17:49:27');
 INSERT INTO `code_token_openid` VALUES ('24', '071RB6aa1JqN1R1UEd7a1JUsaa1RB6aQ', '8_zGTIFUznT-eHcDW8MhAAVwfb90uVgfmhIhbfwD4tjadqP9gO9HbiIYU9ismWX8VLcH6aB3gG2wwv2sRlPB8fs2cdtb8KnuUz_TtM8GrIbcY', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-02 17:51:16');
+INSERT INTO `code_token_openid` VALUES ('25', '001QNf630PNksC1gHC6303Qg630QNf69', '8_-y85NBoeKuTSFqLusjBaxcw0vdNozbYthXgjh317NEq0YR5wWNA3_3LFIALWAv4gwFWr0vDE6jbTa2s0mP70Axd1vZoGkCVuYsy_8bk14ps', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-03 09:19:12');
+INSERT INTO `code_token_openid` VALUES ('26', '081MHlm61qowUS1Iwrn61ehmm61MHlmM', '8_YgWT4DXe8k_p6RbOX96bf43wSQ_Lr9mmzdumxmJ9oFh8yEPNR5784kcPyBBIB1EtbkiLXv-LuxFI7rVItJOCeh7IhpbN2pplH019WJy-HhQ', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-03 09:27:49');
+INSERT INTO `code_token_openid` VALUES ('27', '071Vm2nN0jYE852fzHnN0LOJmN0Vm2nA', '8_AvUOWiDeFjYEw1QIJ4938tx_kgqlUOoPNxR8IvAemWiueId3VqRzofGGH9kqoGj6Mg4tb8FN3i4-a8Ol2IOJC9umcflUz-ks3gd8MGlEFi4', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-06 17:29:10');
+INSERT INTO `code_token_openid` VALUES ('28', '081e1hlQ033cH82055jQ0TVVkQ0e1hlS', '8_c9Tnxo1eCKIncbeno9iWCx3sPa9wmmF6tUfi7WUrZSg9JIdCyUty45d8W286wbSqJcgkv4MFsU--oudT-GKLi2v07CSC4iHEPrwlAJo9n3c', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-06 17:29:33');
+INSERT INTO `code_token_openid` VALUES ('29', '021E8FBd0P5jeu1lx3Cd0ZnSBd0E8FBm', '8_F5for_bheocsjBOX8QBuRN4KRJzPnjtez9ckEM3_AGmetITuoN5neMujG1A01u0u_wQwJwkJTGmgHdjXkkRtB9Is90cbP6-hNC3Oq_X3KsI', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-06 17:31:13');
+INSERT INTO `code_token_openid` VALUES ('30', '081iiGtF0IBFpj2uVcsF01wLtF0iiGtZ', '8_HgQFztuBsrYpLqVRVqO3jCVUPrsx92hx6U4CEXeoPSSWQBFTBAfCAXrWTayeukocx_Qw-zooN3VFnGO0qCjwy3Qm0CzMvx_JlNOKs67Jwt8', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-06 17:39:29');
 
 -- ----------------------------
 -- Table structure for company_information
@@ -249,15 +255,16 @@ CREATE TABLE `user` (
   `logtime_last` datetime DEFAULT NULL COMMENT '最后一次登录时间',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', '123', 'm', '123', '123', null, '123123', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', null, null, null);
-INSERT INTO `user` VALUES ('2', 'aaa', 'f', 'scartlet', 'aaa', null, '12312312300', 'oZHEd1W8OA-bRNgAIYhio5wEdApI', null, '2018-03-05 22:23:41', '2018-02-28 22:23:44');
+INSERT INTO `user` VALUES ('2', 'aaa', 'f', 'scartlet', 'aaa', null, '12312312300', '', null, '2018-03-05 22:23:41', '2018-02-28 22:23:44');
 INSERT INTO `user` VALUES ('5', '3', 'm', '', '', '', '', '', '', null, '2018-03-07 11:29:39');
 INSERT INTO `user` VALUES ('6', '333', null, null, '333', null, null, null, null, null, '2018-03-26 23:43:56');
+INSERT INTO `user` VALUES ('7', '999', 'm', '', '999', '', '', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '', null, '2018-04-06 17:32:57');
 
 -- ----------------------------
 -- Table structure for waybill
@@ -307,6 +314,8 @@ CREATE TABLE `waybill` (
 -- ----------------------------
 INSERT INTO `waybill` VALUES ('1', null, '1', '1', null, null, null, '1', '1', null, null, '1', null, null, null, '1', '1', '1', null, null, null, null, null, null, null, null, '1', null, null, null, null, null, null, null, '2018-03-07 11:05:47');
 INSERT INTO `waybill` VALUES ('2', null, '2', 'qqq', '', null, '', '', '', '', '', '', '', null, '', '', '', '', null, null, '', null, null, null, null, null, null, null, null, '', '', '', '', '', '2018-03-07 11:28:27');
+INSERT INTO `waybill` VALUES ('10010', null, '7', '李小姐', null, '2018-04-06 22:23:44', null, '广州番禺', '15521608979', null, null, '梁先生', null, null, null, '广州天河', '15521608979', '王师傅', null, null, null, null, null, null, null, null, '20', null, null, null, null, null, null, null, '2018-04-06 17:35:44');
+INSERT INTO `waybill` VALUES ('10001111', null, null, '啊啊', null, '2018-03-07 11:29:39', null, '啊啊', '123123', null, null, '啊啊', null, null, null, '啊啊', '123123', '啊啊', null, null, null, null, null, null, null, null, '10', null, null, null, null, null, null, null, '2018-04-06 17:45:41');
 
 -- ----------------------------
 -- Table structure for waybill_status
@@ -321,7 +330,7 @@ CREATE TABLE `waybill_status` (
   `employee_charge` bigint(11) DEFAULT NULL COMMENT '负责员工',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`ws_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of waybill_status
@@ -331,7 +340,11 @@ INSERT INTO `waybill_status` VALUES ('2', '1', '2', '2', '2018-03-06 12:11:53', 
 INSERT INTO `waybill_status` VALUES ('3', '2', '1', '1', '2018-03-05 12:18:25', '123', '2018-03-20 12:18:30');
 INSERT INTO `waybill_status` VALUES ('4', '1', '1', '3', '2018-03-04 12:18:45', '123', '2018-03-05 12:18:50');
 INSERT INTO `waybill_status` VALUES ('20', '1', '1', '1', '2018-03-25 16:11:40', '1', '2018-03-25 16:11:40');
-INSERT INTO `waybill_status` VALUES ('21', '1', '1', '2', '2018-03-25 16:11:40', '1', '2018-03-25 16:12:50');
+INSERT INTO `waybill_status` VALUES ('27', '1', '3', '0', '2018-04-02 18:32:07', '2', '2018-04-02 18:39:21');
+INSERT INTO `waybill_status` VALUES ('28', '1', '4', '2', '2018-04-03 11:05:47', '2', '2018-04-03 09:32:16');
+INSERT INTO `waybill_status` VALUES ('29', '10010', '2', '0', '2018-04-06 22:23:44', '1', '2018-04-06 17:36:53');
+INSERT INTO `waybill_status` VALUES ('30', '10010', '2', '3', '2018-03-07 11:29:39', '2', '2018-04-06 17:37:53');
+INSERT INTO `waybill_status` VALUES ('31', '10010', '2', '1', '2018-03-07 11:29:39', '2', '2018-04-06 17:40:58');
 
 -- ----------------------------
 -- Table structure for wechat_token
@@ -344,7 +357,7 @@ CREATE TABLE `wechat_token` (
   `openid` varchar(255) DEFAULT NULL COMMENT '微信用户openid',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wechat_token
@@ -387,3 +400,12 @@ INSERT INTO `wechat_token` VALUES ('55', null, '8_VVKnFx_hjq41PFBn1bPhgJh5JOOogy
 INSERT INTO `wechat_token` VALUES ('56', null, '8_vNAcZcyt24AEk48YCq7Vtb5hgjCUg6hgZRjxaP0VnKgBVkaRXxdCkMeRiiZfzfqqZHUw0Om-NsVuiQPdO0bwteJteOV8XkdAJibJEf5y1xAKZIy61RUu6ORezNFL-yOu8vaUHKFPGdc2frhIZXZfAAADBD', null, '2018-04-02 14:00:01');
 INSERT INTO `wechat_token` VALUES ('57', null, '8_WmDAADUy4ZsjGqBbuGAeQnQec1NTnH_IdvsQor6x78DHzcAT6Rgom3K6ps_2RXCx8mBm9jMTsZyRArCZca56_Gu8R6pj1p4vcCfnOBrQWyJ0rp3CA0B4MfVoHY60PYpeP7KV2w3t1HagaFxWZVYhAIAUQT', null, '2018-04-02 16:00:01');
 INSERT INTO `wechat_token` VALUES ('58', null, '8_S-g5tWfwgtrs1z5DuGAeQnQec1NTnH_IdvsQouX3WD3YFss8SyodRC7hEBScIDhvVANApf5YfAZ1bUMLm-AvHh9tkGxo5-G_vL1VqVTa4z7Or7k6slxjjLXd9kpfuvMVl6HU924lNSNAXNJRVIFbAHADQN', null, '2018-04-02 17:34:30');
+INSERT INTO `wechat_token` VALUES ('59', null, '8_389F1FXjlBtfyCgc_DSCzTKI4Ff_6hbxgmBevcHddoXy8YDQlGMcFlsaIYsmKqdIpwfRnOJtHuojnJpyW7m8j1d-vtj1Ha0UmU2_0mcAR5ItlhhDs8CzKNiPiBdHs4wbf2by1Q0f1UD7kSieELUeADAKRA', null, '2018-04-03 09:15:07');
+INSERT INTO `wechat_token` VALUES ('60', null, '8_QVvd-SDpkaKGyoBA0Q-Qyy1q0OftgWX8JXk5qjhYcia-2qLf2MmSdGieK-Lpywj7d0ZNJ2vYmrlsXpuFuzrZYt2JPJx0HG7xwZgdWnblZ7RokE-sxFs7CaV1ss8VUQcAFAZYU', null, '2018-04-03 11:00:01');
+INSERT INTO `wechat_token` VALUES ('61', null, '8_ojBF8-o0TbUnF56A7s8PRuccVbaBtMkGXy0YKPfM3oZU929nBijQnuzteYkXTM9SjCxhZAGkicpKb4QVsyi5oFXZ6d_3X2z5dL-BBmOXQDz3_EgRIH4e7NpWKpFJh5b-RZy_TmXwOdIKZQSWRKJaABAUNM', null, '2018-04-03 13:00:01');
+INSERT INTO `wechat_token` VALUES ('62', null, '8_vYiIkj87NVX5Kkn66Wj2jNJStWTlxWr5HquRiSUb1youVPTXHpURi2lfKPaWC_i1XVZ0qa3Ml4T0IwkxuBATfROz3xgjkYLypPu9qDYapwDBJb3vr87BPIt8vPbOF4XUfUdt70v4nPCz2OosWOUbAFAQIO', null, '2018-04-03 15:00:01');
+INSERT INTO `wechat_token` VALUES ('63', null, '8_F4pe7wTgDCpAo_qH0IU_H_RnxYjx_CZpbWxrinoV2gnhWs3Bawf2Tkf7wOGfW1NDa-pMeNFezjyowBF2rgBLJdr1Q0whyCXJN5ljDZoMSU2i75aKyu0YU7P9jPeytdpuuLT3cVCQaMzsXM4XGDChAFAURQ', null, '2018-04-03 17:00:01');
+INSERT INTO `wechat_token` VALUES ('64', null, '8_HFtBrWas6Hg0bLpotDsElaog4bPfkSteP419LoKT87U4vIVtVdYeNuCytDKK4uOf_7paWiqpDSwtguM4JxQJdjf0WKlroV494qAygmAbn8I2yCNxP0IOhWtKudWHHqGQqY42z3N2KUr_kqbQUGHgAEAQCD', null, '2018-04-03 19:00:01');
+INSERT INTO `wechat_token` VALUES ('65', null, '8_ks7X9tD5j43qNCT5Cq7Vtb5hgjCUg6hgZRjxaKBWA0rZv5iSfFG0eTdVclvky-uqR14vzY_2wBWOCa-sYXV2OzjHhVklvnWAf16tsyRuURVq5A_DlhoRfXIXGIALBZhAHAHXV', null, '2018-04-03 21:00:01');
+INSERT INTO `wechat_token` VALUES ('66', null, '8_7KBn-Cmjz_hvH1QEayVyLUQC6VOiDAZ0ZbZI3kRPSfdg36iGgveFB_nQoVvdhgQp1zkRu9vMf1iwd4_S7bv71ogkJXCord20Pk_Y0Hu2HD86Qorhl9mtdcZaSuD72oVs5TYNffncnBhiq3nQHMXgABAZEP', null, '2018-04-04 21:29:39');
+INSERT INTO `wechat_token` VALUES ('67', null, '8_upiQ0sqCsswZTzOstRur9Y0gPXCt71gYNDEAk6sIZdusxZWwKBg62fyiSIKN6ECrlt5R6nHrHX9DkscnkSg8X-L_lCpIhQG0VCrso_VfcT7htGe7YCUwxlFbTcvmSoBBvcEfxSlnMSTPolXHFZObAGAUOD', null, '2018-04-06 17:28:50');

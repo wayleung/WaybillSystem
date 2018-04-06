@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+        
+    	
+	<bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		 <property name="corePoolSize" value="10" />
+		 <property name="maxPoolSize" value="100" />
+		 <property name="queueCapacity" value="500" />
+	</bean>    
+        
+    <!-- 定时器工作调度的bean -->
+    <bean id="TimeJob" class="com.way.waybillsystem.job.TimeJob" />
+    <!-- job的配置开始 -->
+    <bean id="WechatGetAndSaveAccessTokenJob"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="TimeJob" />
+        </property>
+        <property name="targetMethod">
+            <value>getAndSaveAccessTokenJob</value>
+        </property>
+        <property name="concurrent" value="false" />  
+    </bean>
+    <!-- 调度的配置开始 -->
+    <bean id="WechatGetAndSaveAccessTokenJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="WechatGetAndSaveAccessTokenJob" />
+        </property>
+        <property name="cronExpression">
+        <!-- 每隔一小时触发一次 -->
+        <value>0 0 */1 * * ?</value>
+       <!--测试  每隔1min触发一次   设置秒会有执行两次的bug-->
+<!--              <value>0 0/1 * * * ?</value> -->
+        </property>
+    </bean>
+    <!-- 启动触发器的配置开始 -->
+    <bean id="TimeJobTrigger" name="startQuertz" lazy-init="false" autowire="no"
+        class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="WechatGetAndSaveAccessTokenJobTrigger" />
+                <ref bean="StartWechatGetAndSaveAccessTokenJobTrigger" />
+            </list>
+        </property>
+        
+        <property name="taskExecutor" ref="executor" />
+    </bean>
+    
+    
+    <!-- 配置项目启动后任务就执行一次 -->  
+     <bean id="StartWechatGetAndSaveAccessTokenJobTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">  
+        <property name="jobDetail" ref="WechatGetAndSaveAccessTokenJob" />  
+        <property name="startDelay" value="1000" />  <!-- 启动延迟  单位/毫秒-->
+        <property name="repeatInterval" value="0" />  <!-- 多久执行一次 单位/毫秒-->
+        <property name="repeatCount" value="0" />  <!--  重复次数  -->
+    </bean>
+</beans>

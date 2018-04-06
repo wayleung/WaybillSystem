@@ -240,4 +240,51 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where ws_id = #{wsId,jdbcType=BIGINT}
   </update>
+
+
+<select id="selectWaybillStatusByWaybillNumber" resultMap="BaseResultMap" parameterType="java.lang.Long">
+<!--   <select id="selectWaybillStatusByWaybillNumber" resultMap="WaybillStatusRtnVO" parameterType="java.lang.Long"> -->
+SELECT
+	waybill_status.ws_id,
+	waybill_status.waybill_number,
+	waybill_status. STATUS,
+	waybill_status.location_now,
+	waybill_status.lacation_time,
+	waybill_status.employee_charge,
+	waybill_status.create_time
+FROM
+	waybill
+RIGHT JOIN waybill_status ON waybill.waybill_number = waybill_status.waybill_number
+WHERE
+	waybill_status.waybill_number = #{waybillNumber,jdbcType=BIGINT}
+ORDER BY
+		waybill_status.lacation_time DESC	
+<!-- 	
+	SELECT
+	waybill_status.ws_id,
+	waybill_status.waybill_number,
+	`status`.status_name,
+	location.location_name,
+	waybill_status.lacation_time,
+	employee.`name`,
+	waybill_status.create_time
+	FROM
+		employee,
+		`status`,
+		location,
+		waybill
+	RIGHT JOIN waybill_status ON waybill.waybill_number = waybill_status.waybill_number
+	WHERE
+		waybill_status.waybill_number = #{waybillNumber,jdbcType=BIGINT} 
+	<if test="status != null" >	
+	AND waybill_status.`status` = `status`.status_id
+	</if>
+	<if test="locationNow != null" >
+	AND waybill_status.location_now = location.location_id
+	</if>
+	<if test="employeeCharge != null" >
+	AND waybill_status.employee_charge = employee.id
+	</if> -->
+	
+  </select>
 </mapper>
