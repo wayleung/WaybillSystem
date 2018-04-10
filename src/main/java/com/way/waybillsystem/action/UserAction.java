@@ -63,6 +63,18 @@ public class UserAction  extends BaseAction {
 		return userService.selectUserByPrimaryKey(id);
 	}
 	
+	
+	@RequestMapping(value="/selectUserByAccount",method=RequestMethod.GET)
+	@ResponseBody
+	public Result selectUserByAccount(String account){
+		User user = userService.selectUserByAccount(account);
+		if(user!=null){
+			return new Result<User>(true, user, "查询Users表成功！", "1");
+		}else{
+			return new Result(false, "该账号用户不存在", "0");
+		}
+	}
+	
 	@RequestMapping(value="/selectAllUsersByPage",method=RequestMethod.GET)
 	@ResponseBody
 	public PageInfo<User> selectAllUsersByPage(QueryByPageObject queryObject){

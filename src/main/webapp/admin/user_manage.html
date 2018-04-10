@@ -56,7 +56,7 @@
 						</div>
 						<div class="card-block">
 							<a href="#" data-toggle="modal" data-target="#AddModal">新增</a>
-							<table id="userManage" class="table table-striped">
+							<table id="userManage" class="table table-striped"  v-if="datas">
 								<thead>
 									<tr>
 										<th>账号</th>
@@ -65,7 +65,7 @@
 										<th>密码</th>
 										<th>电话</th>
 										<th>微信id</th>
-										<th>微信昵称</th>
+										<!-- <th>微信昵称</th> -->
 										<th>上次登录时间</th>
 										<th>创建时间</th>
 										<th>操作</th>
@@ -88,7 +88,7 @@
 									
 									<template v-for="item in datas">
 
-			  <tr>
+			  						<tr>
 			  							<input type="hidden"  :value="item.id" />
 										<td>{{ item.account }}</td>
 				  						<td>{{ item.sex=='m'?'男':'女' }}</td>
@@ -96,14 +96,14 @@
 										<td>{{ item.password }}</td>
 										<td>{{ item.phone }}</td>
 										<td>{{ item.wechatId }}</td>
-										<td>{{ item.wechatName }}</td>
+										<!-- <td>{{ item.wechatName }}</td> -->
 										<td>{{ item.logtimeLast }}</td>
 										<td>{{ item.createTime }}</td>
 										<td><a href="#"   v-on:click="Update(item)" data-toggle="modal" data-target="#UpdateModal"><span class="badge badge-success">修改</span></a>
 											<a href="#" v-on:click="Delete(item)" data-toggle="modal" data-target="#DeleteModal"><span class="badge badge-danger">删除</span></a></td>
-				</tr>
+									</tr>
 			  
-    </template>
+    								</template>
 									
 								</tbody>
 							</table>
@@ -179,6 +179,7 @@
                                                                           
                                     </form>
                             </div>
+                            <p id="msg" style="color: red;text-align: center;"></p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                 <button type="button"  id="addButton" class="btn btn-primary">保存</button>
@@ -296,7 +297,13 @@
 	<script type="text/javascript">
 	
 
-	
+	function deleteAll(id){
+		$('#'+id).empty();
+	}
+
+	function addMsg(id,msg){
+		$('#'+id).text(msg);
+	}
 	
 	
 /* 
@@ -321,8 +328,8 @@
 	/* 			  $(document).ready(function(){
 	 console.log(rootPath); 
 	 }); */
-
-
+	 var url = rootPath + "selectAllUsers";
+	
 		
 		
 	//function ajax(api,datas) {
@@ -341,7 +348,7 @@
 							  el: '#userManage',
 							  data: datas,
 							  methods:{  
-
+						
 					              Delete: function (id) //删除  
 					              {  
 					            	  console.log(id); 
@@ -358,7 +365,7 @@
 							})
 					}
 			 	}); 
-	});
+	}); 
 	
 	
 
@@ -399,16 +406,74 @@
     
 	
 	$("#addButton").click(
-			function(){
-				console.log('add submit');
-				 $.post(rootPath+'/insertUser', add_vm.$data.addinfo, function (result) {  
-					 console.log(result);
-					 window.location.reload();
-		        //可以把vue.js数据替换从而更新更新到页面  
-	/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
 
-		    });  
-			}
+			
+			
+			
+
+    		function(){
+    			
+
+ 				   		
+
+            	var account = $("#account").val();
+            	if(account==null||account==''){
+            		deleteAll('msg');
+            		addMsg('msg','账号不能为空');
+            	}else{
+    			$.ajax({
+    				url:rootPath+"/selectUserByAccount",
+    				type : "get",
+					async : true,
+					dataType : "json",
+					data:{'account':account},
+					success : function(datas) {
+						
+							console.log(datas.success);
+						   if(datas.success==true){
+							  deleteAll('msg');
+		                		addMsg('msg','该账号用户已经存在，不能添加'); 
+						   
+						   }else{
+							   console.log('add submit');
+								 $.post(rootPath+'/insertUser', add_vm.$data.addinfo, function (result) { 
+									 console.log(result);
+									 window.location.reload();
+						        //可以把vue.js数据替换从而更新更新到页面  
+					/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
+								 });
+						   }
+							}
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			});
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+				
+		    }
+            
+    			
+    			
+    			
+    			
+    			
+    			
+    		} 
+			
+    	
+			
 		);
 	
 	
