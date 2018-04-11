@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mysql_local
-Source Server Version : 50626
+Source Server         : 本地mysql
+Source Server Version : 50721
 Source Host           : localhost:3306
 Source Database       : waybillsystem
 
 Target Server Type    : MYSQL
-Target Server Version : 50626
+Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2018-04-09 00:39:55
+Date: 2018-04-11 15:28:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -129,13 +129,15 @@ CREATE TABLE `employee` (
   `start_time` datetime DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12312334535 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of employee
 -- ----------------------------
-INSERT INTO `employee` VALUES ('1', '刘师傅', '123', 'f', '12', '', '', null, '2018-03-06 00:07:44');
-INSERT INTO `employee` VALUES ('2', '王师傅', '123', 'm', '123', '', '', null, '2018-03-06 00:08:08');
+INSERT INTO `employee` VALUES ('1', '刘师傅', '123', 'm', '12', '', '', '2018-04-05 15:50:50', '2018-03-06 00:07:44');
+INSERT INTO `employee` VALUES ('2', '王师傅', '123', 'm', '123', '', '', '2018-04-11 13:57:18', '2018-03-06 00:08:08');
+INSERT INTO `employee` VALUES ('123', null, null, null, null, null, null, '2018-04-11 15:09:06', '2018-04-11 15:09:14');
+INSERT INTO `employee` VALUES ('8888', '12313', null, 'm', null, null, null, '2018-04-11 15:13:56', '2018-04-11 15:14:04');
 
 -- ----------------------------
 -- Table structure for fee
@@ -312,10 +314,16 @@ CREATE TABLE `waybill` (
 -- ----------------------------
 -- Records of waybill
 -- ----------------------------
-INSERT INTO `waybill` VALUES ('1', null, '1', '1', null, null, null, '1', '1', null, null, '1', null, null, null, '1', '1', '1', null, null, null, null, null, null, null, null, '1', null, null, null, null, null, null, null, '2018-03-07 11:05:47');
+INSERT INTO `waybill` VALUES ('1', null, '1', '1', '', '2018-04-11 14:28:57', '', '1', '1', '', '', '1', '', null, '', '1', '1', '1', null, null, '', null, null, null, null, null, '1', null, null, '', '', '', '', '', '2018-03-07 11:05:47');
 INSERT INTO `waybill` VALUES ('2', null, '2', 'qqq', '', null, '', '', '', '', '', '', '', null, '', '', '', '', null, null, '', null, null, null, null, null, null, null, null, '', '', '', '', '', '2018-03-07 11:28:27');
+INSERT INTO `waybill` VALUES ('8888', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2018-04-11 14:10:22');
 INSERT INTO `waybill` VALUES ('10010', null, '7', '李小姐', null, '2018-04-06 22:23:44', null, '广州番禺', '15521608979', null, null, '梁先生', null, null, null, '广州天河', '15521608979', '王师傅', null, null, null, null, null, null, null, null, '20', null, null, null, null, null, null, null, '2018-04-06 17:35:44');
+INSERT INTO `waybill` VALUES ('6768686', null, null, null, null, null, null, null, '56757', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2018-04-11 14:37:19');
+INSERT INTO `waybill` VALUES ('8889999', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2018-04-11 14:11:10');
+INSERT INTO `waybill` VALUES ('8989898', null, null, null, null, '2018-04-11 14:12:05', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2018-04-11 14:12:07');
 INSERT INTO `waybill` VALUES ('10001111', null, null, '啊啊', null, '2018-03-07 11:29:39', null, '啊啊', '123123', null, null, '啊啊', null, null, null, '啊啊', '123123', '啊啊', null, null, null, null, null, null, null, null, '10', null, null, null, null, null, null, null, '2018-04-06 17:45:41');
+INSERT INTO `waybill` VALUES ('888888888', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2018-04-11 14:12:44');
+INSERT INTO `waybill` VALUES ('888888888888888', null, null, null, null, '2018-04-11 14:12:52', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2018-04-11 14:12:53');
 
 -- ----------------------------
 -- Table structure for waybill_status
@@ -330,7 +338,7 @@ CREATE TABLE `waybill_status` (
   `employee_charge` bigint(11) DEFAULT NULL COMMENT '负责员工',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`ws_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of waybill_status
@@ -345,6 +353,23 @@ INSERT INTO `waybill_status` VALUES ('28', '1', '4', '2', '2018-04-03 11:05:47',
 INSERT INTO `waybill_status` VALUES ('29', '10010', '2', '0', '2018-04-06 22:23:44', '1', '2018-04-06 17:36:53');
 INSERT INTO `waybill_status` VALUES ('30', '10010', '2', '3', '2018-03-07 11:29:39', '2', '2018-04-06 17:37:53');
 INSERT INTO `waybill_status` VALUES ('31', '10010', '2', '1', '2018-03-07 11:29:39', '2', '2018-04-06 17:40:58');
+INSERT INTO `waybill_status` VALUES ('32', '10010', '2', '3', null, '1', '2018-04-11 14:16:01');
+INSERT INTO `waybill_status` VALUES ('33', '1', '2', '1', null, '1', '2018-04-11 14:17:19');
+INSERT INTO `waybill_status` VALUES ('34', '1', '2', '1', null, '1', '2018-04-11 14:18:47');
+INSERT INTO `waybill_status` VALUES ('35', '1', '3', '1', null, '2', '2018-04-11 14:21:47');
+INSERT INTO `waybill_status` VALUES ('36', '1', '3', '1', null, '1', '2018-04-11 14:22:28');
+INSERT INTO `waybill_status` VALUES ('37', '1', '2', '1', null, '2', '2018-04-11 14:24:12');
+INSERT INTO `waybill_status` VALUES ('38', '2', '2', '5', null, '2', '2018-04-11 14:26:38');
+INSERT INTO `waybill_status` VALUES ('39', '2', '2', '5', null, '2', '2018-04-11 14:26:46');
+INSERT INTO `waybill_status` VALUES ('40', '1', '1', '1', null, '2', '2018-04-11 14:26:58');
+INSERT INTO `waybill_status` VALUES ('41', '1', '1', '1', null, '2', '2018-04-11 14:27:01');
+INSERT INTO `waybill_status` VALUES ('42', '1', '1', '1', null, '2', '2018-04-11 14:27:22');
+INSERT INTO `waybill_status` VALUES ('43', '1', '1', '1', '2018-04-11 14:27:24', '2', '2018-04-11 14:27:34');
+INSERT INTO `waybill_status` VALUES ('44', '1', '3', '4', null, '2', '2018-04-11 14:29:11');
+INSERT INTO `waybill_status` VALUES ('45', '1', '3', '4', '2018-04-11 14:29:41', '2', '2018-04-11 14:29:44');
+INSERT INTO `waybill_status` VALUES ('46', '1', '3', '1', null, '1', '2018-04-11 14:36:15');
+INSERT INTO `waybill_status` VALUES ('47', '1', '4', '2', null, '2', '2018-04-11 14:36:29');
+INSERT INTO `waybill_status` VALUES ('48', '1', '3', '4', '2018-04-11 15:26:43', '2', '2018-04-11 15:26:47');
 
 -- ----------------------------
 -- Table structure for wechat_token
@@ -357,7 +382,7 @@ CREATE TABLE `wechat_token` (
   `openid` varchar(255) DEFAULT NULL COMMENT '微信用户openid',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wechat_token
@@ -409,3 +434,5 @@ INSERT INTO `wechat_token` VALUES ('64', null, '8_HFtBrWas6Hg0bLpotDsElaog4bPfkS
 INSERT INTO `wechat_token` VALUES ('65', null, '8_ks7X9tD5j43qNCT5Cq7Vtb5hgjCUg6hgZRjxaKBWA0rZv5iSfFG0eTdVclvky-uqR14vzY_2wBWOCa-sYXV2OzjHhVklvnWAf16tsyRuURVq5A_DlhoRfXIXGIALBZhAHAHXV', null, '2018-04-03 21:00:01');
 INSERT INTO `wechat_token` VALUES ('66', null, '8_7KBn-Cmjz_hvH1QEayVyLUQC6VOiDAZ0ZbZI3kRPSfdg36iGgveFB_nQoVvdhgQp1zkRu9vMf1iwd4_S7bv71ogkJXCord20Pk_Y0Hu2HD86Qorhl9mtdcZaSuD72oVs5TYNffncnBhiq3nQHMXgABAZEP', null, '2018-04-04 21:29:39');
 INSERT INTO `wechat_token` VALUES ('67', null, '8_upiQ0sqCsswZTzOstRur9Y0gPXCt71gYNDEAk6sIZdusxZWwKBg62fyiSIKN6ECrlt5R6nHrHX9DkscnkSg8X-L_lCpIhQG0VCrso_VfcT7htGe7YCUwxlFbTcvmSoBBvcEfxSlnMSTPolXHFZObAGAUOD', null, '2018-04-06 17:28:50');
+INSERT INTO `wechat_token` VALUES ('68', null, '8_AIc8Ayz4qq-7m1T0j3SSIufu8l5z1zjkTSGNzzOfP6PHONmskWXOMtWS1e_LmWAjL_Wgb_c_h5Om8iMPqA8IxyWzJ5BCnRZohhdOMl_Tl-3jKNTVoVQ2iKAmm0Gfl7Q3n2ewU3cMEKcwGnirBCXjABASTO', null, '2018-04-11 11:50:19');
+INSERT INTO `wechat_token` VALUES ('69', null, '8_kAqkWrezBjp0XOUe0Q-Qyy1q0OftgWX8JXk5qgcxO_qSnseceRt5OxQX4xai3n0qEqBUF7da2o92TPelrMWB4WFhDTJxcVMEImVOLOWkhAfNPxHIxIFNqHw1NitOVyxbdUy4ZMqvkcJ4VYoBZEMcAJAKPX', null, '2018-04-11 14:00:07');

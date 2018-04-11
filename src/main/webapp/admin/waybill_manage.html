@@ -16,8 +16,7 @@
 <link href="css/simple-line-icons.css" rel="stylesheet">
 <!-- Main styles for this application -->
 <link href="css/style.css" rel="stylesheet">
-<!-- <link href="datetimepicker/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
-<link href="datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 </head>
 
 <body
@@ -72,47 +71,6 @@
 								<!-- <span class="help-block">This is a help text</span> -->
 							</div>
 
-
-
-							<!-- 			<label for="select" style="margin-left: 30px;">所在部门</label>
-							<div class="col-md-2">
-								<select id="select" name="dept" class="form-control">
-									<option >请选择</option>
-									<option value="人事部">人事部</option>
-									<option value="秘书部">秘书部</option>
-									<option value="公关部">公关部</option>
-									<option value="市场部">市场部</option>
-								</select>
-							</div>
-							
-							
-							<label for="select" style="margin-left: 30px;">运单状态</label>
-							<div class="col-md-2">
-								<select id="select" name="user_status" class="form-control">
-									<option >请选择</option>
-									<option value="锁定">锁定</option>
-									<option value="挂起">挂起</option>
-									<option value="激活">激活</option>
-								</select>
-							</div>
-						</div>
-
-
-
-
-						<div class="form-group row">
-							<label for="text-input" style="margin-left: 30px;">创建时间</label>
-							<div class="col-md-2">
-								<input type="text" id="text-input" name="begin_time"
-									class="form-control" placeholder="开始时间"  onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-								<span class="help-block">This is a help text</span>
-							</div>
-							<label for="select">-</label>
-							<div class="col-md-2">
-								<input type="text" id="text-input" name="end_time"
-									class="form-control" placeholder="结束时间"  onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-								<span class="help-block">This is a help text</span>
-							</div> -->
 
 
 							<div class="col-md-2">
@@ -236,6 +194,21 @@
                                             <input type="text"  v-model="addinfo.waybillNumber"  id="waybillNumber" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
+                                        
+                                         
+                                        <div class="form-group col-md-9">
+										<label>寄件日期</label>
+										</div>
+										<div class="input-group date col-md-9" data-link-field="sendDate">
+										
+										
+											<input class="form-control" value=""  id="sendDate" size="16" type="text"  placeholder="请输入"  readonly>
+										   
+											<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+											<!-- <input type="hidden"   v-model="addinfo.sendDate"  id="sendDate"  value="" /><br/> -->
+										</div>
+                                        
+                                        
                                          <div class="form-group col-md-9">
                                             <label >寄件人</label>
                                           <input  v-model="addinfo.fromName"  type="text" id="fromName" name="" class="form-control" placeholder="请输入">
@@ -252,10 +225,6 @@
                                             <input  v-model="addinfo.fromPhone"  type="text" id="fromPhone" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
-                                        <div class="form-group col-md-9">
-                                            <label>寄件日期</label>
-                                            <input  v-model="addinfo.sendDate"  type="text" id="sendDate" name="" class="form-control" placeholder="请输入">
-                                        </div>
                                         
                                         
                                         <div class="form-group col-md-9">
@@ -323,6 +292,18 @@
                                             <input v-model="updateinfo.waybillNumber" type="text" id="waybillNumber" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
+                                        <div class="form-group col-md-9">
+										<label>寄件日期</label>
+										</div>
+										<div class="input-group date col-md-9" data-link-field="sendDate_update" >
+										
+										
+											<input class="form-control" value=""  size="16" type="text" id="sendDate_update" placeholder="请输入"  readonly>
+										   
+											<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+<!-- 											<input type="hidden"   v-model="updateinfo.sendDate"  id="sendDate_update"  value="" /><br/> -->
+										</div>
+                                        
                                                                                 
                                          <div class="form-group col-md-9">
                                             <label >寄件人</label>
@@ -340,10 +321,10 @@
                                             <input  v-model="updateinfo.fromPhone"  type="text" id="fromPhone" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
-                                        <div class="form-group col-md-9  form_datetime">
-                                            <label>寄件日期</label>
-                                            <input  v-model="updateinfo.sendDate"  type="text" id="sendDate" name="" class="form-control" placeholder="请输入">
-                                        </div>
+
+                                        
+                                        
+                                        
                                         
                                         
                                         <div class="form-group col-md-9">
@@ -446,10 +427,21 @@
                                         </div>
                                         
                                                                                 
-                                         <div class="form-group col-md-9">
-                                            <label >到达所在地时间</label>
-                                          <input  v-model="addstatusinfo.lacationTime"  type="text" id="lacationTime" name="" class="form-control" placeholder="请输入">
-                                        </div>
+
+                                        
+                                        
+                                        <div class="form-group col-md-9">
+										<label>到达所在地时间</label>
+										</div>
+										<div class="input-group date col-md-9" data-link-field="lacationTime" >
+										
+										
+											<input class="form-control" value=""  size="16" type="text" id="lacationTime" placeholder="请输入"  readonly>
+										   
+											<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+<!-- 											<input type="hidden"  v-model="addstatusinfo.lacationTime"  id="lacationTime" /><br/> -->
+										</div>
+                                        
                                         
                                         
                                         <div class="form-group col-md-9">
@@ -558,13 +550,15 @@
 
 	<!-- Bootstrap and necessary plugins -->
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	
+	<script type="text/javascript" src="datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="datetimepicker/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+	
+	
+	
 	<script src="bower_components/tether/dist/js/tether.min.js"></script>
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	
-	
-	<script type="text/javascript" src="datetimepicker/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="datetimepicker/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
-<script type="text/javascript" src="datetimepicker/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
 	
 	<script src="bower_components/pace/pace.min.js"></script>
 	<!-- Plugins and scripts required by all views -->
@@ -576,26 +570,6 @@
 	<script type="text/javascript">
 	
 
-    $('.form_datetime').datetimepicker({
-        //language:  'fr',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		forceParse: 0,
-        showMeridian: 1
-    });
-	
-	
-/* 
-	$('#data_4 .input-group.date').datepicker({
-		todayBtn : "linked",
-		keyboardNavigation : false,
-		forceParse : false,
-		calendarWeeks : true,
-		autoclose : true
-	}); */
 
 	function getHostPath() {
 		var curWwwPath = window.document.location.href;
@@ -693,6 +667,13 @@
 	$("#updateButton").click(
 		function(){
 			console.log('update submit');
+			
+			//加入时间控件后 vue model有问题
+			var sendDate = $("#sendDate_update").val();
+			if(sendDate!=''&&sendDate!=undefined&&sendDate!=null){
+				update_vm.$data.updateinfo.sendDate = sendDate;
+			}
+			
 			 $.post(rootPath+'/updateWaybillByPrimarykey', update_vm.$data.updateinfo, function (result) {  
 				 console.log(result);
 				 window.location.reload();
@@ -718,6 +699,13 @@
 	$("#addButton").click(
 			function(){
 				console.log('add submit');
+				
+				//加入时间控件后 vue model有问题
+				var sendDate = $("#sendDate").val();
+				if(sendDate!=''&&sendDate!=undefined&&sendDate!=null){
+					add_vm.$data.addinfo.sendDate = sendDate;
+				}
+				
 				 $.post(rootPath+'/insertWaybill', add_vm.$data.addinfo, function (result) {  
 					 console.log(result);
 					 window.location.reload();
@@ -779,6 +767,16 @@
 	$("#addStatusButton").click(
 			function(){
 				console.log('addstatus submit');
+				console.log(lacationTime);
+				//加入时间控件后 vue model有问题
+				
+				var lacationTime = $("#lacationTime").val();
+				if(lacationTime!=''&&lacationTime!=undefined&&lacationTime!=null){
+					addstatus_vm.$data.addstatusinfo.lacationTime = lacationTime;
+				}
+				
+				
+				
 				 $.post(rootPath+'/insertWaybillStatus', addstatus_vm.$data.addstatusinfo, function (result) {  
 					 console.log(result);
 					 window.location.reload();
@@ -789,6 +787,48 @@
 			}
 		);
 	
+	
+	//日期控件放最后?
+	$('#sendDate').datetimepicker({
+		format: 'yyyy-mm-dd hh:ii:ss',
+	
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+	
+	
+	$('#sendDate_update').datetimepicker({
+		format: 'yyyy-mm-dd hh:ii:ss',
+	
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+	
+	$('#lacationTime').datetimepicker({
+		format: 'yyyy-mm-dd hh:ii:ss',
+	
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+
 	
 	
 	/** 

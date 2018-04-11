@@ -16,7 +16,7 @@
 <link href="css/simple-line-icons.css" rel="stylesheet">
 <!-- Main styles for this application -->
 <link href="css/style.css" rel="stylesheet">
-<link href="datetimepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<link href="datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
 </head>
 
@@ -56,6 +56,9 @@
 							<i class="fa fa-align-justify"></i>工作人员管理
 						</div>
 						<div class="card-block">
+
+						
+						
 							<a href="#" data-toggle="modal" data-target="#AddModal">新增</a>
 							<table id="employeeManage" class="table table-striped">
 								<thead>
@@ -153,6 +156,15 @@
                                             <label>工号</label>
                                             <input type="text"  v-model="addinfo.id"  id="id" name="" class="form-control" placeholder="请输入">
                                         </div>
+										
+										<div class="form-group col-md-9">
+										<label>入职时间</label>
+										</div>
+										<div class="input-group date col-md-9"  >
+											<input class="form-control"  id="startTime" value=""  size="16" type="text"  placeholder="请输入" readonly>		   
+											<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+										</div>
+										
                                         
                                          <div class="form-group col-md-9">
                                             <label >性别</label>
@@ -167,6 +179,9 @@
                                             <label>名字</label>
                                             <input  v-model="addinfo.name"  type="text" id="name" name="" class="form-control" placeholder="请输入">
                                         </div>
+										
+										
+										
                                         
                                         <div class="form-group col-md-9">
                                             <label>年龄</label>
@@ -189,10 +204,8 @@
                                             <input  v-model="addinfo.status"  type="text" id="status" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
-                                         <div class="form-group col-md-9">
-                                            <label>入职时间</label>
-                                            <input  v-model="addinfo.startTime" id=""  type="text"  name="" class="form-control" placeholder="请输入" >
-                                        </div>
+										
+                                        
                                                                           
                                     </form>
                             </div>
@@ -226,6 +239,22 @@
                                             <label >工号</label>
                                             <input disabled="disabled" v-model="updateinfo.id" type="text" id="id" name="" class="form-control" placeholder="请输入">
                                         </div>
+										
+										
+
+										
+										
+										<div class="form-group col-md-9">
+										<label>入职时间</label>
+										</div>
+										<div class="input-group date col-md-9" >
+										
+										
+											<input class="form-control" value="" id="startTime_update"   size="16" type="text"  placeholder="请输入"  readonly>
+										   
+											<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+										</div>
+										
                                         
                                          <div class="form-group col-md-9">
                                             <label>性别</label>
@@ -262,11 +291,7 @@
                                             <input  v-model="updateinfo.status"  type="text" id="status" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
-                                         <div class="form-group col-md-9">
-                                            <label>入职时间</label>
-                                            <input  v-model="updateinfo.startTime"   type="text" id="startTime" name="" class="form-control" placeholder="请输入">
-                                        </div>
-                                                                          
+                                        
                                     </form>
                             </div>
                             <div class="modal-footer">
@@ -314,6 +339,11 @@
 
 	<!-- Bootstrap and necessary plugins -->
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+	
+	<script type="text/javascript" src="datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="datetimepicker/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+	
 	<script src="bower_components/tether/dist/js/tether.min.js"></script>
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="bower_components/pace/pace.min.js"></script>
@@ -323,19 +353,8 @@
 	<script src="js/app.js"></script>
 	<!-- Vue-->
 	<script src="js/vue.min.js"></script>
-	
-	
-		<script src="js/vue.min.js"></script>
-<!-- 	<script src="datetimepicker/js/bootstrap-datepicker.min.js"></script>
-	<script src="datetimepicker/js/bootstrap-datepicker.zh-CN.js"></script> -->
-	
-	
 
-	  
-	<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>  
-	<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">  
-	<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>  
-<!-- 	<script src="datetimepicker/js/bootstrap-datepicker.zh-CN.js"></script> -->
+
 
 
 
@@ -344,20 +363,10 @@
 
 	<script type="text/javascript">
 	
-	
-	
-
 
 	
 	
-/* 
-	$('#data_4 .input-group.date').datepicker({
-		todayBtn : "linked",
-		keyboardNavigation : false,
-		forceParse : false,
-		calendarWeeks : true,
-		autoclose : true
-	}); */
+
 
 	function getHostPath() {
 		var curWwwPath = window.document.location.href;
@@ -428,6 +437,12 @@
 	$("#updateButton").click(
 		function(){
 			console.log('update submit');
+			
+			//加入时间控件后 vue model有问题
+				var startTime = $("#startTime_update").val();
+				if(startTime!=''&&startTime!=undefined&&startTime!=null){
+					update_vm.$data.updateinfo.startTime = startTime;
+				}
 			 $.post(rootPath+'/updateEmployeeByPrimarykey', update_vm.$data.updateinfo, function (result) {  
 				 console.log(result);
 				 window.location.reload();
@@ -453,6 +468,13 @@
 	$("#addButton").click(
 			function(){
 				console.log('add submit');
+				//加入时间控件后 vue model有问题
+				var startTime = $("#startTime").val();
+				if(startTime!=''&&startTime!=undefined&&startTime!=null){
+					add_vm.$data.addinfo.startTime = startTime;
+				}
+				console.log(startTime);
+				
 				 $.post(rootPath+'/insertEmployee', add_vm.$data.addinfo, function (result) {  
 					 console.log(result);
 					 window.location.reload();
@@ -487,20 +509,33 @@
 		);
 	
 
-	//要放在最后
+
+	//日期控件放最后?
 	$('#startTime').datetimepicker({
-		/* 	    format: 'yyyy-mm-dd hh:ii:ss',
-			        language: 'cn',
-			        pickDate: true,
-			        pickTime: true,
-			        hourStep: 1,
-			        minuteStep: 15,
-			        secondStep: 30,
-			        inputMask: true */
-			        format: 'YYYY-MM-DD HH:mm:ss'
-			      });
+		
+		format: 'yyyy-mm-dd hh:ii:ss',
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
 	
-	
+$('#startTime_update').datetimepicker({
+		
+		format: 'yyyy-mm-dd hh:ii:ss',
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
 	
 	
 	
