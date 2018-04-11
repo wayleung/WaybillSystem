@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Admin;
+import com.way.waybillsystem.entity.Employee;
+import com.way.waybillsystem.entity.Message;
 import com.way.waybillsystem.exception.ErrorCodeConstant;
 import com.way.waybillsystem.service.IAdminService;
+import com.way.waybillsystem.service.IMessageService;
 import com.way.waybillsystem.vo.AdminLoginVO;
 import com.way.waybillsystem.vo.QueryByPageObject;
 import com.way.waybillsystem.vo.Result;
@@ -23,6 +26,9 @@ import com.way.waybillsystem.vo.Result;
 public class AdminAction extends BaseAction {
 	@Autowired
 	private IAdminService adminService;
+	
+	@Autowired
+	private IMessageService messageService;
 	
 	@RequestMapping(value="/insertAdmin",method=RequestMethod.POST)
 	@ResponseBody
@@ -80,4 +86,19 @@ public class AdminAction extends BaseAction {
 		}
 		return null;
 	}
+	
+	@RequestMapping(value="/selectAllMessages",method=RequestMethod.GET)
+	@ResponseBody
+	public  Result<List<Message>> selectAllMessages(){
+		List<Message> data = messageService.selectAllMessages();
+		return new Result<List<Message>>(true, data, "查询Message表成功！", "1");
+	}
+	
+	
+	@RequestMapping(value="/deleteMessageByPrimaryKey",method=RequestMethod.GET)
+	@ResponseBody
+	public void deleteMessageByPrimaryKey(Integer messageId){
+		messageService.deleteMessageByPrimaryKey(messageId);
+	}
+	
 }

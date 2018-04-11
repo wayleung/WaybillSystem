@@ -13,6 +13,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Message;
 import com.way.waybillsystem.entity.MessageExample;
+import com.way.waybillsystem.entity.MessageExample.Criteria;
 import com.way.waybillsystem.mapper.MessageMapper;
 import com.way.waybillsystem.service.IMessageService;
 import com.way.waybillsystem.vo.QueryByPageObject;
@@ -68,6 +69,21 @@ public class MessageServiceImpl implements IMessageService {
 		List<Message> list =  messageMapper.selectByExample(example);
 		PageInfo<Message> pageInfo = new PageInfo<>(list);
 		return pageInfo;
+	}
+
+	@Override
+	public Message selectMessageByEmail(String email) {
+		MessageExample example = new MessageExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andEmailEqualTo(email);
+		// TODO Auto-generated method stub
+		List<Message> list = messageMapper.selectByExample(example );
+		if(list!=null&&list.size()>0) {
+			return list.get(0);
+		}else {
+			return null;
+		}
+		 
 	}
 
 }

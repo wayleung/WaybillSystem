@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.way.waybillsystem.entity.Message;
 import com.way.waybillsystem.entity.User;
 import com.way.waybillsystem.exception.ErrorCodeConstant;
+import com.way.waybillsystem.service.IMessageService;
 import com.way.waybillsystem.service.IUserService;
 import com.way.waybillsystem.vo.QueryByPageObject;
 import com.way.waybillsystem.vo.Result;
@@ -29,6 +31,10 @@ import com.way.waybillsystem.vo.Result;
 public class UserAction  extends BaseAction {
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private IMessageService messageService;
+	
 	
 	@RequestMapping(value="/insertUser",method=RequestMethod.POST)
 	@ResponseBody
@@ -169,5 +175,39 @@ public class UserAction  extends BaseAction {
 		}
 
 	}
+	
+	@RequestMapping(value="/leaveMessage",method=RequestMethod.POST)
+	@ResponseBody
+	public Result leaveMessage(Message message){
+		
+		String email = message.getEmail();
+		if(StringUtils.isNotBlank(email)) {
+			Message message2 = messageService.selectMessageByEmail(email );
+			if(message2!=null) {
+				return new Result<User>(false, "留言失败,您已经留过言了", "0");
+			}else {
+				int flag = messageService.insertMessage(message);
+				
+				if(flag!=0){
+					return new Result<User>(true, "留言成功", "1");
+				}else{
+					return new Result<User>(false, "留言失败", "0");
+				}
+			}
+		}else {
+			int flag = messageService.insertMessage(message);
+			
+			if(flag!=0){
+				return new Result<User>(true, "留言成功", "1");
+			}else{
+				return new Result<User>(false, "留言失败", "0");
+			}
+		}
+		
+		
+		
+		
+	}
+	
 	
 }

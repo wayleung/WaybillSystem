@@ -105,7 +105,7 @@
 			<div class="row row-pb-md">
 				<div class="col-md-6 animate-box">
 					<h3>联系我们</h3>
-					<form action="#">
+					<!-- <form action="#"> -->
 						<div class="row form-group">
 							<div class="col-md-12">
 								<label class="sr-only" for="name">姓名</label>
@@ -131,14 +131,16 @@
 						<div class="row form-group">
 							<div class="col-md-12">
 								<label class="sr-only" for="message">消息</label>
-								<textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="留言消息"></textarea>
+								<textarea name="content" id="content" cols="30" rows="10" class="form-control" placeholder="留言消息"></textarea>
 							</div>
 						</div>
+						
+						<p id="msg" style="color: red;text-align: center;"></p>
 						<div class="form-group">
-							<input type="submit" value="留言" class="btn btn-primary btn-lg">
+							<input type="button" onclick="leaveMesssage()" value="留言" class="btn btn-primary btn-lg">
 						</div>
 
-					</form>		
+					<!-- </form> -->		
 				</div>
 				<div class="col-md-5 col-md-push-1 animate-box">
 					
@@ -236,6 +238,13 @@
 	<script src="js/jquery.min.js"></script>
 		<script type="text/javascript">
 
+		function deleteAll(id){
+			$('#'+id).empty();
+		}
+
+		function addMsg(id,msg){
+			$('#'+id).text(msg);
+		}
 	
 	
 	
@@ -327,6 +336,39 @@
 			}
 		});
 	}
+	
+	
+	
+	
+	
+	function leaveMesssage(){
+		var name = $('#name').val();
+		var subject = $('#subject').val();
+		var email = $('#email').val();
+		var content =  $('#content').val();
+		
+		if(name==null||name==''||subject==null||subject==''||email==null||email==''||content==null||content==''){
+			deleteAll('msg');
+			addMsg('msg','内容不能为空');
+		}
+		$.ajax({
+			url:rootPath+"leaveMessage",
+			type:"post",
+			async:true,
+			data:{
+				'name':name,
+				'subject':subject,
+				'email':email,
+				'content':content,
+			},
+			success:function(data){
+				deleteAll('msg');
+				addMsg('msg',data.msg);
+				console.log(data);
+			}
+		})
+	}
+	
 	</script>
 	
 	<!-- jQuery Easing -->

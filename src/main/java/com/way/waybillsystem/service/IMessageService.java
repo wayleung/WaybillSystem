@@ -15,6 +15,8 @@ public interface IMessageService {
 	
 	Message selectMessageByPrimaryKey(Integer id);
 	
+	Message selectMessageByEmail(String email);
+	
 	List<Message> selectAllMessages();
 	
 	PageInfo<Message> selectAllMessagesByPage(QueryByPageObject queryObject);

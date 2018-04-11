@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="W速运管理系统">
+<meta name="author" content="Way Leung">
+<meta name="keyword" content="WayLeung,System,Waybill,Management,Manage">
+<link rel="shortcut icon" href="img/favicon.png">
+<title>W速运管理系统</title>
+<!-- Icons -->
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/simple-line-icons.css" rel="stylesheet">
+<!-- Main styles for this application -->
+<link href="css/style.css" rel="stylesheet">
+<link href="datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+</head>
+
+<body
+	class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+		
+	<include src="header.html"></include>
+
+
+	<div class="app-body">
+	
+			<div class="sidebar">
+			<nav class="sidebar-nav">
+				<ul class="nav">
+					<include src="sidebar.html"></include>
+				</ul>
+			</nav>
+		</div>
+		
+		
+		<!-- Main content -->
+		<main class="main"> <!-- Breadcrumb -->
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">首页</a></li>
+			<li class="breadcrumb-item active">工作人员管理</li>
+			<!-- Breadcrumb Menu-->
+
+
+		</ol>
+
+		 <div class="container-fluid">
+                <div class="animated fadeIn">
+                
+                
+                <div  id="messageManage" class="row">
+                
+                <template v-for="item in datas">
+                
+            		<div class="col-sm-6 col-md-4">
+            		
+                            <div class="card card-outline-primary">
+                            <input type="hidden"  :value="item.messageId" />
+                                <div class="card-header">
+                                   	 {{ item.subject }}
+                                    <span class="float-right">{{ item.createTime }}</span>
+                                </div>
+                                <div class="card-block">
+                                
+                                   	 {{ item.content}}
+                                   	 <span class="float-right">{{ item.email }}&nbsp;&nbsp;<a  v-on:click="Delete(item.messageId)" href="#">删除</a></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                  </template> 
+                             
+                        
+                 </div>
+                </div>
+                
+
+            </div>
+            <!-- /.conainer-fluid --></main>
+
+	</div>
+
+	<include src="footer.html"></include>
+
+	<!-- Bootstrap and necessary plugins -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+	
+	<script type="text/javascript" src="datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="datetimepicker/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+	
+	<script src="bower_components/tether/dist/js/tether.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/pace/pace.min.js"></script>
+	<!-- Plugins and scripts required by all views -->
+	<script src="bower_components/chart.js/dist/Chart.min.js"></script>
+	<!-- GenesisUI main scripts -->
+	<script src="js/app.js"></script>
+	<!-- Vue-->
+	<script src="js/vue.min.js"></script>
+
+
+			function deleteAll(id){
+			$('#'+id).empty();
+		}
+
+		function addMsg(id,msg){
+			$('#'+id).text(msg);
+		}
+	
+
+
+
+
+
+	<script type="text/javascript">
+	
+
+	
+	
+
+
+	function getHostPath() {
+		var curWwwPath = window.document.location.href;
+		var pathName = window.document.location.pathname;
+		var pos = curWwwPath.indexOf(pathName);
+		//获取主机地址，如： http://localhost:8083
+		var localhostPath = curWwwPath.substring(0, pos);
+		return localhostPath;
+	}
+
+	var rootPath = getHostPath() + "/";
+	/* 			  $(document).ready(function(){
+	 console.log(rootPath); 
+	 }); */
+
+
+
+		
+		
+	//function ajax(api,datas) {
+	$(document).ready(function() {
+		var url = rootPath + "selectAllMessages";
+		console.log(url);
+		$.ajax({
+					url : url,
+					type : "get",
+					async : true,
+					dataType : "json",
+					//data: datas,
+					//异步   注意数据的获取
+					success : function(datas) {
+						console.log(datas);
+					
+						   new Vue({
+							  el: '#messageManage',
+							  data: datas,
+							  methods:{  
+								
+				              Delete: 		function(messageId){
+				              
+				      			console.log('del submit');
+				   			 $.get(rootPath+'/deleteMessageByPrimaryKey',{'messageId':messageId}, function (result) {  
+				   				 console.log(result);
+				   		 		 window.location.reload(); 
+				   	    });  
+				   		},  
+					             
+					          }  
+							})
+					}
+			 	}); 
+	});
+	
+	
+
+
+   
+	   
+
+
+
+
+	
+	
+	
+	/** 
+	 * include页面方法
+	 */  
+	(function(window, document, undefined) {  
+	    var Include39485748323 = function() {}  
+	    Include39485748323.prototype = {  
+	        //倒序循环  
+	        forEach: function(array, callback) {  
+	            var size = array.length;  
+	            for(var i = size - 1; i >= 0; i--){  
+	                callback.apply(array[i], [i]);  
+	            }  
+	        },  
+	        getFilePath: function() {  
+	            var curWwwPath=window.document.location.href;  
+	            var pathName=window.document.location.pathname;  
+	            var localhostPaht=curWwwPath.substring(0,curWwwPath.indexOf(pathName));  
+	            var projectName=pathName.substring(0,pathName.substr(1).lastIndexOf('/')+1);  
+	            return localhostPaht+projectName;  
+	        },  
+	        //获取文件内容  
+	        getFileContent: function(url) {  
+	            var ie = navigator.userAgent.indexOf('MSIE') > 0;  
+	            var o = ie ? new ActiveXObject('Microsoft.XMLHTTP') : new XMLHttpRequest();  
+	            o.open('get', url, false);  
+	            o.send(null);  
+	            return o.responseText;  
+	        },  
+	        parseNode: function(content) {  
+	            var objE = document.createElement("div");  
+	            objE.innerHTML = content;  
+	            return objE.childNodes;  
+	        },  
+	        executeScript: function(content) {  
+	            var mac = /<script>([\s\S]*?)<\/script>/g;  
+	            var r = "";  
+	            while(r = mac.exec(content)) {  
+	                eval(r[1]);  
+	            }  
+	        },  
+	        getHtml: function(content) {  
+	            var mac = /<script>([\s\S]*?)<\/script>/g;  
+	            content.replace(mac, "");  
+	            return content;  
+	        },  
+	        getPrevCount: function(src) {  
+	            var mac = /\.\.\//g;  
+	            var count = 0;  
+	            while(mac.exec(src)) {  
+	                count++;  
+	            }  
+	            return count;  
+	        },  
+	        getRequestUrl: function(filePath, src) {  
+	            if(/http:\/\//g.test(src)){ return src; }  
+	            var prevCount = this.getPrevCount(src);  
+	            while(prevCount--) {  
+	                filePath = filePath.substring(0,filePath.substr(1).lastIndexOf('/')+1);  
+	            }  
+	            return filePath + "/"+src.replace(/\.\.\//g, "");  
+	        },  
+	        replaceIncludeElements: function() {  
+	            var $this = this;  
+	            var filePath = $this.getFilePath();  
+	            var includeTals = document.getElementsByTagName("include");  
+	            this.forEach(includeTals, function() {  
+	                //拿到路径  
+	                var src = this.getAttribute("src");  
+	                //拿到文件内容  
+	                var content = $this.getFileContent($this.getRequestUrl(filePath, src));  
+	                //将文本转换成节点  
+	                var parent = this.parentNode;  
+	                var includeNodes = $this.parseNode($this.getHtml(content));  
+	                var size = includeNodes.length;  
+	                for(var i = 0; i < size; i++) {  
+	                    parent.insertBefore(includeNodes[0], this);  
+	                }  
+	                //执行文本中的额javascript  
+	                $this.executeScript(content);  
+	                parent.removeChild(this);  
+	                //替换元素 this.parentNode.replaceChild(includeNodes[1], this);  
+	            })  
+	        }  
+	    }  
+	    window.onload = function() {  
+	        new Include39485748323().replaceIncludeElements();  
+	    }  
+	})(window, document) 
+
+    </script>
+
+
+
+</body>
+
+</html>
