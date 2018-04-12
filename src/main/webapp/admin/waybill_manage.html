@@ -830,6 +830,43 @@
             addstatusinfo: {}  
         }  
     });  
+    
+    
+    function selectWaybillByWaybillNumber(){
+    	 $.ajax({
+	            type:"GET",
+	            url: rootPath+"selectWaybillByWaybillNumber",
+	            dataType:"json",
+	            //这里的data是输入框的data
+	            //这里的data是ajax返回的data
+	            success:function(data){
+	           	 //console.log(data);
+
+	           	 $("#employeeCharge").append("<option value='"+id+"'>"+name+"</option>");
+/* 	           	 <tr>
+					<td>{{ item.waybillNumber }}</td>
+					<td>{{ item.fromName}}</td>
+					<td>{{ item.fromAddress }}</td>
+					<td>{{ item.fromPhone }}</td>
+					<td>{{ item.sendDate }}</td>
+					<td>{{ item.toName }}</td>
+					<td>{{ item.toAddress }}</td>
+					<td>{{ item.toPhone }}</td>
+					<td>{{ item.totalCharge }}</td>
+					<td>{{ item.pickedupBy }}</td>
+					<td>{{ item.createTime }}</td>
+					<td><a href="#"   v-on:click="Update(item)" data-toggle="modal" data-target="#UpdateModal"><span class="badge badge-success">修改</span></a>
+					<a href="#" v-on:click="Status(item)" data-toggle="modal" data-target="#StatusModal"><span class="badge badge-warning">运单状态</span></a>
+					<a href="#" v-on:click="AddStatus(item)" data-toggle="modal" data-target="#AddStatusModal"><span class="badge badge-info">新增运单状态</span></a>
+						<a href="#" v-on:click="Delete(item)" data-toggle="modal" data-target="#DeleteModal"><span class="badge badge-danger">删除</span></a></td>
+</tr> */
+	           	 
+	            },
+	            error:function(e){
+	            alert("error");
+	            }
+	          });
+    }
 	
     
     

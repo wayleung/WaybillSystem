@@ -75,6 +75,16 @@ public class WaybillAction  extends BaseAction {
 		return waybillService.selectAllWaybillsByPage(queryObject);
 	}
 	
+	
+	
+	
+	@RequestMapping(value="/selectWaybillByWaybillNumber",method=RequestMethod.GET)
+	@ResponseBody
+	public Result<Waybill> selectWaybillByWaybillNumber(Long waybillNumber){
+		Waybill waybill = waybillService.selectWaybillByWaybillNumber(waybillNumber);
+		return new Result<Waybill>(true,waybill, "追踪物流运单成功", "1");
+	}
+	
 	@RequestMapping(value="/followWaybill",method=RequestMethod.POST)
 	@ResponseBody
 	public Result<Waybill> followWaybill(HttpServletRequest request,Long waybillNumber){
