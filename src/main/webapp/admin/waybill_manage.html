@@ -417,12 +417,7 @@
                                      <div class="form-group col-md-9">
                                             <label >到达所在地</label>
                                        		<select  v-model="addstatusinfo.locationNow"  class="form-control" id="locationNow" name="">
-                                                <option value="0">广东肇庆营业厅</option>
-                                                <option value="1">广东肇庆端州分部</option>
-                                                <option value="2">广东肇庆中转部</option>
-                                                <option value="3">广东广州中转部</option>
-                                                <option value="4">广东广州分部</option>
-                                                <option value="5">广东广州营业厅</option>
+												
                                             </select>
                                         </div>
                                         
@@ -448,11 +443,7 @@
                                             <label>状态</label>
                                             
                                             <select  v-model="addstatusinfo.status"  class="form-control" id="status" name="">
-                                                <option value="1">已收入</option>
-                                                <option value="2">已揽件</option>
-                                                <option value="3">运输中</option>
-                                                <option value="4">派送中</option>
-                                               	<option value="5">已签收</option>
+												
                                             </select>
 
                                         </div>
@@ -460,9 +451,8 @@
                                         
                                         <div class="form-group col-md-9">
                                             <label>负责人</label>
-                                            <select  v-model="addstatusinfo.employeeCharge"  class="form-control" id="status" name="">
-                                                <option value="1">刘师傅</option>
-                                                <option value="2">王师傅</option>
+                                            <select  v-model="addstatusinfo.employeeCharge"  class="form-control" id="employeeCharge" name="">
+                                               
                                             </select>
                                         </div>
                                         
@@ -648,6 +638,87 @@
 							})
 					}
 			 	}); 
+		
+		
+		
+		
+		
+		
+		
+		 $.ajax({
+            type:"GET",
+            url: rootPath+"selectAllStatuss",
+            dataType:"json",
+            //这里的data是输入框的data
+            //这里的data是ajax返回的data
+            success:function(data){
+           	 //console.log(data);
+           	  for(var i = 0; i < data.datas.length; i++){
+           		  
+           	  var statusId = data.datas[i].statusId;
+           	  var statusName = data.datas[i].statusName;
+           	 $("#status").append("<option value='"+statusId+"'>"+statusName+"</option>");
+          
+           	 }
+            },
+            error:function(e){
+            alert("error");
+            }
+          });
+		
+		
+		
+		
+		 $.ajax({
+            type:"GET",
+            url: rootPath+"selectAllLocations",
+            dataType:"json",
+            //这里的data是输入框的data
+            //这里的data是ajax返回的data
+            success:function(data){
+           	 //console.log(data);
+           	  for(var i = 0; i < data.datas.length; i++){
+           		  
+           	  var locationId = data.datas[i].locationId;
+           	  var locationName = data.datas[i].locationName;
+           	 $("#locationNow").append("<option value='"+locationId+"'>"+locationName+"</option>");
+
+           	 }
+            },
+            error:function(e){
+            alert("error");
+            }
+          });
+		 
+		 
+		 
+
+		 
+		 
+		 $.ajax({
+	            type:"GET",
+	            url: rootPath+"selectAllEmployees",
+	            dataType:"json",
+	            //这里的data是输入框的data
+	            //这里的data是ajax返回的data
+	            success:function(data){
+	           	 //console.log(data);
+	           	  for(var i = 0; i < data.datas.length; i++){
+	           		  
+	           	  var id = data.datas[i].id;
+	           	  var name = data.datas[i].name;
+	           	 $("#employeeCharge").append("<option value='"+id+"'>"+name+"</option>");
+
+	           	 }
+	            },
+	            error:function(e){
+	            alert("error");
+	            }
+	          });
+		 
+		
+		
+		
 
 	});
 	
