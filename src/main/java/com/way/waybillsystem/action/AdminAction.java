@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Admin;
 import com.way.waybillsystem.entity.Employee;
+import com.way.waybillsystem.entity.Location;
 import com.way.waybillsystem.entity.Message;
+import com.way.waybillsystem.entity.Status;
 import com.way.waybillsystem.exception.ErrorCodeConstant;
 import com.way.waybillsystem.service.IAdminService;
+import com.way.waybillsystem.service.ILocationService;
 import com.way.waybillsystem.service.IMessageService;
+import com.way.waybillsystem.service.IStatusService;
 import com.way.waybillsystem.vo.AdminLoginVO;
 import com.way.waybillsystem.vo.QueryByPageObject;
 import com.way.waybillsystem.vo.Result;
@@ -29,6 +33,13 @@ public class AdminAction extends BaseAction {
 	
 	@Autowired
 	private IMessageService messageService;
+	
+	@Autowired
+	private ILocationService locationService;
+	
+	@Autowired
+	private IStatusService statussrvice;
+	
 	
 	@RequestMapping(value="/insertAdmin",method=RequestMethod.POST)
 	@ResponseBody
@@ -99,6 +110,36 @@ public class AdminAction extends BaseAction {
 	@ResponseBody
 	public void deleteMessageByPrimaryKey(Integer messageId){
 		messageService.deleteMessageByPrimaryKey(messageId);
+	}
+	
+	
+	@RequestMapping(value="/selectAllLocations",method=RequestMethod.GET)
+	@ResponseBody
+	public  Result<List<Location>> selectAllLocations(){
+		List<Location> data = locationService.selectAllLocations();
+		return new Result<List<Location>>(true, data, "查询Location表成功！", "1");
+	}
+	
+	
+	/**
+	 * 查询所有城市 城市id以 100 开头
+	 * @return
+	 */
+	
+	@RequestMapping(value="/selectAllCitys",method=RequestMethod.GET)
+	@ResponseBody
+	public  Result<List<Location>> selectAllCitys(){
+		List<Location> data = locationService.selectAllCitys();
+		return new Result<List<Location>>(true, data, "查询Location表成功！", "1");
+	}
+	
+	
+	
+	@RequestMapping(value="/selectAllStatuss",method=RequestMethod.GET)
+	@ResponseBody
+	public  Result<List<Status>> selectAllStatuss(){
+		List<Status> data = statussrvice.selectAllStatuss();
+		return new Result<List<Status>>(true, data, "查询Status表成功！", "1");
 	}
 	
 }

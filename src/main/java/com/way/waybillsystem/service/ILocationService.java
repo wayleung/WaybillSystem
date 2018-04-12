@@ -18,4 +18,6 @@ public interface ILocationService {
 	List<Location> selectAllLocations();
 	
 	PageInfo<Location> selectAllLocationsByPage(QueryByPageObject queryObject);
+
+	List<Location> selectAllCitys();
 }

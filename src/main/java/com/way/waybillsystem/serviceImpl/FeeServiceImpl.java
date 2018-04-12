@@ -1,5 +1,6 @@
 package com.way.waybillsystem.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,14 +14,21 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Fee;
 import com.way.waybillsystem.entity.FeeExample;
+import com.way.waybillsystem.entity.FeeExample.Criteria;
+import com.way.waybillsystem.entity.Location;
 import com.way.waybillsystem.mapper.FeeMapper;
+import com.way.waybillsystem.mapper.LocationMapper;
 import com.way.waybillsystem.service.IFeeService;
+import com.way.waybillsystem.vo.FeeRtnVO;
 import com.way.waybillsystem.vo.QueryByPageObject;
 
 @Service
 public class FeeServiceImpl implements IFeeService {
 	@Autowired
 	private FeeMapper feeMapper;
+	
+	@Autowired
+	private LocationMapper locationMapper;
 	
 	private Logger Logger = LoggerFactory.getLogger(FeeServiceImpl.class);
 	
@@ -52,10 +60,30 @@ public class FeeServiceImpl implements IFeeService {
 	}
 
 	@Override
-	public List<Fee> selectAllFees() {
+	public List<FeeRtnVO> selectAllFees() {
 		// TODO Auto-generated method stub
 		FeeExample example = new FeeExample();
-		return feeMapper.selectByExample(example);
+		
+		List<FeeRtnVO> volist = new ArrayList<>();
+		List<Fee> list = feeMapper.selectByExample(example);
+		if(list!=null&&list.size()>0){
+			for (Fee fee : list) {
+				FeeRtnVO feeRtnVO = new FeeRtnVO();
+				feeRtnVO.setLocationSend(fee.getLocationSend());
+				Location location_send = locationMapper.selectByPrimaryKey(fee.getLocationSend());
+				feeRtnVO.setLocationSendName(location_send.getLocationName());
+				feeRtnVO.setLocationReceive(fee.getLocationReceive());
+				Location location_receive = locationMapper.selectByPrimaryKey(fee.getLocationReceive());
+				feeRtnVO.setLocationReceiveName(location_receive.getLocationName());
+				feeRtnVO.setFeeId(fee.getFeeId());
+				feeRtnVO.setFee(fee.getFee());
+				volist.add(feeRtnVO);
+			}
+			
+			return volist;
+		}else{
+			return null;
+		}
 	}
 
 	@Override
@@ -67,6 +95,36 @@ public class FeeServiceImpl implements IFeeService {
 		List<Fee> list =  feeMapper.selectByExample(example);
 		PageInfo<Fee> pageInfo = new PageInfo<>(list);
 		return pageInfo;
+	}
+
+	@Override
+	public FeeRtnVO selectFeeFromTwoArea(Integer locationSend,Integer locationReceive) {
+		// TODO Auto-generated method stub
+		
+		//System.out.println("-----"+locationSend+locationReceive);
+		FeeExample example = new FeeExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andLocationSendEqualTo(locationSend);
+		criteria.andLocationReceiveEqualTo(locationReceive);
+		List<Fee> list = feeMapper.selectByExample(example);
+
+		if(list!=null&&list.size()>0){
+			Fee fee = list.get(0);
+				FeeRtnVO feeRtnVO = new FeeRtnVO();
+				feeRtnVO.setLocationSend(fee.getLocationSend());
+				Location location_send = locationMapper.selectByPrimaryKey(fee.getLocationSend());
+				feeRtnVO.setLocationSendName(location_send.getLocationName());
+				feeRtnVO.setLocationReceive(fee.getLocationReceive());
+				Location location_receive = locationMapper.selectByPrimaryKey(fee.getLocationReceive());
+				feeRtnVO.setLocationReceiveName(location_receive.getLocationName());
+				feeRtnVO.setFeeId(fee.getFeeId());
+				feeRtnVO.setFee(fee.getFee());
+			
+			
+			return feeRtnVO;
+		}else{
+			return null;
+		}
 	}
 
 }

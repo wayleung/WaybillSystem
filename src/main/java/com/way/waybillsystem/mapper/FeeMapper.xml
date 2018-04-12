@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.way.waybillsystem.entity.Fee" >
     <id column="fee_id" property="feeId" jdbcType="INTEGER" />
     <result column="location_send" property="locationSend" jdbcType="INTEGER" />
-    <result column="loacation_receive" property="loacationReceive" jdbcType="INTEGER" />
-    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="location_receive" property="locationReceive" jdbcType="INTEGER" />
+    <result column="fee" property="fee" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    fee_id, location_send, loacation_receive, fee
+    fee_id, location_send, location_receive, fee
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.way.waybillsystem.entity.FeeExample" >
     select
@@ -99,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.way.waybillsystem.entity.Fee" >
-    insert into fee (fee_id, location_send, loacation_receive, 
+    insert into fee (fee_id, location_send, location_receive, 
       fee)
-    values (#{feeId,jdbcType=INTEGER}, #{locationSend,jdbcType=INTEGER}, #{loacationReceive,jdbcType=INTEGER}, 
-      #{fee,jdbcType=DECIMAL})
+    values (#{feeId,jdbcType=INTEGER}, #{locationSend,jdbcType=INTEGER}, #{locationReceive,jdbcType=INTEGER}, 
+      #{fee,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.way.waybillsystem.entity.Fee" >
     insert into fee
@@ -113,8 +113,8 @@
       <if test="locationSend != null" >
         location_send,
       </if>
-      <if test="loacationReceive != null" >
-        loacation_receive,
+      <if test="locationReceive != null" >
+        location_receive,
       </if>
       <if test="fee != null" >
         fee,
@@ -127,11 +127,11 @@
       <if test="locationSend != null" >
         #{locationSend,jdbcType=INTEGER},
       </if>
-      <if test="loacationReceive != null" >
-        #{loacationReceive,jdbcType=INTEGER},
+      <if test="locationReceive != null" >
+        #{locationReceive,jdbcType=INTEGER},
       </if>
       <if test="fee != null" >
-        #{fee,jdbcType=DECIMAL},
+        #{fee,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -150,11 +150,11 @@
       <if test="record.locationSend != null" >
         location_send = #{record.locationSend,jdbcType=INTEGER},
       </if>
-      <if test="record.loacationReceive != null" >
-        loacation_receive = #{record.loacationReceive,jdbcType=INTEGER},
+      <if test="record.locationReceive != null" >
+        location_receive = #{record.locationReceive,jdbcType=INTEGER},
       </if>
       <if test="record.fee != null" >
-        fee = #{record.fee,jdbcType=DECIMAL},
+        fee = #{record.fee,jdbcType=DOUBLE},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -165,8 +165,8 @@
     update fee
     set fee_id = #{record.feeId,jdbcType=INTEGER},
       location_send = #{record.locationSend,jdbcType=INTEGER},
-      loacation_receive = #{record.loacationReceive,jdbcType=INTEGER},
-      fee = #{record.fee,jdbcType=DECIMAL}
+      location_receive = #{record.locationReceive,jdbcType=INTEGER},
+      fee = #{record.fee,jdbcType=DOUBLE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -177,11 +177,11 @@
       <if test="locationSend != null" >
         location_send = #{locationSend,jdbcType=INTEGER},
       </if>
-      <if test="loacationReceive != null" >
-        loacation_receive = #{loacationReceive,jdbcType=INTEGER},
+      <if test="locationReceive != null" >
+        location_receive = #{locationReceive,jdbcType=INTEGER},
       </if>
       <if test="fee != null" >
-        fee = #{fee,jdbcType=DECIMAL},
+        fee = #{fee,jdbcType=DOUBLE},
       </if>
     </set>
     where fee_id = #{feeId,jdbcType=INTEGER}
@@ -189,8 +189,8 @@
   <update id="updateByPrimaryKey" parameterType="com.way.waybillsystem.entity.Fee" >
     update fee
     set location_send = #{locationSend,jdbcType=INTEGER},
-      loacation_receive = #{loacationReceive,jdbcType=INTEGER},
-      fee = #{fee,jdbcType=DECIMAL}
+      location_receive = #{locationReceive,jdbcType=INTEGER},
+      fee = #{fee,jdbcType=DOUBLE}
     where fee_id = #{feeId,jdbcType=INTEGER}
   </update>
 </mapper>

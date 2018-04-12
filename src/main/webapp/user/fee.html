@@ -66,7 +66,7 @@
 					<ul>
 						<li ><a href="index.html">首页</a></li>
 						<li><a href="search.html">运单查询</a></li>
-						<li class="active"><a href="fee.html">服务简介</a></li>
+						<li class="active"><a href="fee.html">运费与服务</a></li>
 						<li  ><a href="about.html">公司简介</a></li>
 						<li><a href="contactus.html">联系我们</a></li>
 						<li class="has-dropdown">
@@ -100,6 +100,81 @@
 				</div>
 			</div>
 		</header>
+		
+		
+				
+				<div id="gtco-subscribe">
+			<div id="waybillStatus">
+				<div class="row animate-box">
+					<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+						<h2>区间运费查询</h2>
+						<p>W速运竭诚为您服务.</p>
+					</div>
+				</div>
+				<div class="row animate-box">
+					<div class="col-md-12">
+						<form class="form-inline" action="" method="post">
+							<div class="col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="name">始发地</label>
+									<select id="city-select1" class="form-control"  style="color: #17B794;">
+									</select>
+								</div>
+							</div>
+
+							
+							
+							<div class="col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="name">目的地</label>
+									<select id="city-select2"  class="form-control" style="color: #17B794;">
+									</select>
+								</div>
+							</div>
+							
+							
+							
+							<div class="col-md-6 col-sm-6">
+								<!-- 用ajax的话 button不能是submit 否则会刷新页面 -->
+								<button type="button"  onclick="selectFeeFromTwoArea()" id="search"
+									class="btn btn-default btn-block">查询</button>
+								<div id="followbutton"></div>
+								<p id="msg" style="color: red;text-align: center;"></p>
+								
+							</div>
+						</form>
+						
+					</div>
+				</div>
+
+				<div class="row animate-box">
+					<div class="col-md-9 col-sm-9">
+						<!-- <table id="waybillStatus" style="display: block; margin-left: 10%;" id="table"> -->
+						<table  style="display: block; margin-left: 10%;" id="table">
+							<!-- <%-- <c:forEach var="waybillstatus" items="${waybillstatusrtn}"> --%>
+								<%-- <tr style="display:block;margin-top: 20px;margin-left: 10px;">
+									<td><font color="white">货物在${waybillstatus.locationName}${waybillstatus.statusName}</font></td><td>&nbsp;&nbsp;&nbsp;</td><td><font color="white">${waybillstatus.lacationTime}</font></td><td>&nbsp;&nbsp;&nbsp;</td><td><font color="white">经手人：${waybillstatus.eName}</font></td>
+								</tr> --%>
+							<%-- </c:forEach> --%> -->
+
+
+		
+
+			  <tr>
+			  							
+				  			
+							<td style="display:block;margin-top: 20px;margin-left: 10px;text-align: "><font id="result" color="white"></font></td>
+				</tr>
+
+						
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
 
 
 		<div class="gtco-section">
@@ -181,6 +256,13 @@
 				<div class="row"></div>
 			</div>
 		</div>
+		
+		
+
+		
+		
+		
+		
 
 	
 	<footer id="gtco-footer" role="contentinfo">
@@ -259,8 +341,15 @@
 		<script type="text/javascript">
 
 	
+		function deleteAll(id){
+			$('#'+id).empty();
+		}
+
+		function addMsg(id,msg){
+			$('#'+id).text(msg);
+		}
 	
-	
+		
 	
 
     function getHostPath() {
@@ -321,7 +410,33 @@
 				};
 				
 			}
-		}); 
+		});
+		
+		
+
+		 $.ajax({
+            type:"GET",
+            url: rootPath+"selectAllCitys",
+            dataType:"json",
+            //这里的data是输入框的data
+            //这里的data是ajax返回的data
+            success:function(data){
+           	 //console.log(data);
+           	  for(var i = 0; i < data.datas.length; i++){
+           		  
+           	  var locationId = data.datas[i].locationId;
+           	  var locationName = data.datas[i].locationName;
+           	 $("#city-select1").append("<option value='"+locationId+"'>"+locationName+"</option>");
+           	 $("#city-select2").append("<option value='"+locationId+"'>"+locationName+"</option>");
+       
+           	 }
+            },
+            error:function(e){
+            alert("error");
+            }
+          });
+		
+		
 	});
 	
 	
@@ -348,6 +463,44 @@
 			}
 		});
 	}
+	
+	
+	
+	function selectFeeFromTwoArea(){
+		var locationSend = $("#city-select1").val();
+		var locationReceive = $("#city-select2").val();
+		
+		if(locationSend==null||locationSend==''||locationReceive==null||locationReceive==''){
+    		deleteAll('msg');
+    		status_vm.datas=null;
+    		addMsg('msg','始发地城市和目的地城市不能为空');
+    	}else{
+    		console.log('selectFeeFromTwoArea'+locationSend+locationReceive);
+    		deleteAll('msg');
+    		$.ajax({
+    			url:rootPath+'selectFeeFromTwoArea',
+    			type:"get",
+    			async:"true",
+    			data : {'locationSend': locationSend ,'locationReceive': locationReceive},
+    			dataType:"json",
+    			success : function(data){
+    				console.log(data);
+    				deleteAll('result');
+                 	  if(data==null||data.datas==null){
+                 		 deleteAll('msg');
+                  		addMsg('msg','该区间运费信息不存在');
+                     	  }else{
+                     		 addMsg('result','该区间运费为'+data.datas.fee+'元');
+                     	  }
+                     	  
+              }
+    		});
+    	}
+		
+		
+	}
+	
+	
 	</script>
 	<script src="js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->

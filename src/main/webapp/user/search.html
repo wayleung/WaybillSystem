@@ -67,7 +67,7 @@
 					<ul>
 						<li ><a href="index.html">首页</a></li>
 						<li   class="active"><a href="search.html">运单查询</a></li>
-						<li><a href="fee.html">服务简介</a></li>
+						<li><a href="fee.html">运费与服务</a></li>
 						<li><a href="about.html">公司简介</a></li>
 						<li><a href="contactus.html">联系我们</a></li>
 						<li class="has-dropdown">
@@ -160,7 +160,7 @@
 			  <tr>
 			  							
 				  			
-							<tr style="display:block;margin-top: 20px;margin-left: 10px;"><font color="white">{{ item.lacationTime }}：快件{{ item.statusName}}，已到达{{ item.locationName }}，负责人{{ item.name}}</font></td>
+							<td style="display:block;margin-top: 20px;margin-left: 10px;"><font color="white">{{ item.lacationTime }}：快件{{ item.statusName}}，已到达{{ item.locationName }}，负责人{{ item.name}}</font></td>
 				</tr>
 
 							</template>
@@ -367,6 +367,7 @@ function addMsg(id,msg){
             	var waybillNumber = $("#waybill_number").val();
             	if(waybillNumber==null||waybillNumber==''){
             		deleteAll('msg');
+            		status_vm.datas=null;
             		addMsg('msg','运单号不能为空');
             	}else{
             		deleteAll('msg');
@@ -380,6 +381,7 @@ function addMsg(id,msg){
                          success:function(data){
                        	  if(data.datas.length<=0){
                        		deleteAll('msg');
+                       		status_vm.datas=null;
                     		addMsg('msg','运单号不存在或运单没有状态');
                        	  }else{
                        		status_vm.datas=data.datas;
@@ -436,6 +438,7 @@ function addMsg(id,msg){
 		});
 	}
 	
+
 
 </script>
 <!-- jQuery Easing -->

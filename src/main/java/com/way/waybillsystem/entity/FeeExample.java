@@ -224,63 +224,63 @@ public class FeeExample {
             return (Criteria) this;
         }
 
-        public Criteria andLoacationReceiveIsNull() {
-            addCriterion("loacation_receive is null");
+        public Criteria andLocationReceiveIsNull() {
+            addCriterion("location_receive is null");
             return (Criteria) this;
         }
 
-        public Criteria andLoacationReceiveIsNotNull() {
-            addCriterion("loacation_receive is not null");
+        public Criteria andLocationReceiveIsNotNull() {
+            addCriterion("location_receive is not null");
             return (Criteria) this;
         }
 
-        public Criteria andLoacationReceiveEqualTo(Integer value) {
-            addCriterion("loacation_receive =", value, "loacationReceive");
+        public Criteria andLocationReceiveEqualTo(Integer value) {
+            addCriterion("location_receive =", value, "locationReceive");
             return (Criteria) this;
         }
 
-        public Criteria andLoacationReceiveNotEqualTo(Integer value) {
-            addCriterion("loacation_receive <>", value, "loacationReceive");
+        public Criteria andLocationReceiveNotEqualTo(Integer value) {
+            addCriterion("location_receive <>", value, "locationReceive");
             return (Criteria) this;
         }
 
-        public Criteria andLoacationReceiveGreaterThan(Integer value) {
-            addCriterion("loacation_receive >", value, "loacationReceive");
+        public Criteria andLocationReceiveGreaterThan(Integer value) {
+            addCriterion("location_receive >", value, "locationReceive");
             return (Criteria) this;
         }
 
-        public Criteria andLoacationReceiveGreaterThanOrEqualTo(Integer value) {
-            addCriterion("loacation_receive >=", value, "loacationReceive");
+        public Criteria andLocationReceiveGreaterThanOrEqualTo(Integer value) {
+            addCriterion("location_receive >=", value, "locationReceive");
             return (Criteria) this;
         }
 
-        public Criteria andLoacationReceiveLessThan(Integer value) {
-            addCriterion("loacation_receive <", value, "loacationReceive");
+        public Criteria andLocationReceiveLessThan(Integer value) {
+            addCriterion("location_receive <", value, "locationReceive");
             return (Criteria) this;
         }
 
-        public Criteria andLoacationReceiveLessThanOrEqualTo(Integer value) {
-            addCriterion("loacation_receive <=", value, "loacationReceive");
+        public Criteria andLocationReceiveLessThanOrEqualTo(Integer value) {
+            addCriterion("location_receive <=", value, "locationReceive");
             return (Criteria) this;
         }
 
-        public Criteria andLoacationReceiveIn(List<Integer> values) {
-            addCriterion("loacation_receive in", values, "loacationReceive");
+        public Criteria andLocationReceiveIn(List<Integer> values) {
+            addCriterion("location_receive in", values, "locationReceive");
             return (Criteria) this;
         }
 
-        public Criteria andLoacationReceiveNotIn(List<Integer> values) {
-            addCriterion("loacation_receive not in", values, "loacationReceive");
+        public Criteria andLocationReceiveNotIn(List<Integer> values) {
+            addCriterion("location_receive not in", values, "locationReceive");
             return (Criteria) this;
         }
 
-        public Criteria andLoacationReceiveBetween(Integer value1, Integer value2) {
-            addCriterion("loacation_receive between", value1, value2, "loacationReceive");
+        public Criteria andLocationReceiveBetween(Integer value1, Integer value2) {
+            addCriterion("location_receive between", value1, value2, "locationReceive");
             return (Criteria) this;
         }
 
-        public Criteria andLoacationReceiveNotBetween(Integer value1, Integer value2) {
-            addCriterion("loacation_receive not between", value1, value2, "loacationReceive");
+        public Criteria andLocationReceiveNotBetween(Integer value1, Integer value2) {
+            addCriterion("location_receive not between", value1, value2, "locationReceive");
             return (Criteria) this;
         }
 
@@ -294,52 +294,52 @@ public class FeeExample {
             return (Criteria) this;
         }
 
-        public Criteria andFeeEqualTo(Long value) {
+        public Criteria andFeeEqualTo(Double value) {
             addCriterion("fee =", value, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeNotEqualTo(Long value) {
+        public Criteria andFeeNotEqualTo(Double value) {
             addCriterion("fee <>", value, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeGreaterThan(Long value) {
+        public Criteria andFeeGreaterThan(Double value) {
             addCriterion("fee >", value, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeGreaterThanOrEqualTo(Long value) {
+        public Criteria andFeeGreaterThanOrEqualTo(Double value) {
             addCriterion("fee >=", value, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeLessThan(Long value) {
+        public Criteria andFeeLessThan(Double value) {
             addCriterion("fee <", value, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeLessThanOrEqualTo(Long value) {
+        public Criteria andFeeLessThanOrEqualTo(Double value) {
             addCriterion("fee <=", value, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeIn(List<Long> values) {
+        public Criteria andFeeIn(List<Double> values) {
             addCriterion("fee in", values, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeNotIn(List<Long> values) {
+        public Criteria andFeeNotIn(List<Double> values) {
             addCriterion("fee not in", values, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeBetween(Long value1, Long value2) {
+        public Criteria andFeeBetween(Double value1, Double value2) {
             addCriterion("fee between", value1, value2, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeNotBetween(Long value1, Long value2) {
+        public Criteria andFeeNotBetween(Double value1, Double value2) {
             addCriterion("fee not between", value1, value2, "fee");
             return (Criteria) this;
         }

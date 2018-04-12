@@ -13,6 +13,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Location;
 import com.way.waybillsystem.entity.LocationExample;
+import com.way.waybillsystem.entity.LocationExample.Criteria;
 import com.way.waybillsystem.mapper.LocationMapper;
 import com.way.waybillsystem.service.ILocationService;
 import com.way.waybillsystem.vo.QueryByPageObject;
@@ -67,6 +68,13 @@ public class LocationServiceImpl implements ILocationService {
 		List<Location> list =  locationMapper.selectByExample(example);
 		PageInfo<Location> pageInfo = new PageInfo<>(list);
 		return pageInfo;
+	}
+
+	@Override
+	public List<Location> selectAllCitys() {
+		// TODO Auto-generated method stub
+		return locationMapper.selectAllCitys();
+		
 	}
 
 }

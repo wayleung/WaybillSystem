@@ -27,4 +27,6 @@ public interface LocationMapper {
     int updateByPrimaryKeySelective(Location record);
 
     int updateByPrimaryKey(Location record);
+    
+    List<Location>  selectAllCitys();
 }

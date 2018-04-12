@@ -5,9 +5,9 @@ public class Fee {
 
     private Integer locationSend;
 
-    private Integer loacationReceive;
+    private Integer locationReceive;
 
-    private Long fee;
+    private Double fee;
 
     public Integer getFeeId() {
         return feeId;
@@ -25,19 +25,19 @@ public class Fee {
         this.locationSend = locationSend;
     }
 
-    public Integer getLoacationReceive() {
-        return loacationReceive;
+    public Integer getLocationReceive() {
+        return locationReceive;
     }
 
-    public void setLoacationReceive(Integer loacationReceive) {
-        this.loacationReceive = loacationReceive;
+    public void setLocationReceive(Integer locationReceive) {
+        this.locationReceive = locationReceive;
     }
 
-    public Long getFee() {
+    public Double getFee() {
         return fee;
     }
 
-    public void setFee(Long fee) {
+    public void setFee(Double fee) {
         this.fee = fee;
     }
 }

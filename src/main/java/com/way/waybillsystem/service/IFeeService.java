@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Fee;
+import com.way.waybillsystem.vo.FeeRtnVO;
 import com.way.waybillsystem.vo.QueryByPageObject;
 
 public interface IFeeService {
@@ -15,7 +16,10 @@ public interface IFeeService {
 	
 	Fee selectFeeByPrimaryKey(Integer id);
 	
-	List<Fee> selectAllFees();
+	List<FeeRtnVO> selectAllFees();
+	
+	FeeRtnVO selectFeeFromTwoArea(Integer locationSend,Integer loacationReceive);
+	
 	
 	PageInfo<Fee> selectAllFeesByPage(QueryByPageObject queryObject);
 }
