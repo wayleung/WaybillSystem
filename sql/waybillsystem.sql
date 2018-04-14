@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50626
 File Encoding         : 65001
 
-Date: 2018-04-14 17:05:51
+Date: 2018-04-14 22:03:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -57,7 +57,7 @@ CREATE TABLE `code_token_openid` (
   `openid` varchar(255) DEFAULT NULL COMMENT '微信用户openid',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of code_token_openid
@@ -92,6 +92,8 @@ INSERT INTO `code_token_openid` VALUES ('27', '071Vm2nN0jYE852fzHnN0LOJmN0Vm2nA'
 INSERT INTO `code_token_openid` VALUES ('28', '081e1hlQ033cH82055jQ0TVVkQ0e1hlS', '8_c9Tnxo1eCKIncbeno9iWCx3sPa9wmmF6tUfi7WUrZSg9JIdCyUty45d8W286wbSqJcgkv4MFsU--oudT-GKLi2v07CSC4iHEPrwlAJo9n3c', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-06 17:29:33');
 INSERT INTO `code_token_openid` VALUES ('29', '021E8FBd0P5jeu1lx3Cd0ZnSBd0E8FBm', '8_F5for_bheocsjBOX8QBuRN4KRJzPnjtez9ckEM3_AGmetITuoN5neMujG1A01u0u_wQwJwkJTGmgHdjXkkRtB9Is90cbP6-hNC3Oq_X3KsI', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-06 17:31:13');
 INSERT INTO `code_token_openid` VALUES ('30', '081iiGtF0IBFpj2uVcsF01wLtF0iiGtZ', '8_HgQFztuBsrYpLqVRVqO3jCVUPrsx92hx6U4CEXeoPSSWQBFTBAfCAXrWTayeukocx_Qw-zooN3VFnGO0qCjwy3Qm0CzMvx_JlNOKs67Jwt8', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-06 17:39:29');
+INSERT INTO `code_token_openid` VALUES ('31', '011eP4i31Sz2MO1EgZl316vhi31eP4ie', '8_H9K1gID5ZOkuecvSvFfNvIyEQ0ss11SvhbQ3nevRRHZCaAyRNqFeu7BA9dJ4gRRdda6Ym-louCq2zvYqZhXSTd1FBP6_2HYjoNFE4lqzkVI', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-14 21:44:33');
+INSERT INTO `code_token_openid` VALUES ('32', '021p8CYc0d0KNu1tz4Xc0AxWYc0p8CYh', '8_uS0SAyHu9MUCuAL6yfXz7roi-dJThRJgpJPE823HT9mdWwcWH6sGZU87GNxOtgfBx9NiS4PQ2jCvxe-SrGNdDJmRCjUuveWSVRy05XhHrq0', 'oZHEd1Vj9nOAzC9F1WEuKRqzXqnQ', '2018-04-14 21:47:40');
 
 -- ----------------------------
 -- Table structure for company_information
@@ -134,8 +136,8 @@ CREATE TABLE `employee` (
 -- ----------------------------
 -- Records of employee
 -- ----------------------------
-INSERT INTO `employee` VALUES ('1', '刘师傅', '123', 'f', '12', '', '', '2018-04-14 12:53:04', '2018-03-06 00:07:44');
-INSERT INTO `employee` VALUES ('2', '王师傅', '123', 'm', '123', '', '', '2018-03-22 15:55:06', '2018-03-06 00:08:08');
+INSERT INTO `employee` VALUES ('1', '刘师傅', '123', 'f', '12', '广州', '在职', '2018-04-14 12:53:04', '2018-03-06 00:07:44');
+INSERT INTO `employee` VALUES ('2', '王师傅', '123', 'm', '123', '广州', '离职', '2018-03-22 15:55:06', '2018-03-06 00:08:08');
 
 -- ----------------------------
 -- Table structure for fee
@@ -197,12 +199,22 @@ CREATE TABLE `message` (
   `content` varchar(255) DEFAULT NULL COMMENT '留言内容',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`message_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of message
 -- ----------------------------
-INSERT INTO `message` VALUES ('1', '123', '123', '123', '123', '2018-04-12 13:58:38');
+INSERT INTO `message` VALUES ('1', '小梁', 'wayleung13@163.com', '一名小用户的留言', '希望公司可以越办越好，但是也希望改进一些缺点。', '2018-04-12 13:58:38');
+INSERT INTO `message` VALUES ('2', '小梁', 'wayleung13@163.com', '一名小用户的留言', '希望公司可以越办越好，但是也希望改进一些缺点。', '2018-04-12 13:58:38');
+INSERT INTO `message` VALUES ('3', '小梁', 'wayleung13@163.com', '一名小用户的留言', '希望公司可以越办越好，但是也希望改进一些缺点。', '2018-04-12 13:58:38');
+INSERT INTO `message` VALUES ('4', '小梁', 'wayleung13@163.com', '一名小用户的留言', '希望公司可以越办越好，但是也希望改进一些缺点。', '2018-04-12 13:58:38');
+INSERT INTO `message` VALUES ('5', '小梁', 'wayleung13@163.com', '一名小用户的留言', '希望公司可以越办越好，但是也希望改进一些缺点。', '2018-04-12 13:58:38');
+INSERT INTO `message` VALUES ('6', '小梁', 'wayleung13@163.com', '一名小用户的留言', '希望公司可以越办越好，但是也希望改进一些缺点。', '2018-04-12 13:58:38');
+INSERT INTO `message` VALUES ('7', '小梁', 'wayleung13@163.com', '一名小用户的留言', '希望公司可以越办越好，但是也希望改进一些缺点。', '2018-04-12 13:58:38');
+INSERT INTO `message` VALUES ('8', '小梁', 'wayleung13@163.com', '一名小用户的留言', '希望公司可以越办越好，但是也希望改进一些缺点。', '2018-04-12 13:58:38');
+INSERT INTO `message` VALUES ('9', '小梁', 'wayleung13@163.com', '一名小用户的留言', '希望公司可以越办越好，但是也希望改进一些缺点。', '2018-04-12 13:58:38');
+INSERT INTO `message` VALUES ('10', '小梁', 'wayleung13@163.com', '一名小用户的留言', '希望公司可以越办越好，但是也希望改进一些缺点。', '2018-04-12 13:58:38');
+INSERT INTO `message` VALUES ('11', '小梁', 'wayleung13@163.com', '一名小用户的留言', '希望公司可以越办越好，但是也希望改进一些缺点。', '2018-04-12 13:58:38');
 
 -- ----------------------------
 -- Table structure for pay_charge
@@ -344,7 +356,7 @@ CREATE TABLE `waybill_status` (
   `employee_charge` bigint(11) DEFAULT NULL COMMENT '负责员工',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`ws_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of waybill_status
@@ -365,12 +377,12 @@ INSERT INTO `waybill_status` VALUES ('34', '1', '5', '2', '2018-04-14 15:25:57',
 INSERT INTO `waybill_status` VALUES ('35', '1', '3', '2', '2018-04-14 15:27:30', '2', '2018-04-14 15:27:33');
 INSERT INTO `waybill_status` VALUES ('36', '1', '3', '2', '2018-04-14 15:27:30', '2', '2018-04-14 15:27:38');
 INSERT INTO `waybill_status` VALUES ('37', '1', '3', '2', '2018-04-14 15:27:30', '2', '2018-04-14 15:27:42');
-INSERT INTO `waybill_status` VALUES ('38', '1', '3', '4', '2018-04-17 08:25:11', '2', '2018-04-14 15:28:19');
 INSERT INTO `waybill_status` VALUES ('39', '1', '3', '1', '2018-04-14 15:30:08', '2', '2018-04-14 15:30:13');
 INSERT INTO `waybill_status` VALUES ('40', '1', '3', '1', '2018-04-14 15:30:08', '2', '2018-04-14 15:30:39');
 INSERT INTO `waybill_status` VALUES ('41', '1', '3', '5', '2018-04-14 15:31:32', '2', '2018-04-14 15:31:35');
 INSERT INTO `waybill_status` VALUES ('42', '1', '5', '100001', '2018-04-14 15:33:03', '2', '2018-04-14 15:33:06');
 INSERT INTO `waybill_status` VALUES ('43', '1', '5', '100001', '2018-04-14 15:33:03', '2', '2018-04-14 15:33:51');
+INSERT INTO `waybill_status` VALUES ('45', '1', '4', '5', '2018-04-14 20:42:14', '1', '2018-04-14 20:42:51');
 
 -- ----------------------------
 -- Table structure for wechat_token
@@ -383,9 +395,11 @@ CREATE TABLE `wechat_token` (
   `openid` varchar(255) DEFAULT NULL COMMENT '微信用户openid',
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wechat_token
 -- ----------------------------
 INSERT INTO `wechat_token` VALUES ('76', null, '8_vNAFNAph9wfT02kmTHoHBxyKqaj3PWYjKwsruUjO2rP0A9XKxXR1rPcVFMdo0i4_YluFSyNkMLCH1bM2BSp2htLjAZyaBSQ1zOu1nnQROhoGDHdo63bp4m0qpjwYMXfAFATHS', null, '2018-04-14 15:33:52');
+INSERT INTO `wechat_token` VALUES ('77', null, '8_vhbFzWea4wtiCKIctRur9Y0gPXCt71gYNDEAk9rd0WEwogslISMmuLnw17tC2ldsAUPv9nz4jwYBji72ovAZDaWGEhmc7yRd91ix8Wqmjf632ytWxH1TbKEhtJqJvFgvsdxKyTAoWbg0kSBQHRVbACAPZD', null, '2018-04-14 20:05:12');
+INSERT INTO `wechat_token` VALUES ('78', null, '8_BoLVg7ADI8W_OrSNj3SSIufu8l5z1zjkTSGNzwS3WVw3PDFIZbb5pTKlRzMiYK6pH9UEoaPUxD4EWummpdd782A-HqrZ0WG0MOk57tqUrmuiMpbfzK3I0kj99bVOcIUr_xSfY9IV0M73sWG7ZGZjAFAOVO', null, '2018-04-14 22:00:01');

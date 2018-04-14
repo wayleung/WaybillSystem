@@ -142,18 +142,13 @@ public class LoginAction extends BaseAction {
 		String account = loginVO.getAccount();
 		String password = loginVO.getPassword();
 		String verifyCode = loginVO.getVerifyCode();
-
-
 		if(StringUtils.isBlank(account)||StringUtils.isBlank(password)||StringUtils.isBlank(verifyCode)){
 			return new Result<>(false,ErrorCodeConstant.E00003.getMessage(),ErrorCodeConstant.E00003.getCode());
 		}
-		
-		
 		String verifyCode_server =  (String) request.getSession().getAttribute("verifyCode");
 		if(!verifyCode.equals(verifyCode_server)){
 			return new Result<>(false,ErrorCodeConstant.E00001.getMessage(),ErrorCodeConstant.E00001.getCode());
 		}
-		
 		User user = userService.selectUserByAccount(account);
 		if(user!=null){
 			return new Result<>(false,ErrorCodeConstant.E00011.getMessage(),ErrorCodeConstant.E00011.getCode());
