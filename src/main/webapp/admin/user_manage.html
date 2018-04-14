@@ -49,6 +49,40 @@
                 <div class="animated fadeIn">
 <!--                     <div class="row"> -->
                         <div class="col-lg-12">
+                        
+                                                <div class="card">
+				<div class="card-header">
+					<strong>查询</strong>
+				</div>
+				<div class="card-block">
+					<form action="" method="post"
+						class="form-horizontal ">
+
+						<div class="form-group row">
+							<label for="text-input" style="margin-left: 30px;">用户账号</label>
+							<div class="col-md-3">
+								<input type="text" id="user_account" name="waybill_number"
+									class="form-control" placeholder="请输入用户账号"/>
+								<!-- <span class="help-block">This is a help text</span> -->
+							</div>
+
+
+
+							<div class="col-md-2">
+								<input type="button" onclick="selectUserByAccount()" class="btn btn-sm btn-primary" value="查询">
+								<input type="reset" class="btn btn-sm btn-danger" value="重置">
+
+							</div>
+							<p id="msg" style="color: red;text-align: center;"></p>
+						</div>
+
+					</form>
+
+				</div>
+
+			</div>
+                        
+                        
                        <div class="card">
 						<div class="card-header">
 							<i class="fa fa-align-justify"></i>用户管理
@@ -336,6 +370,26 @@
 	 var url = rootPath + "selectAllUsers";
 	
 		
+	 
+	 var user_vm =  new Vue({
+		  el: '#userManage',
+		  data: {datas:{}},
+		  methods:{  
+	
+              Delete: function (id) //删除  
+              {  
+            	  console.log(id); 
+            	  delete_vm.$data.deleteinfo = id;
+              },  
+              Update: function (item) //更新  
+              {  
+            	  console.log(item);
+            	  //克隆一个对象   这样更新表单中改变数据 不会影响前端表单
+                   var databack = $.extend({}, item);  
+            	  update_vm.$data.updateinfo = databack;  
+              }  
+          }  
+		})
 		
 	//function ajax(api,datas) {
 	$(document).ready(function() {
@@ -348,26 +402,8 @@
 					dataType : "json",
 					//data: datas,
 					//异步   注意数据的获取
-					success : function(datas) {
-						   new Vue({
-							  el: '#userManage',
-							  data: datas,
-							  methods:{  
-						
-					              Delete: function (id) //删除  
-					              {  
-					            	  console.log(id); 
-					            	  delete_vm.$data.deleteinfo = id;
-					              },  
-					              Update: function (item) //更新  
-					              {  
-					            	  console.log(item);
-					            	  //克隆一个对象   这样更新表单中改变数据 不会影响前端表单
-				                       var databack = $.extend({}, item);  
-					            	  update_vm.$data.updateinfo = databack;  
-					              }  
-					          }  
-							})
+					success : function(data) {
+						user_vm.datas=data.datas;
 					}
 			 	}); 
 	}); 
@@ -503,6 +539,46 @@
 		    });  
 			}
 		);
+	
+	
+	
+	
+	function selectUserByAccount(){
+		var user_account = $('#user_account').val();
+	    if(user_account==null||user_account==''){
+	    	deleteAll('msg');
+	    	addMsg('msg', '账号不能为空');
+	    }else{
+	   	 $.ajax({
+	         type:"GET",
+	         async:true,
+	         //resultjson里面要数组 否则vue接收不到数据
+	         url: rootPath+"selectUserByAccountList",
+	         dataType:"json",
+	         data:{'account':user_account},
+	         //这里的data是输入框的data
+	         //这里的data是ajax返回的data
+	         success:function(data){
+	        	 
+	        	 if(data.success==true){
+	        		 
+	        		 deleteAll('msg');
+	        		console.log(data);
+	        		user_vm.datas=data.datas;
+
+	        	 }else{
+	        		 user_vm.datas=null;
+	        		deleteAll('msg');
+	        		addMsg('msg', data.msg);
+	        	 }   	 
+	         },
+	         error:function(e){
+	         alert("error");
+	         }
+	       });
+	    }
+
+	}
 	
 	//日期控件放最后?
 /* 	$('#id').datetimepicker({

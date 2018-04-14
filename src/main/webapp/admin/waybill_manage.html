@@ -74,10 +74,11 @@
 
 
 							<div class="col-md-2">
-								<input type="submit" class="btn btn-sm btn-primary" value="查询">
-								<input type="button" class="btn btn-sm btn-danger" value="重置">
+								<input type="button" onclick="selectWaybillByWaybillNumber()" class="btn btn-sm btn-primary" value="查询">
+								<input type="reset" class="btn btn-sm btn-danger" value="重置">
 
 							</div>
+							<p id="msg" style="color: red;text-align: center;"></p>
 						</div>
 
 					</form>
@@ -109,7 +110,7 @@
 										<th>操作</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="search_tbody">
 								<!-- 	<tr>
 										<td>123456</td>
 										<td>男</td>
@@ -520,8 +521,8 @@
 								
                             </div>
                             <div class="modal-footer">
-                                <button type="button" id="statusRefreshButton" class="btn btn-secondary" data-dismiss="modal">返回</button>
-                               
+                               <!--  <button type="button" id="statusRefreshButton" class="btn btn-secondary" data-dismiss="modal">返回</button> -->
+                               <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
                             </div>
                         </div>
                         <!-- /.modal-content -->
@@ -559,6 +560,14 @@
 	<script src="js/vue.min.js"></script>
 	<script type="text/javascript">
 	
+	
+	function deleteAll(id){
+		$('#'+id).empty();
+	}
+
+	function addMsg(id,msg){
+		$('#'+id).text(msg);
+	}
 
 
 	function getHostPath() {
@@ -576,6 +585,62 @@
 	 }); */
 
 
+	 
+	  var status_vm =  new Vue({
+			  el: '#waybillStatusManage',
+			  data: {
+				  datas:{}
+				  },
+			})
+	 
+	  var waybill_vm =  new Vue({
+			  el: '#waybillManage',
+			  data: {
+				  datas:{}
+			  },
+			  methods:{  
+
+	              Delete: function (id) //删除  
+	              {  
+	            	  console.log(id); 
+	            	  delete_vm.$data.deleteinfo = id;
+	              },
+	              
+	              Status:function(item){
+	            	  
+	            	  console.log(item.waybillNumber); 
+	          		$.ajax({
+	        			url : rootPath + "selectWaybillStatusByWaybillNumber",
+	        			type : "get",
+	        			async : true,
+	        			dataType : "json",
+	        			data: {waybillNumber:item.waybillNumber},
+	        			//异步   注意数据的获取
+	        			success : function(data) {
+	        				status_vm.datas = data.datas;
+	        			}
+	        	 	});
+	              },
+	              
+	              
+	              
+	              
+	              Update: function (item) //更新  
+	              {  
+	            	  console.log(item);
+	            	  //克隆一个对象   这样更新表单中改变数据 不会影响前端表单
+                    var databack = $.extend({}, item);  
+	            	  update_vm.$data.updateinfo = databack;  
+	              } ,
+	              
+	              
+	              AddStatus: function (item) //删除  
+	              {  
+	            	  console.log(item); 
+	            	  addstatus_vm.$data.addstatusinfo = item;
+	              },
+	          }  
+			})
 
 		
 	//function ajax(api,datas) {
@@ -589,53 +654,10 @@
 					dataType : "json",
 					//data: datas,
 					//异步   注意数据的获取
-					success : function(datas) {
-						   new Vue({
-							  el: '#waybillManage',
-							  data: datas,
-							  methods:{  
-
-					              Delete: function (id) //删除  
-					              {  
-					            	  console.log(id); 
-					            	  delete_vm.$data.deleteinfo = id;
-					              },
-					              
-					              Status:function(item){
-					            	  
-					            	  console.log(item.waybillNumber); 
-					          		$.ajax({
-					        			url : rootPath + "selectWaybillStatusByWaybillNumber",
-					        			type : "get",
-					        			async : true,
-					        			dataType : "json",
-					        			data: {waybillNumber:item.waybillNumber},
-					        			//异步   注意数据的获取
-					        			success : function(datas) {
-					        				   new Vue({
-					        					  el: '#waybillStatusManage',
-					        					  data: datas,
-					        					})
-					        			}
-					        	 	});
-					              },
-					              
-					              Update: function (item) //更新  
-					              {  
-					            	  console.log(item);
-					            	  //克隆一个对象   这样更新表单中改变数据 不会影响前端表单
-				                       var databack = $.extend({}, item);  
-					            	  update_vm.$data.updateinfo = databack;  
-					              } ,
-					              
-					              
-					              AddStatus: function (item) //删除  
-					              {  
-					            	  console.log(item); 
-					            	  addstatus_vm.$data.addstatusinfo = item;
-					              },
-					          }  
-							})
+					success : function(data) {
+						console.log(data)
+					
+						waybill_vm.datas=data.datas;
 					}
 			 	}); 
 		
@@ -811,11 +833,11 @@
 		);
 	
 	
-	$("#statusRefreshButton").click(
+/* 	$("#statusRefreshButton").click(
 			function(){
-			 window.location.reload();
+			 //window.location.reload();
 			}
-		);
+		); */
 	
 	
 	
@@ -833,39 +855,41 @@
     
     
     function selectWaybillByWaybillNumber(){
-    	 $.ajax({
-	            type:"GET",
-	            url: rootPath+"selectWaybillByWaybillNumber",
-	            dataType:"json",
-	            //这里的data是输入框的data
-	            //这里的data是ajax返回的data
-	            success:function(data){
-	           	 //console.log(data);
+    	
+    var waybill_number = $('#waybill_number').val();
+    if(waybill_number==null||waybill_number==''){
+    	deleteAll('msg');
+    	addMsg('msg', '运单号不能为空');
+    }else{
+   	 $.ajax({
+         type:"GET",
+         async:true,
+         //resultjson里面要数组 否则vue接收不到数据
+         url: rootPath+"selectWaybillByWaybillNumberList",
+         dataType:"json",
+         data:{'waybillNumber':waybill_number},
+         //这里的data是输入框的data
+         //这里的data是ajax返回的data
+         success:function(data){
+        	 
+        	 if(data.success==true){
+        		 
+        		 deleteAll('msg');
+        		console.log(data);
+        		waybill_vm.datas=data.datas;
 
-	           	 $("#employeeCharge").append("<option value='"+id+"'>"+name+"</option>");
-/* 	           	 <tr>
-					<td>{{ item.waybillNumber }}</td>
-					<td>{{ item.fromName}}</td>
-					<td>{{ item.fromAddress }}</td>
-					<td>{{ item.fromPhone }}</td>
-					<td>{{ item.sendDate }}</td>
-					<td>{{ item.toName }}</td>
-					<td>{{ item.toAddress }}</td>
-					<td>{{ item.toPhone }}</td>
-					<td>{{ item.totalCharge }}</td>
-					<td>{{ item.pickedupBy }}</td>
-					<td>{{ item.createTime }}</td>
-					<td><a href="#"   v-on:click="Update(item)" data-toggle="modal" data-target="#UpdateModal"><span class="badge badge-success">修改</span></a>
-					<a href="#" v-on:click="Status(item)" data-toggle="modal" data-target="#StatusModal"><span class="badge badge-warning">运单状态</span></a>
-					<a href="#" v-on:click="AddStatus(item)" data-toggle="modal" data-target="#AddStatusModal"><span class="badge badge-info">新增运单状态</span></a>
-						<a href="#" v-on:click="Delete(item)" data-toggle="modal" data-target="#DeleteModal"><span class="badge badge-danger">删除</span></a></td>
-</tr> */
-	           	 
-	            },
-	            error:function(e){
-	            alert("error");
-	            }
-	          });
+        	 }else{
+        		 waybill_vm.datas=null;
+        		deleteAll('msg');
+        		addMsg('msg', data.msg);
+        	 }   	 
+         },
+         error:function(e){
+         alert("error");
+         }
+       });
+    }
+
     }
 	
     
@@ -884,7 +908,7 @@
 				}
 				
 				
-				
+				console.log(addstatus_vm.$data.addstatusinfo);
 				 $.post(rootPath+'/insertWaybillStatus', addstatus_vm.$data.addstatusinfo, function (result) {  
 					 console.log(result);
 					 window.location.reload();

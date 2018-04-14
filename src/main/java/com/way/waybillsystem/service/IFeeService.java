@@ -18,6 +18,9 @@ public interface IFeeService {
 	
 	List<FeeRtnVO> selectAllFees();
 	
+	List<FeeRtnVO> selectFeeByIdList(Integer id);
+	
+	
 	FeeRtnVO selectFeeFromTwoArea(Integer locationSend,Integer loacationReceive);
 	
 	

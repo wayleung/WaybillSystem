@@ -1,5 +1,6 @@
 package com.way.waybillsystem.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class FeeAction extends BaseAction {
 	public void insertFee(Fee fee){
 		feeService.insertFee(fee);
 	}
+	
+	
+	
 	
 	
 	@RequestMapping(value="/deleteFeeByPrimaryKey",method=RequestMethod.POST)
@@ -51,6 +55,20 @@ public class FeeAction extends BaseAction {
 			return new Result(false, "查询成功 但没有数据", "0");
 		}
 	}
+	
+	
+	@RequestMapping(value="/selectFeeByIdList",method=RequestMethod.GET)
+	@ResponseBody
+	public Result<List<FeeRtnVO>> selectFeeByIdList(Integer feeId){
+		List<FeeRtnVO> list = feeService.selectFeeByIdList(feeId);
+		
+		if(list!=null&&list.size()>0){
+			return new Result<List<FeeRtnVO>>(true, list, "查询Fee表成功！", "1");
+		}else{
+			return new Result(false, "查询成功 但没有数据", "0");
+		}
+	}
+	
 	
 	
 	

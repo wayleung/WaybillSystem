@@ -321,6 +321,9 @@
 			async : true,
 			success: function(data){
 				alert('成功解绑微信');
+			},
+			error: function(data){
+				alert('解绑失败');
 			}
 		});
 	}
@@ -333,6 +336,9 @@
 			async : true,
 			success: function(data){
 				alert('成功绑定微信');
+			},
+			error: function(data){
+				alert('绑定失败');
 			}
 		});
 	}

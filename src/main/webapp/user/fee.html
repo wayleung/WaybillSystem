@@ -448,6 +448,9 @@
 			async : true,
 			success: function(data){
 				alert('成功解绑微信');
+			},
+			error: function(data){
+				alert('解绑失败');
 			}
 		});
 	}
@@ -460,6 +463,9 @@
 			async : true,
 			success: function(data){
 				alert('成功绑定微信');
+			},
+			error: function(data){
+				alert('绑定失败');
 			}
 		});
 	}
@@ -490,7 +496,7 @@
                  		 deleteAll('msg');
                   		addMsg('msg','该区间运费信息不存在');
                      	  }else{
-                     		 addMsg('result','该区间运费为'+data.datas.fee+'元');
+                     		 addMsg('result','该区间运费为'+data.datas.fee+'元，每超重1kg，加超重费5元。');
                      	  }
                      	  
               }

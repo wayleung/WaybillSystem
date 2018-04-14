@@ -21,6 +21,7 @@ import com.way.waybillsystem.mapper.LocationMapper;
 import com.way.waybillsystem.service.IFeeService;
 import com.way.waybillsystem.vo.FeeRtnVO;
 import com.way.waybillsystem.vo.QueryByPageObject;
+import com.way.waybillsystem.vo.Result;
 
 @Service
 public class FeeServiceImpl implements IFeeService {
@@ -122,6 +123,31 @@ public class FeeServiceImpl implements IFeeService {
 			
 			
 			return feeRtnVO;
+		}else{
+			return null;
+		}
+	}
+
+	@Override
+	public List<FeeRtnVO> selectFeeByIdList(Integer feeId) {
+		// TODO Auto-generated method stub
+		List<FeeRtnVO> list = new ArrayList<>();
+		Fee fee = selectFeeByPrimaryKey(feeId);
+		
+		if(fee!=null){
+			
+			FeeRtnVO feeRtnVO = new FeeRtnVO();
+			feeRtnVO.setLocationSend(fee.getLocationSend());
+			Location location_send = locationMapper.selectByPrimaryKey(fee.getLocationSend());
+			feeRtnVO.setLocationSendName(location_send.getLocationName());
+			feeRtnVO.setLocationReceive(fee.getLocationReceive());
+			Location location_receive = locationMapper.selectByPrimaryKey(fee.getLocationReceive());
+			feeRtnVO.setLocationReceiveName(location_receive.getLocationName());
+			feeRtnVO.setFeeId(fee.getFeeId());
+			feeRtnVO.setFee(fee.getFee());
+			
+			list.add(feeRtnVO);
+			return list;
 		}else{
 			return null;
 		}

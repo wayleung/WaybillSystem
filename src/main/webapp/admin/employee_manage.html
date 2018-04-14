@@ -51,6 +51,39 @@
                 <div class="animated fadeIn">
 <!--                     <div class="row"> -->
                         <div class="col-lg-12">
+                        
+                                                                        <div class="card">
+				<div class="card-header">
+					<strong>查询</strong>
+				</div>
+				<div class="card-block">
+					<form action="" method="post"
+						class="form-horizontal ">
+
+						<div class="form-group row">
+							<label for="text-input" style="margin-left: 30px;">工号</label>
+							<div class="col-md-3">
+								<input type="text" id="id" name="id"
+									class="form-control" placeholder="请输入工号">
+								<!-- <span class="help-block">This is a help text</span> -->
+							</div>
+
+
+
+							<div class="col-md-2">
+								<input type="button" onclick="selectEmployeeByPrimaryKey()" class="btn btn-sm btn-primary" value="查询">
+								<input type="reset" class="btn btn-sm btn-danger" value="重置">
+
+							</div>
+							<p id="msg" style="color: red;text-align: center;"></p>
+						</div>
+
+					</form>
+
+				</div>
+
+			</div>
+                        
                        <div class="card">
 						<div class="card-header">
 							<i class="fa fa-align-justify"></i>工作人员管理
@@ -364,6 +397,13 @@
 	<script type="text/javascript">
 	
 
+	function deleteAll(id){
+		$('#'+id).empty();
+	}
+
+	function addMsg(id,msg){
+		$('#'+id).text(msg);
+	}
 	
 	
 
@@ -383,7 +423,26 @@
 	 }); */
 
 
+	
+	 var employee_vm = 	new Vue({
+		  el: '#employeeManage',
+		  data: {datas:{}},
+		  methods:{  
 
+              Delete: function (id) //删除  
+              {  
+            	  console.log(id); 
+            	  delete_vm.$data.deleteinfo = id;
+              },  
+              Update: function (item) //更新  
+              {  
+            	  console.log(item);
+            	  //克隆一个对象   这样更新表单中改变数据 不会影响前端表单
+                   var databack = $.extend({}, item);  
+            	  update_vm.$data.updateinfo = databack;  
+              }  
+          }  
+		})
 		
 		
 	//function ajax(api,datas) {
@@ -397,26 +456,8 @@
 					dataType : "json",
 					//data: datas,
 					//异步   注意数据的获取
-					success : function(datas) {
-						   new Vue({
-							  el: '#employeeManage',
-							  data: datas,
-							  methods:{  
-
-					              Delete: function (id) //删除  
-					              {  
-					            	  console.log(id); 
-					            	  delete_vm.$data.deleteinfo = id;
-					              },  
-					              Update: function (item) //更新  
-					              {  
-					            	  console.log(item);
-					            	  //克隆一个对象   这样更新表单中改变数据 不会影响前端表单
-				                       var databack = $.extend({}, item);  
-					            	  update_vm.$data.updateinfo = databack;  
-					              }  
-					          }  
-							})
+					success : function(data) {
+						employee_vm.datas = data.datas;
 					}
 			 	}); 
 	});
@@ -507,6 +548,43 @@
 		    });  
 			}
 		);
+	
+	function selectEmployeeByPrimaryKey(){
+	    var id = $('#id').val();
+	    if(id==null||id==''){
+	    	deleteAll('msg');
+	    	addMsg('msg', '工号不能为空');
+	    }else{
+	   	 $.ajax({
+	         type:"GET",
+	         async:true,
+	         //resultjson里面要数组 否则vue接收不到数据
+	         url: rootPath+"selectEmployeeByPrimaryKeyList",
+	         dataType:"json",
+	         data:{'id':id},
+	         //这里的data是输入框的data
+	         //这里的data是ajax返回的data
+	         success:function(data){
+	        	 
+	        	 if(data.success==true){
+	        		 
+	        		 deleteAll('msg');
+	        		console.log(data);
+	        		employee_vm.datas=data.datas;
+
+	        	 }else{
+	        		 employee_vm.datas=null;
+	        		deleteAll('msg');
+	        		addMsg('msg', data.msg);
+	        	 }   	 
+	         },
+	         error:function(e){
+	         alert("error");
+	         }
+	       });
+	    }
+
+	}
 	
 
 

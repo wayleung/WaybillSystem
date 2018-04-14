@@ -1,6 +1,7 @@
 package com.way.waybillsystem.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +77,20 @@ public class UserAction  extends BaseAction {
 		User user = userService.selectUserByAccount(account);
 		if(user!=null){
 			return new Result<User>(true, user, "查询Users表成功！", "1");
+		}else{
+			return new Result(false, "该账号用户不存在", "0");
+		}
+	}
+	
+	//resultjson里面要数组 否则vue接收不到数据
+	@RequestMapping(value="/selectUserByAccountList",method=RequestMethod.GET)
+	@ResponseBody
+	public Result selectUserByAccountList(String account){
+		User user = userService.selectUserByAccount(account);
+		List<User> list = new ArrayList<>();
+		if(user!=null){
+			list.add(user);
+			return new Result<List<User>>(true, list, "查询Users表成功！", "1");
 		}else{
 			return new Result(false, "该账号用户不存在", "0");
 		}

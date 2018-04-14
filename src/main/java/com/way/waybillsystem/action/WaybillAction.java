@@ -1,5 +1,6 @@
 package com.way.waybillsystem.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,8 +83,30 @@ public class WaybillAction  extends BaseAction {
 	@ResponseBody
 	public Result<Waybill> selectWaybillByWaybillNumber(Long waybillNumber){
 		Waybill waybill = waybillService.selectWaybillByWaybillNumber(waybillNumber);
-		return new Result<Waybill>(true,waybill, "追踪物流运单成功", "1");
+		if(waybill!=null){
+			return new Result<Waybill>(true,waybill, "查询物流运单成功", "1");
+		}else{
+			return new Result(false, "没有该运单号对应运单", "0");
+		}
+		
 	}
+	
+	//resultjson里面要数组 否则vue接收不到数据
+	@RequestMapping(value="/selectWaybillByWaybillNumberList",method=RequestMethod.GET)
+	@ResponseBody
+	public Result<List<Waybill>> selectWaybillByWaybillNumberList(Long waybillNumber){
+		List<Waybill> list = new ArrayList<>();
+		Waybill waybill = waybillService.selectWaybillByWaybillNumber(waybillNumber);
+
+		if(waybill!=null){
+			list.add(waybill);
+			return new Result<List<Waybill>>(true,list, "查询物流运单成功", "1");
+		}else{
+			return new Result(false, "没有该运单号对应运单", "0");
+		}
+		
+	}
+	
 	
 	@RequestMapping(value="/followWaybill",method=RequestMethod.POST)
 	@ResponseBody

@@ -51,6 +51,40 @@
                 <div class="animated fadeIn">
 <!--                     <div class="row"> -->
                         <div class="col-lg-12">
+                        
+                                                <div class="card">
+				<div class="card-header">
+					<strong>查询</strong>
+				</div>
+				<div class="card-block">
+					<form action="" method="post"
+						class="form-horizontal ">
+
+						<div class="form-group row">
+							<label for="text-input" style="margin-left: 30px;">编号</label>
+							<div class="col-md-3">
+								<input type="text" id="feeId" name="feeId"
+									class="form-control" placeholder="请输入编号">
+								<!-- <span class="help-block">This is a help text</span> -->
+							</div>
+
+
+
+							<div class="col-md-2">
+								<input type="button" onclick="selectFeeById()" class="btn btn-sm btn-primary" value="查询">
+								<input type="reset" class="btn btn-sm btn-danger" value="重置">
+
+							</div>
+							<p id="msg" style="color: red;text-align: center;"></p>
+						</div>
+
+					</form>
+
+				</div>
+
+			</div>
+                        
+                        
                        <div class="card">
 						<div class="card-header">
 							<i class="fa fa-align-justify"></i>区间运费管理
@@ -94,7 +128,7 @@
 				  						<td>{{ item.locationSendName}}</td>
 										<td>{{ item.locationReceiveName }}</td>
 										<td>{{ item.fee }}</td>
-										<td></td>
+										<td>每超重1kg，加超重费5元</td>
 										
 										<td><a href="#"   v-on:click="Update(item)" data-toggle="modal" data-target="#UpdateModal"><span class="badge badge-success">修改</span></a>
 											<a href="#" v-on:click="Delete(item)" data-toggle="modal" data-target="#DeleteModal"><span class="badge badge-danger">删除</span></a></td>
@@ -306,6 +340,13 @@
 	<script type="text/javascript">
 	
 
+	function deleteAll(id){
+		$('#'+id).empty();
+	}
+
+	function addMsg(id,msg){
+		$('#'+id).text(msg);
+	}
 	
 	
 
@@ -324,7 +365,25 @@
 	 console.log(rootPath); 
 	 }); */
 
+	 var fee_vm =   new Vue({
+			  el: '#feeManage',
+			  data: {datas:{}},
+			  methods:{  
 
+	              Delete: function (id) //删除  
+	              {  
+	            	  console.log(id); 
+	            	  delete_vm.$data.deleteinfo = id;
+	              },  
+	              Update: function (item) //更新  
+	              {  
+	            	  console.log(item);
+	            	  //克隆一个对象   这样更新表单中改变数据 不会影响前端表单
+                    var databack = $.extend({}, item);  
+	            	  update_vm.$data.updateinfo = databack;  
+	              }  
+	          }  
+			})
 
 		
 		
@@ -339,26 +398,8 @@
 					dataType : "json",
 					//data: datas,
 					//异步   注意数据的获取
-					success : function(datas) {
-						   new Vue({
-							  el: '#feeManage',
-							  data: datas,
-							  methods:{  
-
-					              Delete: function (id) //删除  
-					              {  
-					            	  console.log(id); 
-					            	  delete_vm.$data.deleteinfo = id;
-					              },  
-					              Update: function (item) //更新  
-					              {  
-					            	  console.log(item);
-					            	  //克隆一个对象   这样更新表单中改变数据 不会影响前端表单
-				                       var databack = $.extend({}, item);  
-					            	  update_vm.$data.updateinfo = databack;  
-					              }  
-					          }  
-							})
+					success : function(data) {
+						fee_vm.datas = data.datas
 					}
 			 	}); 
 		
@@ -490,7 +531,43 @@
 
 
 
+    function selectFeeById(){
+    	
+        var feeId = $('#feeId').val();
+        if(feeId==null||feeId==''){
+        	deleteAll('msg');
+        	addMsg('msg', '编号不能为空');
+        }else{
+       	 $.ajax({
+             type:"GET",
+             async:true,
+             //resultjson里面要数组 否则vue接收不到数据
+             url: rootPath+"selectFeeByIdList",
+             dataType:"json",
+             data:{'feeId':feeId},
+             //这里的data是输入框的data
+             //这里的data是ajax返回的data
+             success:function(data){
+            	 
+            	 if(data.success==true){
+            		 
+            		 deleteAll('msg');
+            		console.log(data);
+            		fee_vm.datas=data.datas;
 
+            	 }else{
+            		 fee_vm.datas=null;
+            		deleteAll('msg');
+            		addMsg('msg', data.msg);
+            	 }   	 
+             },
+             error:function(e){
+             alert("error");
+             }
+           });
+        }
+
+        }
 	
 	
 

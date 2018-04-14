@@ -1,5 +1,6 @@
 package com.way.waybillsystem.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Employee;
 import com.way.waybillsystem.entity.User;
 import com.way.waybillsystem.service.IEmployeeService;
+import com.way.waybillsystem.vo.FeeRtnVO;
 import com.way.waybillsystem.vo.QueryByPageObject;
 import com.way.waybillsystem.vo.Result;
 
@@ -54,6 +56,23 @@ public class EmployeeAction  extends BaseAction {
 	public Employee selectEmployeeByPrimaryKey(Long id){
 		return employeeService.selectEmployeeByPrimaryKey(id);
 	}
+	
+	@RequestMapping(value="/selectEmployeeByPrimaryKeyList",method=RequestMethod.GET)
+	@ResponseBody
+	public Result<List<Employee>> selectEmployeeByPrimaryKeyList(Long id){
+		Employee employee = employeeService.selectEmployeeByPrimaryKey(id);
+		if(employee!=null){
+			List<Employee> list = new ArrayList<>();
+			list.add(employee);
+			return new Result<List<Employee>>(true, list, "查询Fee表成功！", "1");
+		}else{
+			return new Result(false, "查询成功 但没有数据", "0");
+		}
+		
+		
+
+	}
+	
 	
 	@RequestMapping(value="/selectAllEmployeesByPage",method=RequestMethod.GET)
 	@ResponseBody
