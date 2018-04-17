@@ -187,7 +187,7 @@
                                  <form action="" method="post">
 										<div class="form-group col-md-9">
                                             <label>工号</label>
-                                            <input type="text"  v-model="addinfo.id"  id="id" name="" class="form-control" placeholder="请输入">
+                                            <input type="text"  v-model="addinfo.id"  id="id_add" name="" class="form-control" placeholder="请输入">
                                         </div>
 										
 										<div class="form-group col-md-9">
@@ -242,6 +242,7 @@
                                                                           
                                     </form>
                             </div>
+                            <p id="msgadd" style="color: red;text-align: center;"></p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                 <button type="button"  id="addButton" class="btn btn-primary">保存</button>
@@ -270,7 +271,7 @@
                                     <form action="" method="post">
                                      <div class="form-group col-md-9">
                                             <label >工号</label>
-                                            <input disabled="disabled" v-model="updateinfo.id" type="text" id="id" name="" class="form-control" placeholder="请输入">
+                                            <input disabled="disabled" v-model="updateinfo.id" type="text" id="id_update" name="" class="form-control" placeholder="请输入">
                                         </div>
 										
 										
@@ -327,6 +328,8 @@
                                         
                                     </form>
                             </div>
+                            
+                            <p id="msgupdate" style="color: red;text-align: center;"></p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                 <button type="button" id="updateButton" class="btn btn-primary">保存</button>
@@ -476,21 +479,33 @@
 	
 	
 	$("#updateButton").click(
-		function(){
-			console.log('update submit');
+		
 			
-			//加入时间控件后 vue model有问题
-				var startTime = $("#startTime_update").val();
-				if(startTime!=''&&startTime!=undefined&&startTime!=null){
-					update_vm.$data.updateinfo.startTime = startTime;
-				}
-			 $.post(rootPath+'/updateEmployeeByPrimarykey', update_vm.$data.updateinfo, function (result) {  
-				 console.log(result);
-				 window.location.reload();
-	        //可以把vue.js数据替换从而更新更新到页面  
-/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
+		function(){
+			
+			var id  = $('#id_update').val();
+			if(id==null||id==''){
+				deleteAll('msgadd');
+		    	addMsg('msgadd', '工号不能为空');
+			}else{
+				
+				console.log('update submit');
+				
+				//加入时间控件后 vue model有问题
+					var startTime = $("#startTime_update").val();
+					if(startTime!=''&&startTime!=undefined&&startTime!=null){
+						update_vm.$data.updateinfo.startTime = startTime;
+					}
+				 $.post(rootPath+'/updateEmployeeByPrimarykey', update_vm.$data.updateinfo, function (result) {  
+					 console.log(result);
+					 window.location.reload();
+		        //可以把vue.js数据替换从而更新更新到页面  
+	/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
 
-	    });  
+		    });  
+			}
+			
+
 		}
 	);
 	
@@ -508,21 +523,36 @@
 	
 	$("#addButton").click(
 			function(){
-				console.log('add submit');
-				//加入时间控件后 vue model有问题
-				var startTime = $("#startTime").val();
-				if(startTime!=''&&startTime!=undefined&&startTime!=null){
-					add_vm.$data.addinfo.startTime = startTime;
-				}
-				console.log(startTime);
 				
-				 $.post(rootPath+'/insertEmployee', add_vm.$data.addinfo, function (result) {  
-					 console.log(result);
-					 window.location.reload();
-		        //可以把vue.js数据替换从而更新更新到页面  
-	/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
+				var id = $('#id_add').val();
+				
+				alert(id);
+				
+				if(id==null||id==''){
+					deleteAll('msgadd');
+			    	addMsg('msgadd', '工号不能为空');
+				}else if(idReg.test(id)==false){
+					deleteAll('msgadd');
+			    	addMsg('msgadd', '工号只能为数字');
+			    }else{
+					console.log('add submit');
+					//加入时间控件后 vue model有问题
+					var startTime = $("#startTime").val();
+					if(startTime!=''&&startTime!=undefined&&startTime!=null){
+						add_vm.$data.addinfo.startTime = startTime;
+					}
+					console.log(startTime);
+					
+					 $.post(rootPath+'/insertEmployee', add_vm.$data.addinfo, function (result) {  
+						 console.log(result);
+						 window.location.reload();
+			        //可以把vue.js数据替换从而更新更新到页面  
+		/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
 
-		    });  
+			    });
+				}
+			
+  
 			}
 		);
 	
@@ -555,6 +585,7 @@
 	    	deleteAll('msg');
 	    	addMsg('msg', '工号不能为空');
 	    }else{
+	    
 	   	 $.ajax({
 	         type:"GET",
 	         async:true,

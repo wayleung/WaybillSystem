@@ -212,7 +212,7 @@
                                                                           
                                     </form>
                             </div>
-                            <p id="msg" style="color: red;text-align: center;"></p>
+                            <p id="msgadd" style="color: red;text-align: center;"></p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                 <button type="button"  id="addButton" class="btn btn-primary">保存</button>
@@ -242,7 +242,7 @@
                                     <input type="hidden"  v-model="updateinfo.id"  id="id" name="">
                                      <div class="form-group col-md-9">
                                             <label >账号</label>
-                                            <input v-model="updateinfo.account" type="text" id="account" name="" class="form-control" placeholder="请输入">
+                                            <input v-model="updateinfo.account" type="text" id="account_update" name="" class="form-control" placeholder="请输入" readonly>
                                         </div>
                                         
                                          <div class="form-group col-md-9">
@@ -266,13 +266,14 @@
                                         
                                         <div class="form-group col-md-9">
                                             <label>电话</label>
-                                            <input  v-model="updateinfo.phone" type="text" id="phone" name="" class="form-control" placeholder="请输入">
+                                            <input  v-model="updateinfo.phone" type="text" id="phone_update" name="" class="form-control" placeholder="请输入">
                                         </div>
                                     
                                         
                                                                           
                                     </form>
                             </div>
+                            <p id="msgupdate" style="color: red;text-align: center;"></p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                 <button type="button" id="updateButton" class="btn btn-primary">保存</button>
@@ -298,6 +299,7 @@
                                 <p>是否确定删除？</p>
                             </div>
                             <input type="hidden"  v-model="deleteinfo.id"  id="id" name="">
+                            
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                 <button type="button" id="deleteButton" class="btn btn-primary">确定</button>
@@ -423,14 +425,32 @@
 	
 	$("#updateButton").click(
 		function(){
-			console.log('update submit');
-			 $.post(rootPath+'/updateUserByPrimarykey', update_vm.$data.updateinfo, function (result) {  
-				 console.log(result);
-				 window.location.reload();
-	        //可以把vue.js数据替换从而更新更新到页面  
-/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
+			
+			var account = $("#account_update").val();
+			var phone =   $("#phone_update").val();
+			var phoneReg=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/;
+			
+        	if(account==null||account==''){
+        		deleteAll('msgupdate');
+        		addMsg('msgupdate','账号不能为空');
+        	}else if(phoneReg.test(phone)==false){
+			
+        		deleteAll('msgupdate');
+        		addMsg('msgupdate','电话格式不正确');
+			
+			 
+        	}else{
+        		console.log('update submit');
+   			 $.post(rootPath+'/updateUserByPrimarykey', update_vm.$data.updateinfo, function (result) {  
+   				 console.log(result);
+   				 window.location.reload();
+   	        //可以把vue.js数据替换从而更新更新到页面  
+   /* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
 
-	    });  
+   	    });
+   			 
+        	}
+			 
 		}
 	);
 	
@@ -453,16 +473,25 @@
 			
 
     		function(){
-    			
-
- 				   		
-
+ 
             	var account = $("#account").val();
+            	var phone =  $("#phone").val();
+            	var phoneReg=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/;
             	if(account==null||account==''){
-            		deleteAll('msg');
-            		addMsg('msg','账号不能为空');
-            	}else{
-    			$.ajax({
+            		deleteAll('msgadd');
+            		addMsg('msgadd','账号不能为空');
+            	}else if(phoneReg.test(phone)==false){
+            		
+            
+            	
+            		deleteAll('msgadd');
+            		addMsg('msgadd','电话格式不正确');
+            	
+            	
+    			
+  
+		    }else{
+		    	$.ajax({
     				url:rootPath+"/selectUserByAccount",
     				type : "get",
 					async : true,
@@ -472,8 +501,8 @@
 						
 							console.log(datas.success);
 						   if(datas.success==true){
-							  deleteAll('msg');
-		                		addMsg('msg','该账号用户已经存在，不能添加'); 
+							  deleteAll('msgupdate');
+		                		addMsg('msgupdate','该账号用户已经存在，不能添加'); 
 						   
 						   }else{
 							   console.log('add submit');
@@ -485,32 +514,10 @@
 								 });
 						   }
 							}
-    			
-    			
-    			
-    			
-    			
-    			
-    			
-    			
+  
     			});
-    			
-    			
-    			
-    			
-    			
-    			
-    			
-    			
-				
 		    }
-            
-    			
-    			
-    			
-    			
-    			
-    			
+  
     		} 
 			
     	

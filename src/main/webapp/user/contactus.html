@@ -105,7 +105,7 @@
 			<div class="row row-pb-md">
 				<div class="col-md-6 animate-box">
 					<h3>联系我们</h3>
-					<!-- <form action="#"> -->
+					<form action="#">
 						<div class="row form-group">
 							<div class="col-md-12">
 								<label class="sr-only" for="name">姓名</label>
@@ -117,7 +117,7 @@
 						<div class="row form-group">
 							<div class="col-md-12">
 								<label class="sr-only" for="email">邮件</label>
-								<input type="text" id="email" class="form-control" placeholder="邮件">
+								<input type="text" id="email" class="form-control required:true email:true" placeholder="邮件">
 							</div>
 						</div>
 
@@ -137,10 +137,10 @@
 						
 						<p id="msg" style="color: red;text-align: center;"></p>
 						<div class="form-group">
-							<input type="button" onclick="leaveMesssage()" value="留言" class="btn btn-primary btn-lg">
+							<input type="button" id="leaveMessage" onclick="leaveMesssage()" value="留言" class="btn btn-primary btn-lg">
 						</div>
 
-					<!-- </form> -->		
+					</form>		
 				</div>
 				<div class="col-md-5 col-md-push-1 animate-box">
 					
@@ -236,6 +236,7 @@
 	
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
+	
 		<script type="text/javascript">
 
 		function deleteAll(id){
@@ -344,7 +345,7 @@
 	}
 	
 	
-	
+	　var emailReg=/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
 	
 	
 	function leaveMesssage(){
@@ -356,25 +357,33 @@
 		if(name==null||name==''||subject==null||subject==''||email==null||email==''||content==null||content==''){
 			deleteAll('msg');
 			addMsg('msg','内容不能为空');
+		}else if(emailReg.test(email)==false){
+			deleteAll('msg');
+			addMsg('msg','邮箱格式不正确');
+		}else{
+			$.ajax({
+				url:rootPath+"leaveMessage",
+				type:"post",
+				async:true,
+				data:{
+					'name':name,
+					'subject':subject,
+					'email':email,
+					'content':content,
+				},
+				success:function(data){
+					deleteAll('msg');
+					addMsg('msg',data.msg);
+					console.log(data);
+				}
+			})
 		}
-		$.ajax({
-			url:rootPath+"leaveMessage",
-			type:"post",
-			async:true,
-			data:{
-				'name':name,
-				'subject':subject,
-				'email':email,
-				'content':content,
-			},
-			success:function(data){
-				deleteAll('msg');
-				addMsg('msg',data.msg);
-				console.log(data);
-			}
-		})
+		
 	}
 	
+
+
+
 	</script>
 	
 	<!-- jQuery Easing -->

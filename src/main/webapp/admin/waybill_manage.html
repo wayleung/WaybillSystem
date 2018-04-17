@@ -192,7 +192,7 @@
                                  <form action="" method="post">
 										<div class="form-group col-md-9">
                                             <label>运单号</label>
-                                            <input type="text"  v-model="addinfo.waybillNumber"  id="waybillNumber" name="" class="form-control" placeholder="请输入">
+                                            <input type="text"  v-model="addinfo.waybillNumber"  id="waybillNumber_add" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
                                         
@@ -262,6 +262,7 @@
                                                                           
                                     </form>
                             </div>
+                             <p id="msgadd" style="color: red;text-align: center;"></p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                 <button type="button"  id="addButton" class="btn btn-primary">保存</button>
@@ -290,7 +291,7 @@
                                     <form action="" method="post">
                                      <div class="form-group col-md-9">
                                             <label >运单号</label>
-                                            <input v-model="updateinfo.waybillNumber" type="text" id="waybillNumber" name="" class="form-control" placeholder="请输入">
+                                            <input v-model="updateinfo.waybillNumber" type="text" id="waybillNumber_update" name="" class="form-control" placeholder="请输入" readonly>
                                         </div>
                                         
                                         <div class="form-group col-md-9">
@@ -319,7 +320,7 @@
                                         
                                         <div class="form-group col-md-9">
                                             <label>寄件人电话</label>
-                                            <input  v-model="updateinfo.fromPhone"  type="text" id="fromPhone" name="" class="form-control" placeholder="请输入">
+                                            <input  v-model="updateinfo.fromPhone"  type="text" id="fromPhone_update" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
 
@@ -342,13 +343,13 @@
                                         
                                         <div class="form-group col-md-9">
                                             <label>收件人电话</label>
-                                            <input  v-model="updateinfo.toPhone"  type="text" id="toPhone" name="" class="form-control" placeholder="请输入">
+                                            <input  v-model="updateinfo.toPhone"  type="text" id="toPhone_update" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
                                         
                                         <div class="form-group col-md-9">
                                             <label>总费用</label>
-                                            <input  v-model="updateinfo.totalCharge"  type="text" id="totalCharge" name="" class="form-control" placeholder="请输入">
+                                            <input  v-model="updateinfo.totalCharge"  type="text" id="totalCharge_update" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
                                         
@@ -361,6 +362,7 @@
                                                                           
                                     </form>
                             </div>
+                             <p id="msgupdate" style="color: red;text-align: center;"></p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                 <button type="button" id="updateButton" class="btn btn-primary">保存</button>
@@ -759,6 +761,29 @@
 	
 	$("#updateButton").click(
 		function(){
+			var fromPhone = $('#fromPhone_update').val();
+			var toPhone = $('#toPhone_update').val();
+			var totalCharge = $('#totalCharge_update').val();
+			var waybillNumber =  $('#waybillNumber_update').val();
+			
+			var phoneReg=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/;
+			 var moneyReg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+		
+			if(waybillNumber==null||waybillNumber==''){
+        		deleteAll('msgupdate');
+        		addMsg('msgupdate','运单号不能为空');
+        	}else if(fromPhone!=null&&fromPhone!=''&&phoneReg.test(fromPhone)==false||toPhone!=null&&toPhone!=''&&phoneReg.test(toPhone)==false||totalCharge!=null&&totalCharge!=''&&moneyReg.test(totalCharge)==false){
+        		
+        
+        	
+        		deleteAll('msgupdate');
+        		addMsg('msgupdate','电话格式不正确或运费格式不正确');
+        	
+        	
+			
+
+	    }else{
+			
 			console.log('update submit');
 			
 			//加入时间控件后 vue model有问题
@@ -773,7 +798,9 @@
 	        //可以把vue.js数据替换从而更新更新到页面  
 /* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
 
-	    });  
+	    }); 
+	    }
+ 
 		}
 	);
 	
@@ -791,7 +818,28 @@
 	
 	$("#addButton").click(
 			function(){
-				console.log('add submit');
+				var fromPhone = $('#fromPhone').val();
+				var toPhone = $('#toPhone').val();
+				var totalCharge = $('#totalCharge').val();
+				var waybillNumber =  $('#waybillNumber_add').val();
+				
+				var phoneReg=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/;
+				 var moneyReg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+            	if(waybillNumber==null||waybillNumber==''){
+            		deleteAll('msgadd');
+            		addMsg('msgadd','运单号不能为空');
+            	}else if(fromPhone!=null&&fromPhone!=''&&phoneReg.test(fromPhone)==false||toPhone!=null&&toPhone!=''&&phoneReg.test(toPhone)==false||totalCharge!=null&&totalCharge!=''&&moneyReg.test(totalCharge)==false){
+            		
+            
+            	
+            		deleteAll('msgadd');
+            		addMsg('msgadd','电话格式不正确或运费格式不正确');
+            	
+            	
+    			
+  
+		    }else{
+            	console.log('add submit');
 				
 				//加入时间控件后 vue model有问题
 				var sendDate = $("#sendDate").val();
@@ -806,6 +854,8 @@
 	/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
 
 		    });  
+		    }
+
 			}
 		);
 	

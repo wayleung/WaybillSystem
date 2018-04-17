@@ -212,6 +212,7 @@
                                                                           
                                     </form>
                             </div>
+                            <p id="msgadd" style="color: red;text-align: center;"></p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                 <button type="button"  id="addButton" class="btn btn-primary">保存</button>
@@ -262,7 +263,7 @@
                                         
                                          <div class="form-group col-md-9">
                                             <label>运费</label>
-                                            <input  v-model="updateinfo.fee"  type="text" id="fee" name="" class="form-control" placeholder="请输入">
+                                            <input  v-model="updateinfo.fee"  type="text" id="fee_update" name="" class="form-control" placeholder="请输入">
                                         </div>
                                         
 										
@@ -270,6 +271,7 @@
                                         
                                     </form>
                             </div>
+                            <p id="msgupdate" style="color: red;text-align: center;"></p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                 <button type="button" id="updateButton" class="btn btn-primary">保存</button>
@@ -449,20 +451,32 @@
 	
 	$("#updateButton").click(
 		function(){
-			console.log('update submit');
-			
-			//加入时间控件后 vue model有问题
-				var startTime = $("#startTime_update").val();
-				if(startTime!=''&&startTime!=undefined&&startTime!=null){
-					update_vm.$data.updateinfo.startTime = startTime;
-				}
-			 $.post(rootPath+'/updateFeeByPrimarykey', update_vm.$data.updateinfo, function (result) {  
-				 console.log(result);
-				 window.location.reload();
-	        //可以把vue.js数据替换从而更新更新到页面  
-/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
+			var fee = $('#fee_update').val();
+			 var moneyReg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+			if(fee==null||fee==''){
+				deleteAll('msgupdate');
+		    	addMsg('msgupdate', '运费不能为空');
+			}else if(moneyReg.test(fee)==false){
+				deleteAll('msgupdate');
+		    	addMsg('msgupdate', '运费格式不正确');
+			}else{
+				
+				console.log('update submit');
+				
+				//加入时间控件后 vue model有问题
+					var startTime = $("#startTime_update").val();
+					if(startTime!=''&&startTime!=undefined&&startTime!=null){
+						update_vm.$data.updateinfo.startTime = startTime;
+					}
+				 $.post(rootPath+'/updateFeeByPrimarykey', update_vm.$data.updateinfo, function (result) {  
+					 console.log(result);
+					 window.location.reload();
+		        //可以把vue.js数据替换从而更新更新到页面  
+	/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
 
-	    });  
+		    });  
+			}
+
 		}
 	);
 	
@@ -480,21 +494,32 @@
 	
 	$("#addButton").click(
 			function(){
-				console.log('add submit');
-				//加入时间控件后 vue model有问题
-				var startTime = $("#startTime").val();
-				if(startTime!=''&&startTime!=undefined&&startTime!=null){
-					add_vm.$data.addinfo.startTime = startTime;
-				}
-				console.log(startTime);
-				
-				 $.post(rootPath+'/insertFee', add_vm.$data.addinfo, function (result) {  
-					 console.log(result);
-					 window.location.reload();
-		        //可以把vue.js数据替换从而更新更新到页面  
-	/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
+				var fee = $('#fee_add').val();
+				 var moneyReg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+				if(fee==null||fee==''){
+					deleteAll('msgadd');
+			    	addMsg('msgadd', '运费不能为空');
+				}else if(moneyReg.test(fee)==false){
+					deleteAll('msgadd');
+			    	addMsg('msgadd', '运费格式不正确');
+				}else{
+					console.log('add submit');
+					//加入时间控件后 vue model有问题
+					var startTime = $("#startTime").val();
+					if(startTime!=''&&startTime!=undefined&&startTime!=null){
+						add_vm.$data.addinfo.startTime = startTime;
+					}
+					console.log(startTime);
+					
+					 $.post(rootPath+'/insertFee', add_vm.$data.addinfo, function (result) {  
+						 console.log(result);
+						 window.location.reload();
+			        //可以把vue.js数据替换从而更新更新到页面  
+		/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
 
-		    });  
+			    }); 	
+				}
+
 			}
 		);
 	
