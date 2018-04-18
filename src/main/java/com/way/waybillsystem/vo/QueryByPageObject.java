@@ -2,8 +2,8 @@ package com.way.waybillsystem.vo;
 
 public class QueryByPageObject {
 	
-	private int currentPage = 1;
-	private int pageSize = 5;
+	private Integer currentPage = 1;
+	private Integer pageSize = 5;
 	
 	public int getStart(){
 		return (currentPage - 1) * pageSize;

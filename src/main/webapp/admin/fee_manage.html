@@ -401,7 +401,8 @@
 					//data: datas,
 					//异步   注意数据的获取
 					success : function(data) {
-						fee_vm.datas = data.datas
+						/* fee_vm.datas = data.datas; */
+						fee_vm.datas = data.datas;//分页
 					}
 			 	}); 
 		
@@ -494,7 +495,7 @@
 	
 	$("#addButton").click(
 			function(){
-				var fee = $('#fee_add').val();
+				var fee = $('#fee').val();
 				 var moneyReg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
 				if(fee==null||fee==''){
 					deleteAll('msgadd');
@@ -513,7 +514,13 @@
 					
 					 $.post(rootPath+'/insertFee', add_vm.$data.addinfo, function (result) {  
 						 console.log(result);
-						 window.location.reload();
+						 if(result.success==true){
+							 window.location.reload();
+						 }else{
+							 deleteAll('msgadd');
+						    	addMsg('msgadd',result.msg);
+						 }
+						 
 			        //可以把vue.js数据替换从而更新更新到页面  
 		/* 	        vm.$data.datas.splice(index, index, update_vm.$data.updateinfo);   */
 

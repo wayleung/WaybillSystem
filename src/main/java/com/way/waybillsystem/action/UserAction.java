@@ -55,12 +55,22 @@ public class UserAction  extends BaseAction {
 		userService.updateUserByPrimarykey(user);
 	}
 	
-	@RequestMapping(value="/selectAllUsers",method=RequestMethod.GET)
+	
+/*	@RequestMapping(value="/selectAllUsers",method=RequestMethod.GET)
 	@ResponseBody
 	public Result<List<User>> selectAllUsers(){
 		List<User> data = userService.selectAllUsers();
-		/*return userService.selectAllUsers();*/
+		return userService.selectAllUsers();
 		return new Result<List<User>>(true, data, "查询Users表成功！", "1");
+	}*/
+	
+	@RequestMapping(value="/selectAllUsers",method=RequestMethod.GET)
+	@ResponseBody
+	public Result<PageInfo<User>> selectAllUsers(QueryByPageObject queryObject){
+		//queryObject.setCurrentPage(2);
+		PageInfo<User> data = userService.selectAllUsersByPage(queryObject);
+		/*return userService.selectAllUsers();*/
+		return new Result<PageInfo<User>>(true, data, "查询Users表成功！", "1");
 	}
 
 	

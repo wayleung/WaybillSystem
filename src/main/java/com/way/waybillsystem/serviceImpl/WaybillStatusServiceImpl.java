@@ -76,4 +76,14 @@ public class WaybillStatusServiceImpl implements IWaybillStatusService {
 		return waybillStatusMapper.selectWaybillStatusByWaybillNumber(waybillNumber);
 	}
 
+	@Override
+	public void deleteWaybillStatusByWaybillNumber(Long waybillNumber) {
+		// TODO Auto-generated method stub
+		List<WaybillStatus> list = selectWaybillStatusByWaybillNumber(waybillNumber);
+		for (WaybillStatus waybillStatus : list) {
+			waybillStatusMapper.deleteByPrimaryKey(waybillStatus.getWsId());
+		}
+		
+	}
+
 }

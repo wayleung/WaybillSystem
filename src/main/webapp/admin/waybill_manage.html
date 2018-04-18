@@ -149,6 +149,17 @@
 									
 								</tbody>
 							</table>
+							
+							<ul class="pagination">
+
+                                        <li id="prevPage" onclick="prevPage()" class="page-item"><a class="page-link" href="#">上一页</a>
+                                        </li>
+
+										<li id="prevPage" onclick="prevPage()" class="page-item"><div  class="page-link"><span id="pageNum"></span>/<span  id="pages"></span></div>
+                                        </li>
+                                        <li id="nextPage" onclick="nextPage()" class="page-item"><a class="page-link" href="#">下一页</a>
+                                      
+                            </ul>
 
 					
 							<!-- /.modal -->
@@ -563,6 +574,8 @@
 	<script type="text/javascript">
 	
 	
+	
+	
 	function deleteAll(id){
 		$('#'+id).empty();
 	}
@@ -580,6 +593,17 @@
 		var localhostPath = curWwwPath.substring(0, pos);
 		return localhostPath;
 	}
+	
+	
+	 
+	//返回地址栏参数
+		function GetQueryString(name)
+		{
+	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	     var r = window.location.search.substr(1).match(reg);
+	     if(r!=null)return  unescape(r[2]); return null;
+		}
+	
 
 	var rootPath = getHostPath() + "/";
 	/* 			  $(document).ready(function(){
@@ -644,10 +668,34 @@
 	          }  
 			})
 
+	 
+	 
+	 
+	 
+	 
 		
 	//function ajax(api,datas) {
+		 
+		 
 	$(document).ready(function() {
-		var url = rootPath + "selectAllWaybills";
+		
+var currentPage = GetQueryString('currentPage');
+		
+		
+		
+		
+		console.log(currentPage);
+		if(currentPage!=null&&currentPage!=''){
+			var url = rootPath + "selectAllWaybills?currentPage="+currentPage;
+		}else{
+			var url = rootPath + "selectAllWaybills";
+		}
+		
+		
+		
+		
+	
+		//var url = rootPath + "selectAllWaybills";
 		console.log(url);
 		$.ajax({
 					url : url,
@@ -659,7 +707,10 @@
 					success : function(data) {
 						console.log(data)
 					
-						waybill_vm.datas=data.datas;
+						waybill_vm.datas=data.datas.list;
+						//分页
+						$('#pageNum').text(data.datas.pageNum);
+						$('#pages').text(data.datas.pages);
 					}
 			 	}); 
 		
@@ -727,10 +778,10 @@
 	            //这里的data是ajax返回的data
 	            success:function(data){
 	           	 //console.log(data);
-	           	  for(var i = 0; i < data.datas.length; i++){
+	           	  for(var i = 0; i < data.datas.list.length; i++){
 	           		  
-	           	  var id = data.datas[i].id;
-	           	  var name = data.datas[i].name;
+	           	  var id = data.datas.list[i].id;
+	           	  var name = data.datas.list[i].name;
 	           	 $("#employeeCharge").append("<option value='"+id+"'>"+name+"</option>");
 
 	           	 }
@@ -747,6 +798,91 @@
 	});
 	
 	
+	
+	
+	
+	
+	//分页
+		
+		
+		
+		
+		
+		function nextPage(){
+			
+			var currentPage = GetQueryString('currentPage');
+			
+			console.log(currentPage);
+			if(currentPage!=null&&currentPage!=''){
+				var url = rootPath + "selectAllWaybills?currentPage="+currentPage;
+			}else{
+				var url = rootPath + "selectAllWaybills";
+			}
+			
+			
+			console.log(url);
+			$.ajax({
+						url : url,
+						type : "get",
+						async : true,
+						dataType : "json",
+						//data: datas,
+						//异步   注意数据的获取
+						success : function(data) {
+							/* user_vm.datas=data.datas; */
+							//总页数
+							var pages = data.datas.pages;
+							//现在页码
+							var pageNum = data.datas.pageNum;
+							console.log('pages'+pages+' pageNum'+pageNum);
+							if(currentPage+1>0&&pageNum<pages){
+								
+								window.location.replace(rootPath + "admin/waybill_manage.html?currentPage="+(pageNum+1)); 
+							
+								
+							}
+							
+							
+						}
+				 	}); 
+		}
+		
+		function prevPage(){
+			var currentPage = GetQueryString('currentPage');
+			
+			console.log(currentPage);
+			if(currentPage!=null&&currentPage!=''){
+				var url = rootPath + "selectAllWaybills?currentPage="+currentPage;
+			}else{
+				var url = rootPath + "selectAllWaybills";
+			}
+			console.log(url);
+			$.ajax({
+						url : url,
+						type : "get",
+						async : true,
+						dataType : "json",
+						//data: datas,
+						//异步   注意数据的获取
+						success : function(data) {
+							/* user_vm.datas=data.datas; */
+							//总页数
+							var pages = data.datas.pages;
+							//现在页码
+							var pageNum = data.datas.pageNum;
+							console.log('pages'+pages+' pageNum'+pageNum);
+							if((pageNum-1)>=1&&pageNum<=pages){
+								
+								window.location.replace(rootPath + "admin/waybill_manage.html?currentPage="+(pageNum-1));
+							
+								
+							}
+							
+							
+						}
+				 	}); 
+		}
+		
 
 	
 	

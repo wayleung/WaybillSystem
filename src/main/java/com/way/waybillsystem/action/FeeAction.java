@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.Fee;
 import com.way.waybillsystem.service.IFeeService;
 import com.way.waybillsystem.vo.FeeRtnVO;
+import com.way.waybillsystem.vo.QueryByPageObject;
 import com.way.waybillsystem.vo.Result;
 
 
@@ -22,8 +24,16 @@ public class FeeAction extends BaseAction {
 	
 	@RequestMapping(value="/insertFee",method=RequestMethod.POST)
 	@ResponseBody
-	public void insertFee(Fee fee){
-		feeService.insertFee(fee);
+	public Result insertFee(Fee fee){
+		selectFeeFromTwoArea(fee.getLocationSend(), fee.getLocationReceive());
+		FeeRtnVO datas = feeService.selectFeeFromTwoArea(fee.getLocationSend(),fee.getLocationReceive());
+		if(datas==null){
+			feeService.insertFee(fee);
+			return new Result<FeeRtnVO>(true, datas, "插入成功", "1");
+		}else{
+			return new Result(false, "插入失败 已存在该区间运费信息", "0");
+		}
+		
 	}
 	
 	
@@ -55,6 +65,15 @@ public class FeeAction extends BaseAction {
 			return new Result(false, "查询成功 但没有数据", "0");
 		}
 	}
+	
+	
+/*	@RequestMapping(value="/selectAllFees",method=RequestMethod.GET)
+	@ResponseBody
+	public Result<PageInfo<Fee>> selectAllFees(QueryByPageObject queryObject){
+		PageInfo<Fee> data = feeService.selectAllFeesByPage(queryObject);
+			return new  Result<PageInfo<Fee>>(true,data, "查询Fee表成功", "1");
+	}*/
+	
 	
 	
 	@RequestMapping(value="/selectFeeByIdList",method=RequestMethod.GET)

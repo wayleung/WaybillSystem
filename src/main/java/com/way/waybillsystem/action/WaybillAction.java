@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,7 @@ import com.way.waybillsystem.entity.User;
 import com.way.waybillsystem.entity.Waybill;
 import com.way.waybillsystem.exception.ErrorCodeConstant;
 import com.way.waybillsystem.service.IWaybillService;
+import com.way.waybillsystem.service.IWaybillStatusService;
 import com.way.waybillsystem.vo.QueryByPageObject;
 import com.way.waybillsystem.vo.Result;
 
@@ -26,6 +28,9 @@ public class WaybillAction  extends BaseAction {
 	@Autowired
 	private IWaybillService waybillService;
 	
+	@Autowired
+	private IWaybillStatusService waybillStatusService;
+	
 	@RequestMapping(value="/insertWaybill",method=RequestMethod.POST)
 	@ResponseBody
 	public void insertWaybill(Waybill waybill){
@@ -34,8 +39,11 @@ public class WaybillAction  extends BaseAction {
 	
 	@RequestMapping(value="/deleteWaybillByPrimaryKey",method=RequestMethod.POST)
 	@ResponseBody
+	@Transactional
 	public void deleteWaybillByPrimaryKey(Long waybillNumber){
 		waybillService.deleteWaybillByPrimaryKey(waybillNumber);
+		//删除运单的同时删除对应运单状态
+		waybillStatusService.deleteWaybillStatusByWaybillNumber(waybillNumber);
 	}
 	
 	@RequestMapping(value="/updateWaybillByPrimarykey",method=RequestMethod.POST)
@@ -44,12 +52,21 @@ public class WaybillAction  extends BaseAction {
 		waybillService.updateWaybillByPrimarykey(waybill);
 	}
 	
-	@RequestMapping(value="/selectAllWaybills",method=RequestMethod.GET)
+/*	@RequestMapping(value="/selectAllWaybills",method=RequestMethod.GET)
 	@ResponseBody
 	public Result<List<Waybill>> selectAllWaybills(){
-		/*return waybillService.selectAllWaybills();*/
+		return waybillService.selectAllWaybills();
 		List<Waybill> data = waybillService.selectAllWaybills();
 		return new Result<List<Waybill>>(true, data, "查询Waybills表成功！", "1");
+	}*/
+	
+	
+	@RequestMapping(value="/selectAllWaybills",method=RequestMethod.GET)
+	@ResponseBody
+	public Result<PageInfo<Waybill>> selectAllWaybills(QueryByPageObject queryObject){
+		/*return waybillService.selectAllWaybills();*/
+		PageInfo<Waybill> data = waybillService.selectAllWaybillsByPage(queryObject);
+		return new Result<PageInfo<Waybill>>(true, data, "查询Waybills表成功！", "1");
 	}
 
 	

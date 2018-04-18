@@ -19,6 +19,8 @@ public interface IWaybillStatusService {
 	
 	int deleteWaybillStatusByPrimaryKey(Long id);
 	
+	void deleteWaybillStatusByWaybillNumber(Long waybillNumber);
+	
 	int updateWaybillStatusByPrimarykey(WaybillStatus waybillStatus);
 	
 	WaybillStatus selectWaybillStatusByPrimaryKey(Long id);

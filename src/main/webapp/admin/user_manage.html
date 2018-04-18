@@ -140,27 +140,24 @@
 									
 								</tbody>
 							</table>
+							
+							<ul class="pagination">
+
+                                        <li id="prevPage" onclick="prevPage()" class="page-item"><a class="page-link" href="#">上一页</a>
+                                        </li>
+
+										<li id="prevPage" onclick="prevPage()" class="page-item"><div  class="page-link"><span id="pageNum"></span>/<span  id="pages"></span></div>
+                                        </li>
+                                        <li id="nextPage" onclick="nextPage()" class="page-item"><a class="page-link" href="#">下一页</a>
+                                      
+                            </ul>
 
 					
 							<!-- /.modal -->
 
 
 
-							<!-- <ul class="pagination"> 
-                                        <li class="page-item"><a class="page-link" href="#">Prev</a>
-                                        </li>
-                                        <li class="page-item active">
-                                            <a class="page-link" href="#">1</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul> -->
+							
 						</div>
 					</div>
                         </div>
@@ -393,9 +390,34 @@
           }  
 		})
 		
+	 
+	//返回地址栏参数
+		function GetQueryString(name)
+		{
+	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	     var r = window.location.search.substr(1).match(reg);
+	     if(r!=null)return  unescape(r[2]); return null;
+		}
+	 
+	 
 	//function ajax(api,datas) {
 	$(document).ready(function() {
-		var url = rootPath + "selectAllUsers";
+		var currentPage = GetQueryString('currentPage');
+		
+		
+		
+		
+		console.log(currentPage);
+		if(currentPage!=null&&currentPage!=''){
+			var url = rootPath + "selectAllUsers?currentPage="+currentPage;
+		}else{
+			var url = rootPath + "selectAllUsers";
+		}
+		
+		
+		
+		
+		
 		console.log(url);
 		$.ajax({
 					url : url,
@@ -405,10 +427,98 @@
 					//data: datas,
 					//异步   注意数据的获取
 					success : function(data) {
-						user_vm.datas=data.datas;
+						/* user_vm.datas=data.datas; */
+						user_vm.datas=data.datas.list;
+						//分页
+						$('#pageNum').text(data.datas.pageNum);
+						$('#pages').text(data.datas.pages);
 					}
 			 	}); 
 	}); 
+	
+	
+	
+	//分页
+	
+	
+	
+	
+	
+	function nextPage(){
+		
+		var currentPage = GetQueryString('currentPage');
+		
+		console.log(currentPage);
+		if(currentPage!=null&&currentPage!=''){
+			var url = rootPath + "selectAllUsers?currentPage="+currentPage;
+		}else{
+			var url = rootPath + "selectAllUsers";
+		}
+		
+		
+		console.log(url);
+		$.ajax({
+					url : url,
+					type : "get",
+					async : true,
+					dataType : "json",
+					//data: datas,
+					//异步   注意数据的获取
+					success : function(data) {
+						/* user_vm.datas=data.datas; */
+						//总页数
+						var pages = data.datas.pages;
+						//现在页码
+						var pageNum = data.datas.pageNum;
+						console.log('pages'+pages+' pageNum'+pageNum);
+						if(currentPage+1>0&&pageNum<pages){
+							
+							window.location.replace(rootPath + "admin/user_manage.html?currentPage="+(pageNum+1)); 
+						
+							
+						}
+						
+						
+					}
+			 	}); 
+	}
+	
+	function prevPage(){
+		var currentPage = GetQueryString('currentPage');
+		
+		console.log(currentPage);
+		if(currentPage!=null&&currentPage!=''){
+			var url = rootPath + "selectAllUsers?currentPage="+currentPage;
+		}else{
+			var url = rootPath + "selectAllUsers";
+		}
+		console.log(url);
+		$.ajax({
+					url : url,
+					type : "get",
+					async : true,
+					dataType : "json",
+					//data: datas,
+					//异步   注意数据的获取
+					success : function(data) {
+						/* user_vm.datas=data.datas; */
+						//总页数
+						var pages = data.datas.pages;
+						//现在页码
+						var pageNum = data.datas.pageNum;
+						console.log('pages'+pages+' pageNum'+pageNum);
+						if((pageNum-1)>=1&&pageNum<=pages){
+							
+							window.location.replace(rootPath + "admin/user_manage.html?currentPage="+(pageNum-1));
+						
+							
+						}
+						
+						
+					}
+			 	}); 
+	}
+	
 	
 	
 
@@ -433,7 +543,7 @@
         	if(account==null||account==''){
         		deleteAll('msgupdate');
         		addMsg('msgupdate','账号不能为空');
-        	}else if(phoneReg.test(phone)==false){
+        	}else if(phone!=null&&phone!=''&&phoneReg.test(phone)==false){
 			
         		deleteAll('msgupdate');
         		addMsg('msgupdate','电话格式不正确');
@@ -480,7 +590,7 @@
             	if(account==null||account==''){
             		deleteAll('msgadd');
             		addMsg('msgadd','账号不能为空');
-            	}else if(phoneReg.test(phone)==false){
+            	}else if(phone!=null&&phone!=''&&phoneReg.test(phone)==false){
             		
             
             	
@@ -501,8 +611,8 @@
 						
 							console.log(datas.success);
 						   if(datas.success==true){
-							  deleteAll('msgupdate');
-		                		addMsg('msgupdate','该账号用户已经存在，不能添加'); 
+							  deleteAll('msgadd');
+		                		addMsg('msgadd','该账号用户已经存在，不能添加'); 
 						   
 						   }else{
 							   console.log('add submit');

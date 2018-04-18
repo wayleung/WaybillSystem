@@ -42,13 +42,25 @@ public class EmployeeAction  extends BaseAction {
 		employeeService.updateEmployeeByPrimarykey(employee);
 	}
 	
-	@RequestMapping(value="/selectAllEmployees",method=RequestMethod.GET)
+/*	@RequestMapping(value="/selectAllEmployees",method=RequestMethod.GET)
 	@ResponseBody
 	public Result<List<Employee>> selectAllEmployees(){
-		/*return employeeService.selectAllEmployees();*/
+		return employeeService.selectAllEmployees();
 		List<Employee> data = employeeService.selectAllEmployees();
 		return new Result<List<Employee>>(true, data, "查询Employees表成功！", "1");
+	}*/
+	
+	
+	@RequestMapping(value="/selectAllEmployees",method=RequestMethod.GET)
+	@ResponseBody
+	public Result<PageInfo<Employee>> selectAllEmployees(QueryByPageObject queryObject){
+		/*return employeeService.selectAllEmployees();*/
+		PageInfo<Employee> data = employeeService.selectAllEmployeesByPage(queryObject);
+		return new Result<PageInfo<Employee>>(true, data, "查询Employees表成功！", "1");
 	}
+	
+	
+	 
 
 	
 	@RequestMapping(value="/selectEmployeeByPrimaryKey",method=RequestMethod.GET)
