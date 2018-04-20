@@ -69,7 +69,7 @@ public class WechatUtil {
 	private static final String TEMPLATE_ID = "9UL1UtQ6gZu8YDIb6EksEIu1uM4r282M73q0AuSceTE";
 	
 	
-	private Logger logger = LoggerFactory.getLogger(WechatAction.class);
+	private Logger logger = LoggerFactory.getLogger(WechatUtil.class);
 	
 	public static String getAppid() {
 		return APPID;
@@ -252,6 +252,7 @@ public class WechatUtil {
 		}
 
 		JSONObject jsonObj = JSONObject.fromObject(result);
+		
 		System.out.println(jsonObj);
 		String typeName = "media_id";
 		if(!"image".equals(type)){
@@ -282,13 +283,22 @@ public class WechatUtil {
 		ViewButton button21 = new ViewButton();
 		button21.setName("运单查询");
 		button21.setType("view");
-		button21.setUrl("http://wayleung80.tunnel.echomod.cn/user/search.html");
+		button21.setUrl("http://wayleung80.tunnel.echomod.cn/wechatSearch");
+		
+		
+/*		ViewButton button = new ViewButton();
+		button.setName("绑定账号");
+		button.setType("view");
+		button.setUrl("http://wayleung80.tunnel.echomod.cn/user/index.html");*/
 		
 		
 		ViewButton button = new ViewButton();
-		button.setName("绑定账号");
+		button.setName("区间运费查询");
 		button.setType("view");
-		button.setUrl("http://wayleung80.tunnel.echomod.cn/user/index.html");
+		button.setUrl("http://wayleung80.tunnel.echomod.cn/wechatFee");
+		
+		
+		
 		
 /*		ClickButton button31 = new ClickButton();
 		button31.setName("扫码事件");

@@ -29,6 +29,7 @@ import com.way.waybillsystem.entity.User;
 import com.way.waybillsystem.exception.ErrorCodeConstant;
 import com.way.waybillsystem.service.IAdminService;
 import com.way.waybillsystem.service.IUserService;
+import com.way.waybillsystem.util.MD5Util;
 import com.way.waybillsystem.vo.AdminLoginVO;
 import com.way.waybillsystem.vo.QueryByPageObject;
 import com.way.waybillsystem.vo.Result;
@@ -58,6 +59,8 @@ public class LoginAction extends BaseAction {
 		String password = loginVO.getPassword();
 		String verifyCode = loginVO.getVerifyCode();
 
+		//md5加密
+		password = MD5Util.EncoderByMd5(password);
 
 		if(StringUtils.isBlank(account)||StringUtils.isBlank(password)||StringUtils.isBlank(verifyCode)){
 			return new Result<>(false,ErrorCodeConstant.E00003.getMessage(),ErrorCodeConstant.E00003.getCode());
@@ -103,6 +106,9 @@ public class LoginAction extends BaseAction {
 		String password = loginVO.getPassword();
 		String verifyCode = loginVO.getVerifyCode();
 
+		
+		//md5加密
+		password = MD5Util.EncoderByMd5(password);
 
 		if(StringUtils.isBlank(account)||StringUtils.isBlank(password)||StringUtils.isBlank(verifyCode)){
 			return new Result<>(false,ErrorCodeConstant.E00003.getMessage(),ErrorCodeConstant.E00003.getCode());
@@ -155,11 +161,19 @@ public class LoginAction extends BaseAction {
 		}else{
 			User user_new =  new User();
 			user_new.setAccount(account);
+			
+			//md5加密
+			password = MD5Util.EncoderByMd5(password);
+			
 			user_new.setPassword(password);
 			//新增注册用户到数据库
-			userService.insertUser(user_new);		
+			userService.insertUser(user_new);
+			//user存进数据库后 要再查询一遍把id获取并存进session 否则 session里面的user没有session
+			User user_new_select = userService.selectUserByAccount(account);
+			
 			//把登录成功用户信息存session
-			request.getSession().setAttribute("user", user_new);
+			//request.getSession().setAttribute("user", user_new);
+			request.getSession().setAttribute("user", user_new_select);
 			return new Result<User>(true, user_new, ErrorCodeConstant.E00000.getMessage(), ErrorCodeConstant.E00000.getCode());
 		}
 	}

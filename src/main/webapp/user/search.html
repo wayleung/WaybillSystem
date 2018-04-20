@@ -431,17 +431,24 @@ function addMsg(id,msg){
 	 */
 	function followWaybill(){
 		var waybillNumber = $("#waybill_number").val();
-		$.ajax({
-			url:rootPath+'followWaybill',
-			type:"post",
-			async:"true",
-			data : {'waybillNumber': waybillNumber},
-			dataType:"json",
-			success : function(data){
-				deleteAll('msg');
-        		addMsg('msg',data.msg);
-			},
-		});
+		
+		if(waybillNumber==null||waybillNumber==''){
+    		deleteAll('msg');
+    		status_vm.datas=null;
+    		addMsg('msg','运单号不能为空');
+    	}else{
+    		$.ajax({
+    			url:rootPath+'followWaybill',
+    			type:"post",
+    			async:"true",
+    			data : {'waybillNumber': waybillNumber},
+    			dataType:"json",
+    			success : function(data){
+    				deleteAll('msg');
+            		addMsg('msg',data.msg);
+    			},
+    		});
+    	}
 	}
 	
 

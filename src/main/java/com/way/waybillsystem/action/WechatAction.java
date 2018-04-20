@@ -94,7 +94,7 @@ public class WechatAction  extends BaseAction {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping(value="/createMenu",method=RequestMethod.POST)
+	@RequestMapping(value="/createMenu",method=RequestMethod.GET)
 	@ResponseBody
 	public Result<String> createMenu(HttpServletRequest request,HttpServletResponse response){
 		String menu = JSONObject.fromObject(WechatUtil.initMenu()).toString();
@@ -123,6 +123,11 @@ public class WechatAction  extends BaseAction {
 		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WechatUtil.getAppid()+"&redirect_uri="+URLEncoder.encode(back_url)+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"; 
 		resp.sendRedirect(url);
 	}
+	
+	
+
+	
+	
 	
 	
 	/**
@@ -166,7 +171,7 @@ public class WechatAction  extends BaseAction {
 		 */
 		
 		req.getSession().setAttribute("openid", openid);
-
+		logger.debug("openid:"+openid+"存进sessioin");
 		//获取用户信息
 		String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+token+"&openid="+openid+"&lang=zh_CN";
 		JSONObject userinfo = WechatUtil.doGetStr(infoUrl);
@@ -186,8 +191,187 @@ public class WechatAction  extends BaseAction {
 	}
 	
 
+	
+	
+	/**
+	 * 进入运单搜索网页授权
+	 * @param req
+	 * @param resp
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/wechatSearch",method=RequestMethod.GET)
+	public void wechatSearch(HttpServletRequest req,HttpServletResponse resp) throws IOException{
+		//登陆后的回调地址
+		/*
+		 * 尤其注意：跳转回调redirect_uri，应当使用https链接来确保授权code的安全性。
+		 * 记得在测试账号 下面的接口列表中 添加 
+		 * 网页服务	网页帐号	网页授权获取用户基本信息 添加回调页面不然会出错
+		 */
+		String back_url = "http://wayleung80.tunnel.echomod.cn/searchcallback";
+		//System.out.println(URLEncoder.encode(back_url));
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WechatUtil.getAppid()+"&redirect_uri="+URLEncoder.encode(back_url)+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"; 
+		resp.sendRedirect(url);
+	}
 
+	
+	
+	
+	/**
+	 * 微信授权登陆后 运单搜索 回调地址
+	 * @param req
+	 * @param resp
+	 * @throws IOException 
+	 * @throws ClientProtocolException 
+	 * @throws ServletException 
+	 */
+	@RequestMapping(value="/searchcallback",method=RequestMethod.GET)
+	public void searchcallback(HttpSession session, HttpServletRequest req,HttpServletResponse resp) throws ClientProtocolException, IOException, ServletException{
+		/*code说明 ： code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。*/ 
+		
+		String code = req.getParameter("code");
+		//System.out.println("--code:"+code);
+		//通过code换取网页授权access_token
+		//这个access_token跟那个不一样？
+		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WechatUtil.getAppid()+"&secret="+WechatUtil.getAppsecret()+"&code="+code+"&grant_type=authorization_code";
+		JSONObject jsonObject = WechatUtil.doGetStr(url);
+		//System.out.println("--jsonObject:"+jsonObject);
+		String token =""; 
+		String openid ="";
+		CodeTokenOpenid code_db = codeTokenOpenidService.selectTokenByCode(code);
+		if(code_db==null){
+			 token = jsonObject.getString("access_token");
+			 openid = jsonObject.getString("openid");
+			 CodeTokenOpenid code_temp = new CodeTokenOpenid();
+			 code_temp.setCode(code);
+			 code_temp.setOpenid(openid);
+			 code_temp.setToken(token);
+			 codeTokenOpenidService.insertCodeTokenOpenid(code_temp);
+		}else{
+			 token = code_db.getToken();
+			 openid = code_db.getOpenid();
 
+		}
+		
+		/*
+		 * 把openid存进session
+		 */
+		
+		req.getSession().setAttribute("openid", openid);
+		logger.debug("openid:"+openid+"存进sessioin");
+		//获取用户信息
+		String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+token+"&openid="+openid+"&lang=zh_CN";
+		JSONObject userinfo = WechatUtil.doGetStr(infoUrl);
+		
+		//1.使用微信用户信息直接登陆 无需注册和绑定
+		//req.setAttribute("info", userinfo);
+		/*req.getRequestDispatcher("../userlogin.jsp").forward(req, resp);*/
+		resp.sendRedirect("http://wayleung80.tunnel.echomod.cn/user/search.html");
+		//绑定微信
+		//req.getRequestDispatcher("/wechatbind.jsp").forward(req, resp);
+		
+		
+		//2.将微信与当前系统的账号绑定
+		
+		
+		//return "user/index.html";
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 进入运费查询网页授权
+	 * @param req
+	 * @param resp
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/wechatFee",method=RequestMethod.GET)
+	public void wechatFee(HttpServletRequest req,HttpServletResponse resp) throws IOException{
+		//登陆后的回调地址
+		/*
+		 * 尤其注意：跳转回调redirect_uri，应当使用https链接来确保授权code的安全性。
+		 * 记得在测试账号 下面的接口列表中 添加 
+		 * 网页服务	网页帐号	网页授权获取用户基本信息 添加回调页面不然会出错
+		 */
+		String back_url = "http://wayleung80.tunnel.echomod.cn/feecallback";
+		//System.out.println(URLEncoder.encode(back_url));
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WechatUtil.getAppid()+"&redirect_uri="+URLEncoder.encode(back_url)+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"; 
+		resp.sendRedirect(url);
+	}
+
+	
+	
+	
+	/**
+	 * 微信授权登陆后 运单搜索 回调地址
+	 * @param req
+	 * @param resp
+	 * @throws IOException 
+	 * @throws ClientProtocolException 
+	 * @throws ServletException 
+	 */
+	@RequestMapping(value="/feecallback",method=RequestMethod.GET)
+	public void feecallback(HttpSession session, HttpServletRequest req,HttpServletResponse resp) throws ClientProtocolException, IOException, ServletException{
+		/*code说明 ： code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。*/ 
+		
+		String code = req.getParameter("code");
+		//System.out.println("--code:"+code);
+		//通过code换取网页授权access_token
+		//这个access_token跟那个不一样？
+		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WechatUtil.getAppid()+"&secret="+WechatUtil.getAppsecret()+"&code="+code+"&grant_type=authorization_code";
+		JSONObject jsonObject = WechatUtil.doGetStr(url);
+		//System.out.println("--jsonObject:"+jsonObject);
+		String token =""; 
+		String openid ="";
+		CodeTokenOpenid code_db = codeTokenOpenidService.selectTokenByCode(code);
+		if(code_db==null){
+			 token = jsonObject.getString("access_token");
+			 openid = jsonObject.getString("openid");
+			 CodeTokenOpenid code_temp = new CodeTokenOpenid();
+			 code_temp.setCode(code);
+			 code_temp.setOpenid(openid);
+			 code_temp.setToken(token);
+			 codeTokenOpenidService.insertCodeTokenOpenid(code_temp);
+		}else{
+			 token = code_db.getToken();
+			 openid = code_db.getOpenid();
+
+		}
+		
+		/*
+		 * 把openid存进session
+		 */
+		
+		req.getSession().setAttribute("openid", openid);
+		logger.debug("openid:"+openid+"存进sessioin");
+		//获取用户信息
+		String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+token+"&openid="+openid+"&lang=zh_CN";
+		JSONObject userinfo = WechatUtil.doGetStr(infoUrl);
+		
+		//1.使用微信用户信息直接登陆 无需注册和绑定
+		//req.setAttribute("info", userinfo);
+		/*req.getRequestDispatcher("../userlogin.jsp").forward(req, resp);*/
+		resp.sendRedirect("http://wayleung80.tunnel.echomod.cn/user/fee.html");
+		//绑定微信
+		//req.getRequestDispatcher("/wechatbind.jsp").forward(req, resp);
+		
+		
+		//2.将微信与当前系统的账号绑定
+		
+		
+		//return "user/index.html";
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

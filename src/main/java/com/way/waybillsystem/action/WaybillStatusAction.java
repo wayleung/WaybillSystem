@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +37,9 @@ import com.way.waybillsystem.vo.WaybillStatusRtnVO;
 @Controller
 /*public class WaybillStatusAction extends BaseAction {*/
 public class WaybillStatusAction  extends BaseAction {
+	
+	private Logger logger = LoggerFactory.getLogger(WaybillStatusAction.class);
+	
 	@Autowired
 	private IWaybillStatusService waybillStatusService;
 	
@@ -69,7 +74,7 @@ public class WaybillStatusAction  extends BaseAction {
 		Long userId = waybill.getUserId();
 		User user = userService.selectUserByPrimaryKey(userId);
 		String openId = user.getWechatId();
-		System.out.println("用户wechatid:"+openId);
+		logger.debug("用户wechatid:"+openId);
 		if(StringUtils.isNotBlank(openId)){
 			//accesstoken应该跟openid对应？暂时先全部获取最新accesstoken解决
 			//WechatToken accessToken = wechatTokenService.getAndSaveAccessToken();
@@ -94,7 +99,7 @@ public class WaybillStatusAction  extends BaseAction {
 			
 			
 			//调用微信发送消息模板接口
-			System.out.println("调用微信发送消息模板接口");
+			logger.debug("调用微信发送消息模板接口");
 			
 			WechatUtil.sendTemplateMessage(openId, access_token, waybillStatusRtnVO);
 		}
