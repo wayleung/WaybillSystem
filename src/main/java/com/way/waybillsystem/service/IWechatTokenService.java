@@ -3,6 +3,7 @@ package com.way.waybillsystem.service;
 import java.util.List;
 
 import com.github.pagehelper.PageInfo;
+import com.way.waybillsystem.entity.CodeTokenOpenid;
 import com.way.waybillsystem.entity.WechatToken;
 import com.way.waybillsystem.vo.QueryByPageObject;
 
@@ -32,4 +33,6 @@ public interface IWechatTokenService {
 	WechatToken getAndSaveAccessToken();
 	
 	WechatToken getNewAccessToken();
+	
+	WechatToken selectTokenByCode(String code);
 }

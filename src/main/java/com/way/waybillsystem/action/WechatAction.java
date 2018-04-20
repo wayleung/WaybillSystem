@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
-import com.way.waybillsystem.entity.CodeTokenOpenid;
+import com.way.waybillsystem.entity.WechatToken;
 import com.way.waybillsystem.entity.User;
 import com.way.waybillsystem.entity.WechatToken;
 import com.way.waybillsystem.exception.ErrorCodeConstant;
 import com.way.waybillsystem.mapper.AdminMapper;
-import com.way.waybillsystem.service.ICodeTokenOpenidService;
+import com.way.waybillsystem.service.IWechatTokenService;
 import com.way.waybillsystem.service.IWechatTokenService;
 import com.way.waybillsystem.util.WechatUtil;
 import com.way.waybillsystem.vo.QueryByPageObject;
@@ -40,11 +40,10 @@ public class WechatAction  extends BaseAction {
 	
 	private Logger logger = LoggerFactory.getLogger(WechatAction.class);
 	
-	@Autowired
-	private IWechatTokenService wechatTokenService;
+
 	
 	@Autowired
-	private ICodeTokenOpenidService codeTokenOpenidService; 
+	private IWechatTokenService wechatTokenService; 
 	
 	@RequestMapping(value="/insertWechatToken",method=RequestMethod.POST)
 	@ResponseBody
@@ -151,15 +150,15 @@ public class WechatAction  extends BaseAction {
 		//System.out.println("--jsonObject:"+jsonObject);
 		String token =""; 
 		String openid ="";
-		CodeTokenOpenid code_db = codeTokenOpenidService.selectTokenByCode(code);
+		WechatToken code_db = wechatTokenService.selectTokenByCode(code);
 		if(code_db==null){
 			 token = jsonObject.getString("access_token");
 			 openid = jsonObject.getString("openid");
-			 CodeTokenOpenid code_temp = new CodeTokenOpenid();
+			 WechatToken code_temp = new WechatToken();
 			 code_temp.setCode(code);
 			 code_temp.setOpenid(openid);
 			 code_temp.setToken(token);
-			 codeTokenOpenidService.insertCodeTokenOpenid(code_temp);
+			 wechatTokenService.insertWechatToken(code_temp);
 		}else{
 			 token = code_db.getToken();
 			 openid = code_db.getOpenid();
@@ -237,15 +236,15 @@ public class WechatAction  extends BaseAction {
 		//System.out.println("--jsonObject:"+jsonObject);
 		String token =""; 
 		String openid ="";
-		CodeTokenOpenid code_db = codeTokenOpenidService.selectTokenByCode(code);
+		WechatToken code_db = wechatTokenService.selectTokenByCode(code);
 		if(code_db==null){
 			 token = jsonObject.getString("access_token");
 			 openid = jsonObject.getString("openid");
-			 CodeTokenOpenid code_temp = new CodeTokenOpenid();
+			 WechatToken code_temp = new WechatToken();
 			 code_temp.setCode(code);
 			 code_temp.setOpenid(openid);
 			 code_temp.setToken(token);
-			 codeTokenOpenidService.insertCodeTokenOpenid(code_temp);
+			 wechatTokenService.insertWechatToken(code_temp);
 		}else{
 			 token = code_db.getToken();
 			 openid = code_db.getOpenid();
@@ -327,15 +326,15 @@ public class WechatAction  extends BaseAction {
 		//System.out.println("--jsonObject:"+jsonObject);
 		String token =""; 
 		String openid ="";
-		CodeTokenOpenid code_db = codeTokenOpenidService.selectTokenByCode(code);
+		WechatToken code_db = wechatTokenService.selectTokenByCode(code);
 		if(code_db==null){
 			 token = jsonObject.getString("access_token");
 			 openid = jsonObject.getString("openid");
-			 CodeTokenOpenid code_temp = new CodeTokenOpenid();
+			 WechatToken code_temp = new WechatToken();
 			 code_temp.setCode(code);
 			 code_temp.setOpenid(openid);
 			 code_temp.setToken(token);
-			 codeTokenOpenidService.insertCodeTokenOpenid(code_temp);
+			 wechatTokenService.insertWechatToken(code_temp);
 		}else{
 			 token = code_db.getToken();
 			 openid = code_db.getOpenid();

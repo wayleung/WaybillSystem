@@ -14,6 +14,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.way.waybillsystem.entity.WechatToken;
 import com.way.waybillsystem.entity.WechatTokenExample;
+import com.way.waybillsystem.entity.WechatToken;
+import com.way.waybillsystem.entity.WechatTokenExample;
 import com.way.waybillsystem.entity.WechatTokenExample.Criteria;
 import com.way.waybillsystem.mapper.WechatTokenMapper;
 import com.way.waybillsystem.service.IWechatTokenService;
@@ -130,6 +132,19 @@ public class WechatTokenServiceImpl implements IWechatTokenService {
 	}
 
 
-
+	
+	@Override
+	public WechatToken selectTokenByCode(String code) {
+		WechatTokenExample example = new WechatTokenExample();
+		// TODO Auto-generated method stub
+		Criteria criteria = example.createCriteria();
+		criteria.andCodeEqualTo(code);
+		List<WechatToken> list = wechatTokenMapper.selectByExample(example);
+		if(list!=null&&list.size()>0){
+			return list.get(0);
+		}else{
+			return null;
+		}
+	}
 
 }
