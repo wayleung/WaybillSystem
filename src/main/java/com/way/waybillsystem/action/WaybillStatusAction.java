@@ -71,7 +71,9 @@ public class WaybillStatusAction  extends BaseAction {
 		String openId = user.getWechatId();
 		System.out.println("用户wechatid:"+openId);
 		if(StringUtils.isNotBlank(openId)){
-			WechatToken accessToken = wechatTokenService.getAndSaveAccessToken();
+			//accesstoken应该跟openid对应？暂时先全部获取最新accesstoken解决
+			//WechatToken accessToken = wechatTokenService.getAndSaveAccessToken();
+			WechatToken accessToken = wechatTokenService.getNewAccessToken();
 			String access_token  =accessToken.getToken();
 			WaybillStatusRtnVO waybillStatusRtnVO = new WaybillStatusRtnVO();
 			waybillStatusRtnVO.setWaybillNumber(waybillNumber);

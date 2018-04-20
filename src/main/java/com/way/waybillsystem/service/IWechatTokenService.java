@@ -31,5 +31,5 @@ public interface IWechatTokenService {
 	
 	WechatToken getAndSaveAccessToken();
 	
-
+	WechatToken getNewAccessToken();
 }

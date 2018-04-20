@@ -114,7 +114,20 @@ public class WechatTokenServiceImpl implements IWechatTokenService {
 		}
 
 	}
-
+	
+	
+	
+	@Override
+	public WechatToken getNewAccessToken() {
+		//发送模板消息要再获取token？accesstoken应该跟openid对应？暂时先全部获取最新accesstoken解决
+		AccessToken accessToken = WechatUtil.getAccessToken();
+		String access_token = accessToken.getAccess_token();
+		WechatToken wechatToken = new WechatToken();
+		wechatToken.setToken(access_token);
+		insertWechatToken(wechatToken);
+		logger.debug("现在从微信服务器获取最新access_token！");
+		return wechatToken;
+	}
 
 
 
