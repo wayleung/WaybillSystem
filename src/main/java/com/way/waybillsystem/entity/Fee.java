@@ -1,7 +1,14 @@
 package com.way.waybillsystem.entity;
 
-public class Fee {
-    private Integer feeId;
+import java.io.Serializable;
+
+public class Fee implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5218932542265633058L;
+
+	private Integer feeId;
 
     private Integer locationSend;
 

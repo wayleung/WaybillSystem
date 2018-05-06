@@ -70,6 +70,11 @@ public class LocationServiceImpl implements ILocationService {
 		return pageInfo;
 	}
 
+	
+	/**
+	 * 查询所有城市 城市id以 100 开头
+	 * @return
+	 */
 	@Override
 	public List<Location> selectAllCitys() {
 		// TODO Auto-generated method stub

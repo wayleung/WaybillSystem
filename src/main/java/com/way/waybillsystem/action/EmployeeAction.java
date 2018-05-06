@@ -76,7 +76,7 @@ public class EmployeeAction  extends BaseAction {
 		if(employee!=null){
 			List<Employee> list = new ArrayList<>();
 			list.add(employee);
-			return new Result<List<Employee>>(true, list, "查询Fee表成功！", "1");
+			return new Result<List<Employee>>(true, list, "查询Employee表成功！", "1");
 		}else{
 			return new Result(false, "查询成功 但没有数据", "0");
 		}

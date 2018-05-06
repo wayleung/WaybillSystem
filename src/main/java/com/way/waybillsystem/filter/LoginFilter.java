@@ -28,7 +28,7 @@ public class LoginFilter implements Filter{
 	        HttpServletResponse resp =(HttpServletResponse) response;
 	        HttpSession session = req.getSession();
 	        String uri = req.getRequestURI();//得到请求地址
-	        System.out.println("--------"+uri);
+	        //System.out.println("--------"+uri);
 	        if(uri.contains("/login")||uri.contains("/register")||uri.contains("/nav")||uri.contains("/head")||uri.contains("/footer")||uri.contains("/sidebar")){
 	        	chain.doFilter(req, resp);
 	        }else{

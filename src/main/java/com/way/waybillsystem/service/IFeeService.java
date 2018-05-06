@@ -25,4 +25,5 @@ public interface IFeeService {
 	
 	
 	PageInfo<Fee> selectAllFeesByPage(QueryByPageObject queryObject);
+
 }
